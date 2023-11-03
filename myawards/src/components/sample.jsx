@@ -1,11 +1,11 @@
 import React from "react";
 
 const sample = () => {
-  return (
-    <div>
-      <h1>오류 수정.. 제발 </h1>
-    </div>
-  );
+    return (
+        <div>
+            <h3>안녕하세요~~</h3>
+        </div>
+    );
 };
 
 export default sample;
