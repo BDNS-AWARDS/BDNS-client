@@ -36,3 +36,21 @@
     transform: rotate(360deg);
   }
 }
+
+/* 모바일 화면 크기 조정 */
+body {
+  max-width: 450px;
+  width: 100%;
+  margin: 0 auto;
+  overflow-x: hidden;
+  border: 1px solid grey;
+}
+
+/* 미디어 쿼리 - PC 화면 크기 조정*/
+@media (min-width: 450px) {
+  body {
+    max-width: 450px;
+    margin: 0 auto;
+    padding: 0 0px;
+  }
+}
