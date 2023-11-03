@@ -7,6 +7,7 @@ const LogoTxt = styled.p`
   font-family: "Santokki";
   font-size: 20px;
   display: inline-block;
+  -webkit-text-stroke: 0.02cm black;
 `;
 
 const LogoImg = styled.img`
