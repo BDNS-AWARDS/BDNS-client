@@ -1,5 +1,124 @@
-#posting_box {
+#posting_container {
   background-color: #8a0b0b;
   height: 100%;
+}
+
+#decoration {
+  position: absolute;
+  width: 100%;
+}
+
+@media (min-width: 450px) {
+  #decoration {
+    width: 450px;
+  }
+}
+
+#posting_box {
+  margin-top: 15px;
+  border-radius: 20px;
+  background-color: #f7cc44;
+  width: 85%;
+  margin-left: 30px;
+}
+
+#posting_title {
+  text-align: center;
+  padding-top: 10px;
+}
+
+#posting_hashtag {
+  font-family: "CinemaL";
+  color: white;
+  -webkit-text-stroke: 0.01cm black;
+}
+
+#posting_form {
+  padding-bottom: 50px;
+}
+
+label {
+  font-family: "Santokki";
+  color: #8a0b0b;
+  margin-left: 15px;
+}
+
+#input_title {
+  border: none;
+  outline: none;
+  background-color: #f7cc44;
+  width: 65%;
+  margin-left: 5px;
+  font-family: "CinemaL";
+}
+
+input[type="text"]::placeholder {
+  font-family: "CinemaL";
+  color: #9b9ba4;
+}
+
+#label_textarea {
+  display: inline-block;
+  margin-top: 20px;
+}
+
+#input_contents {
+  font-family: "CinemaL";
+  border: none;
+  outline: none;
+  background-color: #f7cc44;
+  margin-left: 60px;
   margin-top: -20px;
+  display: inline-block;
+  width: 70%;
+  resize: none;
+  position: relative;
+}
+
+textarea::placeholder {
+  font-family: "CinemaL";
+  color: #9b9ba4;
+}
+
+#posting_congrats {
+  color: #ffffff;
+  font-family: "CinemaL";
+  text-align: center;
+  font-size: 30px;
+  margin-top: 60px;
+}
+
+#posting_btn {
+  width: 90%;
+  height: 61px;
+  margin-left: 5%;
+  margin-bottom: 35%;
+}
+
+/* CustomFileInputButton  */
+#inputfileimg {
+  width: 19px;
+  height: 19px;
+  margin-bottom: -5px;
+}
+
+#filelabel {
+  margin-right: 10px;
+}
+
+#selected_container {
+  display: flex;
+}
+
+#selected_div {
+  width: 40%;
+  margin: 15px 15px;
+  display: inline-block;
+  margin-left: 15px;
+}
+
+#selected_img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
