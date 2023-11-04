@@ -4,6 +4,7 @@ import Logo from "../components/Logo";
 import styled from "styled-components";
 import "../css/fonts/font.css";
 import CustomFileInputButton from "../components/CustomFileInputButton";
+import TagBar from "../components/TagBar";
 
 const StyledTxt = styled.p`
   color: #8a0b0b;
@@ -114,6 +115,7 @@ const Posting = () => {
           }
         }}
       />
+      <TagBar />
     </div>
   );
 };
