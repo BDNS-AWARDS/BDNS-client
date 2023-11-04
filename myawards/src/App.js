@@ -1,7 +1,10 @@
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
+import Intro from "./pages/Intro";
+import SetProfile from "./pages/SetProfile";
 import MainPage from "./pages/MainPage";
 import Posting from "./pages/Posting";
+import GameStart from "./pages/GameStart";
 import React, { useEffect } from "react";
 
 function App() {
@@ -20,8 +23,11 @@ function App() {
   }, []);
   return (
     <Routes>
+      <Route path="/intro" element={<Intro />}></Route>
       <Route path="/mainpage" element={<MainPage />}></Route>
       <Route path="/posting" element={<Posting />}></Route>
+      <Route path="/setprofile" element={<SetProfile />}></Route>
+      <Route path="/gamestart" element={<GameStart />}></Route>
     </Routes>
   );
 }
