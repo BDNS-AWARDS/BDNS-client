@@ -5,6 +5,7 @@ import SetProfile from "./pages/SetProfile";
 import MainPage from "./pages/MainPage";
 import Posting from "./pages/Posting";
 import GameStart from "./pages/GameStart";
+import MyPage from "./pages/MyPage";
 import React, { useEffect } from "react";
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
       <Route path="/posting" element={<Posting />}></Route>
       <Route path="/setprofile" element={<SetProfile />}></Route>
       <Route path="/gamestart" element={<GameStart />}></Route>
+      <Route path="/mypage" element={<MyPage />}></Route>
     </Routes>
   );
 }

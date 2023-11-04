@@ -5,6 +5,7 @@ import styled from "styled-components";
 import "../css/fonts/font.css";
 import CustomFileInputButton from "../components/CustomFileInputButton";
 import TagBar from "../components/TagBar";
+import HashTag from "../components/HashTag";
 
 const StyledTxt = styled.p`
   color: #8a0b0b;
@@ -23,16 +24,15 @@ const StyledImg = styled.img`
 `;
 
 const Posting = () => {
-  const [title, setTitle] = useState(""); // 수상 제목
-  const [contents, setContents] = useState(""); // 내용
-  const [postImage, setPostImage] = useState("post1.png"); // 초기 이미지 설정
+  const [title, setTitle] = useState("");
+  const [contents, setContents] = useState("");
+  const [postImage, setPostImage] = useState("post1.png");
+  const [tagBarVisible, setTagBarVisible] = useState(false); // 상태 추가
 
-  // 수상 제목 입력 시 호출
   const handleTitleChange = (e) => {
     const newTitle = e.target.value;
     setTitle(newTitle);
 
-    // 수상 제목과 내용이 모두 입력되었을 때 이미지 변경
     if (newTitle && contents) {
       setPostImage("post2.png");
     } else {
@@ -40,12 +40,10 @@ const Posting = () => {
     }
   };
 
-  // 내용 입력 시 호출
   const handleContentsChange = (e) => {
     const newContents = e.target.value;
     setContents(newContents);
 
-    // 수상 제목과 내용이 모두 입력되었을 때 이미지 변경
     if (title && newContents) {
       setPostImage("post2.png");
     } else {
@@ -53,11 +51,23 @@ const Posting = () => {
     }
   };
 
+  const toggleTagBar = () => {
+    setTagBarVisible(!tagBarVisible);
+    if (!tagBarVisible) {
+      setTimeout(() => {
+        setTagBarVisible(true);
+      }, 500);
+    } else {
+      setTimeout(() => {
+        setTagBarVisible(false);
+      }, 300);
+    }
+  };
+
   return (
     <div id="posting_container">
       <br />
       <Logo />
-
       <img
         id="decoration"
         src={process.env.PUBLIC_URL + "./images/decoration.png"}
@@ -69,8 +79,11 @@ const Posting = () => {
           <StyledImg src={process.env.PUBLIC_URL + "./images/medal.png"} />
         </div>
 
-        <div id="posting_hashtag">
-          <p>부문</p>
+        <div id="posting_hashtag" onClick={toggleTagBar}>
+          {" "}
+          {/* 클릭 이벤트 추가 */}
+          <HashTag id="post_hastag_component" />
+          <span id="post_hashtag_span">부문</span>
         </div>
 
         <form id="posting_form">
@@ -101,7 +114,6 @@ const Posting = () => {
           <CustomFileInputButton />
         </form>
       </div>
-
       <p id="posting_congrats">수상을 축하합니다!</p>
       <img
         id="posting_btn"
@@ -115,7 +127,7 @@ const Posting = () => {
           }
         }}
       />
-      <TagBar />
+      {tagBarVisible && <TagBar id="posting_tagbar" />}{" "}
     </div>
   );
 };
