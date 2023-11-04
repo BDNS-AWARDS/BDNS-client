@@ -23,9 +23,7 @@ const TagBar = () => {
 
   return (
     <div>
-      <TagBarDiv>
-        <HashTag />
-      </TagBarDiv>
+      <TagBarDiv>{/* <HashTag /> */}</TagBarDiv>
     </div>
   );
 };

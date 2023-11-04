@@ -99,14 +99,35 @@ textarea::placeholder {
   font-family: "CinemaL";
   text-align: center;
   font-size: 30px;
-  margin-top: 60px;
+  margin-top: 70px;
 }
 
 #posting_btn {
   width: 90%;
   height: 61px;
   margin-left: 5%;
-  margin-bottom: 35%;
+  margin-bottom: 40%;
+}
+
+#posting_tagbar {
+  display: block;
+  position: fixed;
+  bottom: -300px; /* 초기에는 숨겨진 상태 */
+  left: 0;
+  width: 100%;
+  height: 300px;
+  background-color: #69320a;
+  border-top-right-radius: 50px;
+  border-top-left-radius: 50px;
+  transition: bottom 0.5s ease; /* 슬라이딩 애니메이션 설정 */
+}
+
+#posting_tagbar.visible {
+  bottom: 0; /* 보이는 상태 */
+}
+
+#posting_tagbar.hidden {
+  bottom: -300px; /* 숨겨진 상태 */
 }
 
 /* CustomFileInputButton  */
@@ -126,26 +147,12 @@ textarea::placeholder {
 
 #selected_div {
   width: 40%;
-  margin: 15px 15px;
+  margin: 30px 15px 15px 15px;
   display: inline-block;
-  margin-left: 15px;
 }
 
 #selected_img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-}
-
-#posting_tagbar {
-  display: block;
-  position: fixed;
-  bottom: -300px; /* 초기 상태로 숨겨짐 */
-  left: 0;
-  width: 100%;
-  height: 300px;
-  background-color: #69320a;
-  border-top-right-radius: 50px;
-  border-top-left-radius: 50px;
-  transition: bottom 0.5s ease; /* 슬라이딩 애니메이션 설정 */
 }

@@ -27,7 +27,7 @@ const Posting = () => {
   const [title, setTitle] = useState("");
   const [contents, setContents] = useState("");
   const [postImage, setPostImage] = useState("post1.png");
-  const [tagBarVisible, setTagBarVisible] = useState(false); // 상태 추가
+  const [tagBarVisible, setTagBarVisible] = useState(false); // TagBar의 가시성 상태
 
   const handleTitleChange = (e) => {
     const newTitle = e.target.value;
@@ -53,21 +53,13 @@ const Posting = () => {
 
   const toggleTagBar = () => {
     setTagBarVisible(!tagBarVisible);
-    if (!tagBarVisible) {
-      setTimeout(() => {
-        setTagBarVisible(true);
-      }, 500);
-    } else {
-      setTimeout(() => {
-        setTagBarVisible(false);
-      }, 300);
-    }
   };
 
   return (
     <div id="posting_container">
       <br />
       <Logo />
+
       <img
         id="decoration"
         src={process.env.PUBLIC_URL + "./images/decoration.png"}
@@ -80,8 +72,6 @@ const Posting = () => {
         </div>
 
         <div id="posting_hashtag" onClick={toggleTagBar}>
-          {" "}
-          {/* 클릭 이벤트 추가 */}
           <HashTag id="post_hastag_component" />
           <span id="post_hashtag_span">부문</span>
         </div>
@@ -114,6 +104,7 @@ const Posting = () => {
           <CustomFileInputButton />
         </form>
       </div>
+
       <p id="posting_congrats">수상을 축하합니다!</p>
       <img
         id="posting_btn"
@@ -127,7 +118,9 @@ const Posting = () => {
           }
         }}
       />
-      {tagBarVisible && <TagBar id="posting_tagbar" />}{" "}
+      <div id="posting_tagbar" className={tagBarVisible ? "visible" : "hidden"}>
+        <TagBar />
+      </div>
     </div>
   );
 };
