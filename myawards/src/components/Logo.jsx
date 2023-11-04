@@ -19,7 +19,7 @@ const LogoImg = styled.img`
 `;
 
 const StyledLogo = styled.div`
-  margin: 20px 0px 0px 30px;
+  margin: 0px 0px 0px 30px;
   padding-top: 30px;
 `;
 
