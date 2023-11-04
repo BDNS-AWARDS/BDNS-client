@@ -1,0 +1,16 @@
+.setprofile {
+    background-image: url('/public/images/setprofile_bg.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.photo {
+    width:82px;
+    height:82px;
+}
+
+.letter {
+    width:114px;
+    height:114px;
+}
