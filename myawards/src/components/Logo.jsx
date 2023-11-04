@@ -7,16 +7,21 @@ const LogoTxt = styled.p`
   font-family: "Santokki";
   font-size: 20px;
   display: inline-block;
+  -webkit-text-stroke: 0.02cm black;
 `;
 
 const LogoImg = styled.img`
-  width: 42px;
-  height: 42px;
+  width: 26px;
+  height: 26px;
   display: inline-block;
-  margin-top: 20px;
+  padding-left: 5px;
+  margin-bottom: -8px;
 `;
 
-const StyledLogo = styled.div``;
+const StyledLogo = styled.div`
+  margin: 0px 0px 0px 30px;
+  padding-top: 30px;
+`;
 
 const Logo = () => {
   return (
