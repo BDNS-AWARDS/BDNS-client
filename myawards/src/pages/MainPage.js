@@ -6,6 +6,7 @@ import "../css/fonts/font.css";
 import TagBar from "../components/TagBar";
 import HashTag from "../components/HashTag";
 import MainPost from "../components/MainPost";
+import NavBar from "../components/NavBar";
 
 function MainPage(props) {
   const [tagBarVisible, setTagBarVisible] = useState(false);
@@ -34,6 +35,7 @@ function MainPage(props) {
       <div id="main_tagbar" className={tagBarVisible ? "visible" : "hidden"}>
         <TagBar />
       </div>
+      <NavBar />
     </div>
   );
 }

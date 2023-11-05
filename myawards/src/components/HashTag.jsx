@@ -23,6 +23,7 @@ const HashTagP = styled.p`
   -webkit-text-stroke: 0.01cm black;
   margin-top: 4px;
   margin-right: 3px;
+  white-space: nowrap;
 `;
 
 const HashTag = ({ tagnum }) => {

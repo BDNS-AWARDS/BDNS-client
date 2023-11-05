@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-// import PostProfile from "./PostProfile";
 import axios from "axios";
 import HashTag from "../components/HashTag";
 
@@ -61,7 +60,7 @@ const MainPost = () => {
 
   return (
     <div
-      style={{ overflowX: "hidden", overflowY: "scroll", maxHeight: "90vh" }}
+      style={{ overflowX: "hidden", overflowY: "scroll", maxHeight: "80vh" }}
     >
       {postInfo.map((post) => (
         <PostBox>
@@ -114,6 +113,22 @@ const MainPost = () => {
           <div style={{ marginLeft: "30px" }}>
             <p style={{ fontSize: "16px" }}>{post.title}</p>
             <p style={{ fontSize: "12px" }}>{post.contents}</p>
+            <div
+              style={{
+                width: "30%",
+                display: "flex",
+                gap: "30px",
+              }}
+            >
+              <img
+                src={post.photo1}
+                style={{ width: "100%", height: "100%", objectFit: "cover" }}
+              />
+              <img
+                src={post.photo2}
+                style={{ width: "100%", height: "100%", objectFit: "cover" }}
+              />
+            </div>
           </div>
         </PostBox>
       ))}

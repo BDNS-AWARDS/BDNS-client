@@ -30,10 +30,9 @@ const CinemaMSpan = styled.span`
   color: #000000;
   white-space: nowrap;
   text-overflow: ellipsis;
-  overflow: hidden;
 `;
 
-const MyList = () => {
+const ScrapList = () => {
   const [postInfo, setPostInfo] = useState([]);
 
   useEffect(() => {
@@ -62,4 +61,4 @@ const MyList = () => {
   );
 };
 
-export default MyList;
+export default ScrapList;
