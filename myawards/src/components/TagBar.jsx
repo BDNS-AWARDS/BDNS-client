@@ -1,30 +1,66 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
-import "../css/fonts/font.css";
-import axios from "axios";
 import HashTag from "./HashTag";
 
 const TagBarDiv = styled.div`
   width: 100%;
-  height: 300px;
+  height: 320px;
   background-color: #69320a;
   border-top-right-radius: 50px;
   border-top-left-radius: 50px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
 `;
 
 const TagBar = () => {
-  const [hashtag, setHashtag] = useState([]);
+  const numberOfHashTags = 23;
 
-  useEffect(() => {
-    axios.get("http://localhost:8000/hashtag").then((response) => {
-      setHashtag(response.data);
-    });
-  }, []);
+  const hashTags = [];
+
+  for (let i = 1; i < numberOfHashTags; i++) {
+    let line;
+
+    switch (true) {
+      case i >= 1 && i <= 4:
+        line = 1;
+        break;
+      case i >= 5 && i <= 8:
+        line = 2;
+        break;
+      case i >= 9 && i <= 11:
+        line = 3;
+        break;
+      case i >= 12 && i <= 15:
+        line = 4;
+        break;
+      case i >= 16 && i <= 19:
+        line = 5;
+        break;
+      case i >= 20 && i <= 23:
+        line = 6;
+        break;
+      default:
+        line = 1;
+    }
+
+    hashTags.push(<HashTag key={i} tagnum={i} style={{ order: line }} />);
+  }
 
   return (
-    <div>
-      <TagBarDiv>{/* <HashTag /> */}</TagBarDiv>
-    </div>
+    <TagBarDiv media>
+      <div
+        id="tagbar_arrange"
+        style={{
+          display: "flex",
+          flexWrap: "wrap",
+          justifyContent: "center",
+          padding: "25px 0",
+        }}
+      >
+        {hashTags}
+      </div>
+    </TagBarDiv>
   );
 };
 

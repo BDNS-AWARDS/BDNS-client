@@ -7,38 +7,39 @@ const HashTagDiv = styled.div`
   background-color: #ffffff;
   border: 0.01cm solid black;
   border-radius: 15px;
-  padding: 0px 10px;
-  height: 26px;
+  padding: 0px 5px;
+  width: auto;
+  height: 24px;
   text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  display: inline-block;
+  vertical-align: middle;
+  margin: 0px 5px;
 `;
 
 const HashTagP = styled.p`
   font-family: "CinemaL";
-  font-size: 15px;
+  font-size: 14px;
   color: black;
   -webkit-text-stroke: 0.01cm black;
+  margin-top: 4px;
+  margin-right: 3px;
 `;
 
-const HashTag = () => {
+const HashTag = ({ tagnum }) => {
   const [hashtag, setHashtag] = useState([]);
 
   useEffect(() => {
     axios.get("http://localhost:8000/hashtag").then((response) => {
-      setHashtag(response.data);
+      setHashtag(response.data.filter((tag) => tag.id === tagnum));
     });
-  }, []);
+  }, [tagnum]);
+
   return (
     <div>
       <HashTagDiv>
-        {hashtag
-          .filter((hashtag) => hashtag.id === 0)
-          .map((hashtag) => (
-            <HashTagP>{hashtag.tagname}</HashTagP>
-          ))}
+        {hashtag.map((tag) => (
+          <HashTagP key={tag.id}>{tag.tagname}</HashTagP>
+        ))}
       </HashTagDiv>
     </div>
   );

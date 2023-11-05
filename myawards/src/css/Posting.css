@@ -112,22 +112,32 @@ textarea::placeholder {
 #posting_tagbar {
   display: block;
   position: fixed;
-  bottom: -300px; /* 초기에는 숨겨진 상태 */
+  bottom: -300px;
   left: 0;
   width: 100%;
   height: 300px;
   background-color: #69320a;
   border-top-right-radius: 50px;
   border-top-left-radius: 50px;
-  transition: bottom 0.5s ease; /* 슬라이딩 애니메이션 설정 */
+  transition: bottom 0.5s ease;
+}
+
+@media (min-width: 450px) {
+  #posting_tagbar {
+    max-width: 450px;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 0;
+    position: absolute;
+  }
 }
 
 #posting_tagbar.visible {
-  bottom: 0; /* 보이는 상태 */
+  bottom: 0;
 }
 
 #posting_tagbar.hidden {
-  bottom: -300px; /* 숨겨진 상태 */
+  bottom: -300px;
 }
 
 /* CustomFileInputButton  */

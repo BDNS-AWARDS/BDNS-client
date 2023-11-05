@@ -72,7 +72,7 @@ const Posting = () => {
         </div>
 
         <div id="posting_hashtag" onClick={toggleTagBar}>
-          <HashTag id="post_hastag_component" />
+          <HashTag id="post_hastag_component" tagnum={0} />
           <span id="post_hashtag_span">부문</span>
         </div>
 
