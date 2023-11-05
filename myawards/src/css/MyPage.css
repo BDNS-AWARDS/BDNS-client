@@ -1,0 +1,39 @@
+#mypage_box {
+  background-color: #8a0b0b;
+  height: 100%;
+  margin-top: -20px;
+}
+
+#awardlist_box {
+  height: 400px;
+}
+
+#mypage_title {
+  display: flex;
+  margin-left: 30px;
+  margin-top: -10px;
+}
+
+#mp_title_txt {
+  font-family: "Santokki";
+  font-size: 24px;
+  color: #ffffff;
+  -webkit-text-stroke: 0.02cm black;
+}
+
+#trophy {
+  width: 26px;
+  height: 26px;
+  margin-top: 25px;
+  margin-left: 5px;
+}
+
+#scraplist_box {
+  height: 450px;
+}
+
+#mypage_profile {
+  position: absolute;
+  top: 105px;
+  right: 30px;
+}
