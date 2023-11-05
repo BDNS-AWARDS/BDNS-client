@@ -27,7 +27,7 @@ const Posting = () => {
   const [title, setTitle] = useState("");
   const [contents, setContents] = useState("");
   const [postImage, setPostImage] = useState("post1.png");
-  const [tagBarVisible, setTagBarVisible] = useState(false); // TagBar의 가시성 상태
+  const [tagBarVisible, setTagBarVisible] = useState(false);
 
   const handleTitleChange = (e) => {
     const newTitle = e.target.value;

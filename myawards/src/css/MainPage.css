@@ -1,3 +1,6 @@
-#mainpage_div {
-  background-color: ".../public/";
+#main_hashtag {
+  display: inline;
+  float: right;
+  margin-right: 25px;
+  margin-top: -45px;
 }
