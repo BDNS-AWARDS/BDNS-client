@@ -4,3 +4,34 @@
   margin-right: 25px;
   margin-top: -45px;
 }
+
+#main_tagbar {
+  display: block;
+  position: fixed;
+  bottom: -300px;
+  left: 0;
+  width: 100%;
+  height: 300px;
+  background-color: #69320a;
+  border-top-right-radius: 50px;
+  border-top-left-radius: 50px;
+  transition: bottom 0.5s ease;
+}
+
+@media (min-width: 450px) {
+  #main_tagbar {
+    max-width: 450px;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 0;
+    position: absolute;
+  }
+}
+
+#main_tagbar.visible {
+  bottom: 0;
+}
+
+#main_tagbar.hidden {
+  bottom: -300px;
+}

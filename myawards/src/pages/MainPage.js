@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "../css/MainPage.css";
 import Logo from "../components/Logo";
 import styled from "styled-components";
@@ -8,6 +8,12 @@ import HashTag from "../components/HashTag";
 import MainPost from "../components/MainPost";
 
 function MainPage(props) {
+  const [tagBarVisible, setTagBarVisible] = useState(false);
+
+  const toggleTagBar = () => {
+    setTagBarVisible(!tagBarVisible);
+  };
+
   return (
     <div
       style={{
@@ -19,11 +25,14 @@ function MainPage(props) {
       }}
     >
       <Logo style={{ display: "inline" }} />
-      <div id="main_hashtag">
+      <div id="main_hashtag" onClick={toggleTagBar}>
         <HashTag tagnum={1} />
       </div>
       <div id="main_post_div">
         <MainPost />
+      </div>
+      <div id="main_tagbar" className={tagBarVisible ? "visible" : "hidden"}>
+        <TagBar />
       </div>
     </div>
   );

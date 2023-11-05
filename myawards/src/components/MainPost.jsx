@@ -12,7 +12,7 @@ const PostBox = styled.div`
   height: auto;
   margin: 0 auto;
   margin-bottom: 25px;
-  padding: 10px 15px;
+  padding: 10px 20px;
   font-family: "CinemaM";
 `;
 
@@ -20,14 +20,17 @@ const Nickname = styled.p`
   font-family: "CinemaM";
   color: "#000000";
   font-size: 16px;
-  display: inline-block;
+  display: block;
   margin-left: 5px;
+  margin-top: 10px;
+  margin-bottom: -10px;
 `;
 
 const PIContainer = styled.div`
   width: 31px;
   height: 31px;
   margin-top: 8px;
+  display: inline-block;
 `;
 
 const ProfileImg = styled.img`
@@ -57,7 +60,9 @@ const MainPost = () => {
   }, []);
 
   return (
-    <div style={{ overflowY: "scroll", maxHeight: "100vh" }}>
+    <div
+      style={{ overflowX: "hidden", overflowY: "scroll", maxHeight: "90vh" }}
+    >
       {postInfo.map((post) => (
         <PostBox>
           <PostProfileDiv>
@@ -70,15 +75,44 @@ const MainPost = () => {
                 alt="프로필 사진"
               />
             </PIContainer>
-            <Nickname>{post.nickname}</Nickname>
-            <HashTag
-              tagnum={post.hashtag}
-              style={{ display: "absolute", float: "right" }}
-            />
+            <div style={{ display: "inline-block" }}>
+              <Nickname>{post.nickname}</Nickname>
+              <p
+                style={{
+                  fontSize: "12px",
+                  display: "block",
+                  marginLeft: "5px",
+                }}
+              >
+                {post.date}
+              </p>
+            </div>
           </PostProfileDiv>
 
+          <div
+            style={{
+              display: "flex",
+              position: "relative",
+              top: "-35px",
+              left: "65%",
+              marginBottom: "-25px",
+              gap: "3px",
+            }}
+          >
+            <HashTag tagnum={post.hashtag} style={{ marginRight: "5px" }} />
+            <img
+              src={process.env.PUBLIC_URL + "./images/menubar.png"}
+              style={{
+                width: "20px",
+                height: "20px",
+                paddingTop: "3px",
+                paddingLeft: "-4px",
+              }}
+            />
+          </div>
+
           <div style={{ marginLeft: "30px" }}>
-            <p style={{ fontSize: "14px" }}>{post.title}</p>
+            <p style={{ fontSize: "16px" }}>{post.title}</p>
             <p style={{ fontSize: "12px" }}>{post.contents}</p>
           </div>
         </PostBox>
