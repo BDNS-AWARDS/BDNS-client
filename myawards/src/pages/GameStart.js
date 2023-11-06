@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import "../css/GameStart.css";
 import Logo from "../components/Logo";
+import GameStartButton from "../components/GameStartButton";
 
 const Title = styled.p`
   font-family: "Santokki", sans-serif;
@@ -26,6 +27,7 @@ const MiddleTitle = styled.p`
   color: #f7cc44;
   text-align: center;
   margin-top: 10px;
+  -webkit-text-stroke: 0.7px #000;
 `;
 
 const InputContainer = styled.div`
@@ -61,12 +63,17 @@ const GameStart = () => {
     setInputValues(newInputValues);
   };
 
+  // 버튼을 활성화하기 위한 조건 수정
+  const isButtonDisabled = inputValues
+    .slice(0, 2)
+    .some((value) => value.trim() === "");
+
   return (
     <div id="gamebox">
       <Logo />
       <Title>어워즈 발표 게임</Title>
       <Contents>친구들과 돌아가며 나만의 어워즈를 공유해보세요!</Contents>
-      <img src="images/mic.png" alt="mic" />
+      <img className="mic" src="images/mic.png" alt="mic" />
       <MiddleTitle>참가자 이름을 입력해 주세요!</MiddleTitle>
       <InputContainer>
         {inputFields.map((_, index) => (
@@ -79,7 +86,7 @@ const GameStart = () => {
           />
         ))}
       </InputContainer>
-      <button>어워즈 발표 게임 시작하기</button>
+      <GameStartButton disabled={isButtonDisabled} />
     </div>
   );
 };
