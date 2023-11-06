@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import HashTag from "./HashTag";
 
@@ -10,55 +10,75 @@ const TagBarDiv = styled.div`
   border-top-left-radius: 50px;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: center;
 `;
 
-const TagBar = () => {
-  const numberOfHashTags = 23;
-
-  const hashTags = [];
-
-  for (let i = 1; i < numberOfHashTags; i++) {
-    let line;
-
-    switch (true) {
-      case i >= 1 && i <= 4:
-        line = 1;
-        break;
-      case i >= 5 && i <= 8:
-        line = 2;
-        break;
-      case i >= 9 && i <= 11:
-        line = 3;
-        break;
-      case i >= 12 && i <= 15:
-        line = 4;
-        break;
-      case i >= 16 && i <= 19:
-        line = 5;
-        break;
-      case i >= 20 && i <= 23:
-        line = 6;
-        break;
-      default:
-        line = 1;
-    }
-
-    hashTags.push(<HashTag key={i} tagnum={i} style={{ order: line }} />);
-  }
+const TagBar = ({ onTagClick }) => {
+  const handleTagClick = (tagnum) => {
+    onTagClick(tagnum);
+  };
 
   return (
     <TagBarDiv media>
       <div
-        id="tagbar_arrange"
         style={{
           display: "flex",
-          flexWrap: "wrap",
-          justifyContent: "center",
-          padding: "25px 0",
+          marginTop: "25px",
         }}
       >
-        {hashTags}
+        <HashTag tagnum={1} onClick={() => handleTagClick(1)} />
+        <HashTag tagnum={2} onClick={() => handleTagClick(2)} />
+        <HashTag tagnum={3} onClick={() => handleTagClick(3)} />
+        <HashTag tagnum={4} onClick={() => handleTagClick(4)} />
+      </div>
+      <div
+        style={{
+          display: "flex",
+        }}
+      >
+        <HashTag tagnum={5} onClick={() => handleTagClick(5)} />
+        <HashTag tagnum={6} onClick={() => handleTagClick(6)} />
+        <HashTag tagnum={7} onClick={() => handleTagClick(7)} />
+        <HashTag tagnum={8} onClick={() => handleTagClick(8)} />
+      </div>
+      <div
+        style={{
+          display: "flex",
+        }}
+      >
+        <HashTag tagnum={9} onClick={() => handleTagClick(9)} />
+        <HashTag tagnum={10} onClick={() => handleTagClick(10)} />
+        <HashTag tagnum={11} onClick={() => handleTagClick(11)} />
+      </div>
+      <div
+        style={{
+          display: "flex",
+        }}
+      >
+        <HashTag tagnum={12} onClick={() => handleTagClick(12)} />
+        <HashTag tagnum={13} onClick={() => handleTagClick(13)} />
+        <HashTag tagnum={14} onClick={() => handleTagClick(14)} />
+        <HashTag tagnum={15} onClick={() => handleTagClick(15)} />
+      </div>
+      <div
+        style={{
+          display: "flex",
+        }}
+      >
+        <HashTag tagnum={16} onClick={() => handleTagClick(16)} />
+        <HashTag tagnum={17} onClick={() => handleTagClick(17)} />
+        <HashTag tagnum={18} onClick={() => handleTagClick(18)} />
+      </div>
+      <div
+        style={{
+          display: "flex",
+          marginBottom: "25px",
+        }}
+      >
+        <HashTag tagnum={19} onClick={() => handleTagClick(19)} />
+        <HashTag tagnum={20} onClick={() => handleTagClick(20)} />
+        <HashTag tagnum={21} onClick={() => handleTagClick(21)} />
+        <HashTag tagnum={22} onClick={() => handleTagClick(22)} />
       </div>
     </TagBarDiv>
   );

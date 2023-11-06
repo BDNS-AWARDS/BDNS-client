@@ -9,7 +9,7 @@ const HashTagDiv = styled.div`
   border-radius: 15px;
   padding: 0px 5px;
   width: auto;
-  height: 24px;
+  height: 23px;
   text-align: center;
   display: inline-block;
   vertical-align: middle;
@@ -24,9 +24,13 @@ const HashTagP = styled.p`
   margin-top: 4px;
   margin-right: 3px;
   white-space: nowrap;
+
+  @media (max-width: 410px) {
+    font-size: 12px;
+  }
 `;
 
-const HashTag = ({ tagnum }) => {
+const HashTag = ({ tagnum, onTagClick }) => {
   const [hashtag, setHashtag] = useState([]);
 
   useEffect(() => {

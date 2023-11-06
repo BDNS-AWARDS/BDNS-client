@@ -55,6 +55,12 @@ const Posting = () => {
     setTagBarVisible(!tagBarVisible);
   };
 
+  const [selectedTag, setSelectedTag] = useState(0);
+
+  const handleTagClick = (tagnum) => {
+    setSelectedTag(tagnum); // 선택한 해시태그의 tagnum을 업데이트
+  };
+
   return (
     <div id="posting_container">
       <br />
@@ -119,7 +125,7 @@ const Posting = () => {
         }}
       />
       <div id="posting_tagbar" className={tagBarVisible ? "visible" : "hidden"}>
-        <TagBar />
+        <TagBar onTagClick={handleTagClick} />
       </div>
     </div>
   );

@@ -60,7 +60,7 @@ const MainPost = () => {
 
   return (
     <div
-      style={{ overflowX: "hidden", overflowY: "scroll", maxHeight: "80vh" }}
+      style={{ overflowX: "hidden", overflowY: "scroll", maxHeight: "78vh" }}
     >
       {postInfo.map((post) => (
         <PostBox>
