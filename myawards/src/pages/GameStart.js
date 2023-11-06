@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
-import styled from "styled-components";
 import "../css/GameStart.css";
+import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
 import Logo from "../components/Logo";
 import GameStartButton from "../components/GameStartButton";
 
@@ -45,21 +44,13 @@ const GameStart = () => {
     .slice(0, 2)
     .some((value) => value.trim() === "");
 
-  const handleSubmit = async () => {
-    // 입력된 이름을 서버로 POST 요청을 보냅니다.
-    try {
-      const response = await axios.post("/api/randomName", {
-        names: inputValues.slice(0, 2), // 예시로 처음 2개 이름을 보냅니다.
-      });
+  const handleRandomSelection = () => {
+    const filledInputs = inputValues.filter((value) => value.trim() !== "");
 
-      // 서버에서 받은 랜덤 이름을 사용할 수 있습니다.
-      const randomName = response.data.randomName;
-
-      // 결과 페이지로 이동
-      navigate("/gameresult");
-    } catch (error) {
-      // 오류 처리
-      console.error("오류 발생:", error);
+    if (filledInputs.length >= 2) {
+      const randomIndex = Math.floor(Math.random() * filledInputs.length);
+      const randomItem = filledInputs[randomIndex];
+      navigate("/gameresult", { state: { randomItem, inputValues } });
     }
   };
 
@@ -81,7 +72,10 @@ const GameStart = () => {
           />
         ))}
       </InputContainer>
-      <GameStartButton disabled={isButtonDisabled} onClick={handleSubmit} />
+      <GameStartButton
+        disabled={isButtonDisabled}
+        onClick={handleRandomSelection}
+      />
     </div>
   );
 };
