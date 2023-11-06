@@ -8,6 +8,33 @@
     justify-content: center;
   }
 
+#title {
+  font-family: "Santokki", sans-serif;
+  font-size: 52px;
+  color: #f7cc44;
+  text-align: center;
+  margin-top: 20px;
+  margin-left:-5px;
+  -webkit-text-stroke: 1px #000;
+}
+
+#contents {
+  font-family: "CinemaL", sans-serif;
+  font-size: 14px;
+  color: #f7cc44;
+  margin-left: -20px;
+  margin-top: -50px;
+}
+
+#middletitle {
+  font-family: "Santokki", sans-serif;
+  font-size: 28px;
+  color: #f7cc44;
+  text-align: center;
+  margin-top: 10px;
+  -webkit-text-stroke: 0.7px #000;
+}
+
 .mic {
     width:276px;
     height:276px;

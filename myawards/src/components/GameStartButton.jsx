@@ -22,9 +22,9 @@ const StyledButton = styled.button`
   }
 `;
 
-const GameStartButton = ({ onClick, disabled }) => {
+const GameStartButton = ({ disabled, onClick }) => {
   return (
-    <StyledButton onClick={onClick} disabled={disabled}>
+    <StyledButton disabled={disabled} onClick={onClick}>
       어워즈 발표 게임 시작하기
     </StyledButton>
   );
