@@ -2,7 +2,6 @@ import React from "react";
 import styled from "styled-components";
 
 const StyledButton=styled.button`
-  position: fixed;
   margin-top:20px;
   margin-left:40px;
   border: none;

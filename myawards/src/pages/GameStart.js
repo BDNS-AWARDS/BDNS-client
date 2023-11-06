@@ -1,34 +1,10 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import styled from "styled-components";
 import "../css/GameStart.css";
 import Logo from "../components/Logo";
 import GameStartButton from "../components/GameStartButton";
-
-const Title = styled.p`
-  font-family: "Santokki", sans-serif;
-  font-size: 52px;
-  color: #f7cc44;
-  text-align: center;
-  margin-top: 20px;
-  -webkit-text-stroke: 1px #000;
-`;
-
-const Contents = styled.p`
-  font-family: "CinemaL", sans-serif;
-  font-size: 14px;
-  color: #f7cc44;
-  margin-left: -20px;
-  margin-top: -50px;
-`;
-
-const MiddleTitle = styled.p`
-  font-family: "Santokki", sans-serif;
-  font-size: 28px;
-  color: #f7cc44;
-  text-align: center;
-  margin-top: 10px;
-  -webkit-text-stroke: 0.7px #000;
-`;
 
 const InputContainer = styled.div`
   display: flex;
@@ -56,6 +32,7 @@ const Input = styled.input`
 const GameStart = () => {
   const inputFields = Array(8).fill(""); // 8개의 빈 문자열 생성
   const [inputValues, setInputValues] = useState(Array(8).fill("")); // 입력된 값 상태
+  const navigate = useNavigate(); // useNavigate 훅을 사용하여 navigate 함수를 가져옵니다.
 
   const handleInputChange = (index, value) => {
     const newInputValues = [...inputValues];
@@ -68,13 +45,31 @@ const GameStart = () => {
     .slice(0, 2)
     .some((value) => value.trim() === "");
 
+  const handleSubmit = async () => {
+    // 입력된 이름을 서버로 POST 요청을 보냅니다.
+    try {
+      const response = await axios.post("/api/randomName", {
+        names: inputValues.slice(0, 2), // 예시로 처음 2개 이름을 보냅니다.
+      });
+
+      // 서버에서 받은 랜덤 이름을 사용할 수 있습니다.
+      const randomName = response.data.randomName;
+
+      // 결과 페이지로 이동
+      navigate("/gameresult");
+    } catch (error) {
+      // 오류 처리
+      console.error("오류 발생:", error);
+    }
+  };
+
   return (
     <div id="gamebox">
       <Logo />
-      <Title>어워즈 발표 게임</Title>
-      <Contents>친구들과 돌아가며 나만의 어워즈를 공유해보세요!</Contents>
+      <p id="title">어워즈 발표 게임</p>
+      <p id="contents">친구들과 돌아가며 나만의 어워즈를 공유해보세요!</p>
       <img className="mic" src="images/mic.png" alt="mic" />
-      <MiddleTitle>참가자 이름을 입력해 주세요!</MiddleTitle>
+      <p id="middletitle">참가자 이름을 입력해 주세요!</p>
       <InputContainer>
         {inputFields.map((_, index) => (
           <Input
@@ -86,7 +81,7 @@ const GameStart = () => {
           />
         ))}
       </InputContainer>
-      <GameStartButton disabled={isButtonDisabled} />
+      <GameStartButton disabled={isButtonDisabled} onClick={handleSubmit} />
     </div>
   );
 };
