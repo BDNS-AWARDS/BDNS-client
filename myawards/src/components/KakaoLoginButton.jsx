@@ -8,10 +8,15 @@ border-radius: 10px;
 padding: 10px 20px;
 font-family: "CinemaB", sans-serif;
 font-size: 20px;
-margin-top:30px;
+margin-top:400px;
 margin-bottom:30px;
 width:352px;
-height:62px;`
+height:62px;
+bottom: 0;
+left: 0;
+right: 0;
+text-align: center;
+`;
 
 const KakaoLoginButton = () => {
     return (

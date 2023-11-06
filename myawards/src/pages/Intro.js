@@ -3,29 +3,26 @@ import "../css/Intro.css";
 import styled from "styled-components";
 import KakaoLoginButton from "../components/KakaoLoginButton";
 
-const Appname = styled.p`
+const Appname = styled.div`
   font-family: "Santokki", sans-serif;
   font-size: 64px;
   color: #f7cc44;
-  margin-top: 0px;
-`;
-
-const Number = styled.p`
-  font-family: "Santokki", sans-serif;
-  font-size: 24px;
-  color: #ffffff;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
 `;
 
 const Intro = () => {
   return (
     <div className="intro">
-      <Appname>
-        <Number>2023</Number>
+      <div id="appname">
         올해의
-        <br />
-        마이 어워즈
+        <p id="year">2023</p>
+      </div>
+      <Appname>
+        마이 어워즈 <img id="medal" src="images/medal.png" alt="medal" />
       </Appname>
-      <KakaoLoginButton className="button" />
+      <KakaoLoginButton id="button" />
     </div>
   );
 };
