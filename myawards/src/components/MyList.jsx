@@ -39,7 +39,7 @@ const MyList = () => {
 
   const handleListClick = (postId) => {
     console.log("클릭한 요소의 post.id:", postId);
-    window.location = `/myaward?postId=${postId}`;
+    window.location = `/myaward/${postId}`;
   };
 
   useEffect(() => {

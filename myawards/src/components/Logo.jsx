@@ -30,7 +30,7 @@ const Logo = () => {
       <Link to="/mainpage">
         <StyledLogo>
           <LogoTxt>올해의 마이 어워즈</LogoTxt>
-          <LogoImg src={process.env.PUBLIC_URL + "./images/medal.png"} />
+          <LogoImg src={process.env.PUBLIC_URL + "/images/medal.png"} />
         </StyledLogo>
       </Link>
     </>

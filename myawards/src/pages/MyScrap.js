@@ -19,7 +19,7 @@ function MyScrap() {
             <p id="mp_title_txt">수상 내역</p>
             <img
               id="trophy"
-              src={process.env.PUBLIC_URL + "./images/trophy.png"}
+              src={process.env.PUBLIC_URL + "/images/trophy.png"}
             />
           </div>
           <div id="mypage_profile">

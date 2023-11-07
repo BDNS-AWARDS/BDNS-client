@@ -63,7 +63,7 @@ const AwardDetail = ({ selectedPostId }) => {
   return (
     <div id="detail_box">
       {postInfo
-        .filter((post) => post.id === selectedPostId)
+        .filter((post) => post.id == selectedPostId)
         .map((post) => (
           <PostBox key={post.id}>
             <PostProfileDiv>
@@ -71,7 +71,7 @@ const AwardDetail = ({ selectedPostId }) => {
                 <ProfileImg
                   src={
                     post.profilePicture ||
-                    process.env.PUBLIC_URL + "./images/profile.png"
+                    process.env.PUBLIC_URL + "/images/profile.png"
                   }
                   alt="프로필 사진"
                 />
@@ -86,7 +86,7 @@ const AwardDetail = ({ selectedPostId }) => {
               <HashTag tagnum={post.hashtag} />
               <img
                 id="detail_menuimg"
-                src={process.env.PUBLIC_URL + "./images/menubar.png"}
+                src={process.env.PUBLIC_URL + "/images/menubar.png"}
               />
             </div>
 

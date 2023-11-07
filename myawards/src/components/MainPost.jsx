@@ -47,89 +47,97 @@ const PostProfileDiv = styled.div`
 
 const MainPost = () => {
   const [postInfo, setPostInfo] = useState([]);
-  const [likebtn, setLikebtn] = useState(false);
-  const [scrapbtn, setScrapbtn] = useState(false);
+  // 게시물 상태 배열 추가
+  const [postStates, setPostStates] = useState([]);
 
   useEffect(() => {
     axios
       .get("http://localhost:8000/postInfo")
       .then((response) => {
         setPostInfo(response.data);
+        // 게시물 상태 배열 초기화
+        setPostStates(
+          response.data.map(() => ({ likebtn: false, scrapbtn: false }))
+        );
       })
       .catch((error) => {
         console.error("사용자 정보를 가져오는 중 오류가 발생했습니다.", error);
       });
   }, []);
 
-  const handleLikeClick = () => {
-    setLikebtn(!likebtn);
+  const handleLikeClick = (index) => {
+    // 특정 게시물의 좋아요 상태를 토글
+    const updatedPostStates = [...postStates];
+    updatedPostStates[index].likebtn = !updatedPostStates[index].likebtn;
+    setPostStates(updatedPostStates);
   };
 
-  const handleScrapClick = () => {
-    setScrapbtn(!scrapbtn);
+  const handleScrapClick = (index) => {
+    // 특정 게시물의 스크랩 상태를 토글
+    const updatedPostStates = [...postStates];
+    updatedPostStates[index].scrapbtn = !updatedPostStates[index].scrapbtn;
+    setPostStates(updatedPostStates);
   };
 
   return (
     <div id="detail_box">
-      {postInfo
-        .map((post) => (
-          <PostBox>
-            <PostProfileDiv>
-              <PIContainer>
-                <ProfileImg
-                  src={
-                    post.profilePicture ||
-                    process.env.PUBLIC_URL + "./images/profile.png"
-                  }
-                  alt="프로필 사진"
-                />
-              </PIContainer>
-              <div id="detail_header">
-                <Nickname>{post.nickname}</Nickname>
-                <p id="detail_header_p">{post.date}</p>
-              </div>
-            </PostProfileDiv>
-
-            <div id="detail_hashtag_div">
-              <HashTag tagnum={post.hashtag} />
-              <img
-                id="detail_menuimg"
-                src={process.env.PUBLIC_URL + "./images/menubar.png"}
-              />
-            </div>
-
-            <div id="detail_contentbox">
-              <p id="detail_title">{post.title}</p>
-              <p id="detail_contents">{post.contents}</p>
-              <div id="detail_imgcontainer">
-                <img id="detail_photo1" src={post.photo1} />
-                <img id="detail_photo2" src={post.photo2} />
-              </div>
-            </div>
-
-            <div id="detail_btnbox">
-              <img
-                id="likebtn"
+      {postInfo.map((post, index) => (
+        <PostBox>
+          <PostProfileDiv>
+            <PIContainer>
+              <ProfileImg
                 src={
-                  likebtn
-                    ? process.env.PUBLIC_URL + "./images/like_on.png"
-                    : process.env.PUBLIC_URL + "./images/like_off.png"
+                  post.profilePicture ||
+                  process.env.PUBLIC_URL + "./images/profile.png"
                 }
-                onClick={handleLikeClick}
+                alt="프로필 사진"
               />
-              <img
-                id="scrapbtn"
-                src={
-                  scrapbtn
-                    ? process.env.PUBLIC_URL + "./images/scrap_on.png"
-                    : process.env.PUBLIC_URL + "./images/scrap_off.png"
-                }
-                onClick={handleScrapClick}
-              />
+            </PIContainer>
+            <div id="detail_header">
+              <Nickname>{post.nickname}</Nickname>
+              <p id="detail_header_p">{post.date}</p>
             </div>
-          </PostBox>
-        ))
-        .reverse()}
+          </PostProfileDiv>
+
+          <div id="detail_hashtag_div">
+            <HashTag tagnum={post.hashtag} />
+            <img
+              id="detail_menuimg"
+              src={process.env.PUBLIC_URL + "./images/menubar.png"}
+            />
+          </div>
+
+          <div id="detail_contentbox">
+            <p id="detail_title">{post.title}</p>
+            <p id="detail_contents">{post.contents}</p>
+            <div id="detail_imgcontainer">
+              <img id="detail_photo1" src={post.photo1} />
+              <img id="detail_photo2" src={post.photo2} />
+            </div>
+          </div>
+
+          <div id="detail_btnbox">
+            <img
+              id="likebtn"
+              src={
+                postStates[index].likebtn
+                  ? process.env.PUBLIC_URL + "./images/like_on.png"
+                  : process.env.PUBLIC_URL + "./images/like_off.png"
+              }
+              onClick={() => handleLikeClick(index)}
+            />
+            <img
+              id="scrapbtn"
+              src={
+                postStates[index].scrapbtn
+                  ? process.env.PUBLIC_URL + "./images/scrap_on.png"
+                  : process.env.PUBLIC_URL + "./images/scrap_off.png"
+              }
+              onClick={() => handleScrapClick(index)}
+            />
+          </div>
+        </PostBox>
+      ))}
     </div>
   );
 };

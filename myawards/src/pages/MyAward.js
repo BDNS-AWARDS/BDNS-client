@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Logo from "../components/Logo";
 import "../css/MyPage.css";
@@ -8,7 +8,10 @@ import NavBar from "../components/NavBar";
 
 function MyAward() {
   const { postId } = useParams();
-
+  useEffect(() => {
+    console.log(postId);
+  }, [postId]);
+  console.log(postId);
   return (
     <div id="mydetail_box">
       <br />

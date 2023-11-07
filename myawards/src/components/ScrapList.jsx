@@ -38,7 +38,7 @@ const ScrapList = () => {
 
   const handleListClick = (postId) => {
     console.log("클릭한 요소의 post.id:", postId);
-    window.location = `/myscrap?postId=${postId}`;
+    window.location = `/myscrap/${postId}`;
   };
 
   useEffect(() => {

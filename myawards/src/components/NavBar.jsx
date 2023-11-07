@@ -19,7 +19,7 @@ const NavBar = () => {
       <NavBarDiv>
         <Link to="/gamestart">
           <img
-            src={process.env.PUBLIC_URL + "./images/nav_game.png"}
+            src={process.env.PUBLIC_URL + "/images/nav_game.png"}
             style={{
               width: "60px",
               height: "60px",
@@ -30,7 +30,7 @@ const NavBar = () => {
         </Link>
         <Link to="/posting">
           <img
-            src={process.env.PUBLIC_URL + "./images/nav_post.png"}
+            src={process.env.PUBLIC_URL + "/images/nav_post.png"}
             style={{
               width: "68px",
               height: "68px",
@@ -41,7 +41,7 @@ const NavBar = () => {
         </Link>
         <Link to="/mypage">
           <img
-            src={process.env.PUBLIC_URL + "./images/nav_my.png"}
+            src={process.env.PUBLIC_URL + "/images/nav_my.png"}
             style={{
               width: "80px",
               height: "80px",
