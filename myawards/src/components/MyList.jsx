@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
 import "../css/fonts/font.css";
@@ -36,6 +37,11 @@ const CinemaMSpan = styled.span`
 const MyList = () => {
   const [postInfo, setPostInfo] = useState([]);
 
+  const handleListClick = (postId) => {
+    console.log("클릭한 요소의 post.id:", postId);
+    window.location = `/myaward?postId=${postId}`;
+  };
+
   useEffect(() => {
     axios
       .get("http://localhost:8000/postInfo")
@@ -50,7 +56,7 @@ const MyList = () => {
   return (
     <>
       {postInfo.map((post) => (
-        <StyledList>
+        <StyledList onClick={() => handleListClick(post.id)}>
           <HashTag tagnum={post.hashtag} />
           <div style={{ position: "relative", display: "inline-block" }}>
             <SantokkiSpan>수상 제목 : </SantokkiSpan>

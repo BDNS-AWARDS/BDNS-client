@@ -26,7 +26,7 @@ const StyledImg = styled.img`
 const Posting = () => {
   const [title, setTitle] = useState("");
   const [contents, setContents] = useState("");
-  const [postImage, setPostImage] = useState("post1.png");
+  const [postImage, setPostImage] = useState("post_off.png");
   const [tagBarVisible, setTagBarVisible] = useState(false);
 
   const handleTitleChange = (e) => {
@@ -34,9 +34,9 @@ const Posting = () => {
     setTitle(newTitle);
 
     if (newTitle && contents) {
-      setPostImage("post2.png");
+      setPostImage("post_on.png");
     } else {
-      setPostImage("post1.png");
+      setPostImage("post_off.png");
     }
   };
 
@@ -45,9 +45,9 @@ const Posting = () => {
     setContents(newContents);
 
     if (title && newContents) {
-      setPostImage("post2.png");
+      setPostImage("post_on.png");
     } else {
-      setPostImage("post1.png");
+      setPostImage("post_off.png");
     }
   };
 

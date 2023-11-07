@@ -45,35 +45,27 @@ const PostProfileDiv = styled.div`
   margin-bottom: -15px;
 `;
 
-const MainPost = () => {
+const AwardDetail = ({ selectedPostId }) => {
   const [postInfo, setPostInfo] = useState([]);
-  const [likebtn, setLikebtn] = useState(false);
-  const [scrapbtn, setScrapbtn] = useState(false);
 
   useEffect(() => {
     axios
       .get("http://localhost:8000/postInfo")
       .then((response) => {
         setPostInfo(response.data);
+        console.log(response.data);
       })
       .catch((error) => {
         console.error("사용자 정보를 가져오는 중 오류가 발생했습니다.", error);
       });
-  }, []);
-
-  const handleLikeClick = () => {
-    setLikebtn(!likebtn);
-  };
-
-  const handleScrapClick = () => {
-    setScrapbtn(!scrapbtn);
-  };
+  }, [selectedPostId]);
 
   return (
     <div id="detail_box">
       {postInfo
+        .filter((post) => post.id === selectedPostId)
         .map((post) => (
-          <PostBox>
+          <PostBox key={post.id}>
             <PostProfileDiv>
               <PIContainer>
                 <ProfileImg
@@ -106,32 +98,10 @@ const MainPost = () => {
                 <img id="detail_photo2" src={post.photo2} />
               </div>
             </div>
-
-            <div id="detail_btnbox">
-              <img
-                id="likebtn"
-                src={
-                  likebtn
-                    ? process.env.PUBLIC_URL + "./images/like_on.png"
-                    : process.env.PUBLIC_URL + "./images/like_off.png"
-                }
-                onClick={handleLikeClick}
-              />
-              <img
-                id="scrapbtn"
-                src={
-                  scrapbtn
-                    ? process.env.PUBLIC_URL + "./images/scrap_on.png"
-                    : process.env.PUBLIC_URL + "./images/scrap_off.png"
-                }
-                onClick={handleScrapClick}
-              />
-            </div>
           </PostBox>
-        ))
-        .reverse()}
+        ))}
     </div>
   );
 };
 
-export default MainPost;
+export default AwardDetail;

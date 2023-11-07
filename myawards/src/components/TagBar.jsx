@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import HashTag from "./HashTag";
 
@@ -13,9 +13,9 @@ const TagBarDiv = styled.div`
   justify-content: center;
 `;
 
-const TagBar = ({ onTagClick }) => {
+const TagBar = () => {
   const handleTagClick = (tagnum) => {
-    onTagClick(tagnum);
+    console.log(`Clicked tagnum: ${tagnum}`);
   };
 
   return (
