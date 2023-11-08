@@ -33,16 +33,18 @@ const HashTagP = styled.p`
 const HashTag = ({ tagnum, onClick }) => {
   const [hashtag, setHashtag] = useState([]);
 
-  const handleClick = () => {
-    // 클릭 이벤트 처리 함수를 호출하고 tagnum을 전달
-    onClick(tagnum);
-  };
-
   useEffect(() => {
     axios.get("http://localhost:8000/hashtag").then((response) => {
       setHashtag(response.data.filter((tag) => tag.id === tagnum));
     });
   }, [tagnum]);
+
+  const handleClick = () => {
+    // 클릭 이벤트 처리 함수를 호출하고 tagnum을 전달
+    if (onClick) {
+      onClick(tagnum);
+    }
+  };
 
   return (
     <div>
