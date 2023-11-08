@@ -47,7 +47,6 @@ const PostProfileDiv = styled.div`
 
 const MainPost = () => {
   const [postInfo, setPostInfo] = useState([]);
-  // 게시물 상태 배열 추가
   const [postStates, setPostStates] = useState([]);
 
   useEffect(() => {

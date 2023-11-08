@@ -98,6 +98,17 @@ const AwardDetail = ({ selectedPostId }) => {
                 <img id="detail_photo2" src={post.photo2} />
               </div>
             </div>
+
+            <div id="detail_btnbox">
+              <img
+                id="likebtn"
+                src={process.env.PUBLIC_URL + "/images/like_off.png"}
+              />
+              <img
+                id="scrapbtn"
+                src={process.env.PUBLIC_URL + "/images/scrap_on.png"}
+              />
+            </div>
           </PostBox>
         ))}
     </div>

@@ -2,6 +2,8 @@
   overflow-x: hidden;
   overflow-y: scroll;
   max-height: 78vh;
+  margin-left: 10px;
+  margin-right: 10px;
 }
 
 #detail_header {

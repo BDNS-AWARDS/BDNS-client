@@ -55,10 +55,13 @@ const Posting = () => {
     setTagBarVisible(!tagBarVisible);
   };
 
+  //해시태그 부모-자식 연결 부분
   const [selectedTag, setSelectedTag] = useState(0);
 
   const handleTagClick = (tagnum) => {
-    setSelectedTag(tagnum); // 선택한 해시태그의 tagnum을 업데이트
+    //해시태그 부모-자식 연결 함수!!!!
+    setSelectedTag(tagnum);
+    console.log(tagnum);
   };
 
   return (
@@ -78,7 +81,7 @@ const Posting = () => {
         </div>
 
         <div id="posting_hashtag" onClick={toggleTagBar}>
-          <HashTag id="post_hastag_component" tagnum={0} />
+          <HashTag id="post_hastag_component" tagnum={selectedTag} />
           <span id="post_hashtag_span">부문</span>
         </div>
 
@@ -125,7 +128,8 @@ const Posting = () => {
         }}
       />
       <div id="posting_tagbar" className={tagBarVisible ? "visible" : "hidden"}>
-        <TagBar onTagClick={handleTagClick} />
+        <TagBar handleTagClick={handleTagClick} />
+        {/* 해시태그 연결함수 사용 */}
       </div>
     </div>
   );

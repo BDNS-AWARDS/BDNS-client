@@ -49,7 +49,7 @@ const MiniProfile = () => {
           <ProfileImg
             src={
               userInfo.profilePicture ||
-              process.env.PUBLIC_URL + "./images/profile.png"
+              process.env.PUBLIC_URL + "/images/profile.png"
             }
             alt="프로필 사진"
           />

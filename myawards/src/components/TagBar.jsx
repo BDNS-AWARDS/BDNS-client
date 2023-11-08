@@ -13,10 +13,11 @@ const TagBarDiv = styled.div`
   justify-content: center;
 `;
 
-const TagBar = () => {
-  const handleTagClick = (tagnum) => {
-    console.log(`Clicked tagnum: ${tagnum}`);
-  };
+const TagBar = (props) => {
+  function hashtagClick(tagnum) {
+    props.handleTagClick(tagnum); // tagnum을 전달
+    console.log(tagnum);
+  }
 
   return (
     <TagBarDiv media>
@@ -26,48 +27,48 @@ const TagBar = () => {
           marginTop: "25px",
         }}
       >
-        <HashTag tagnum={1} onClick={() => handleTagClick(1)} />
-        <HashTag tagnum={2} onClick={() => handleTagClick(2)} />
-        <HashTag tagnum={3} onClick={() => handleTagClick(3)} />
-        <HashTag tagnum={4} onClick={() => handleTagClick(4)} />
+        <HashTag tagnum={1} onClick={() => hashtagClick(1)} />
+        <HashTag tagnum={2} onClick={() => hashtagClick(2)} />
+        <HashTag tagnum={3} onClick={() => hashtagClick(3)} />
+        <HashTag tagnum={4} onClick={() => hashtagClick(4)} />
       </div>
       <div
         style={{
           display: "flex",
         }}
       >
-        <HashTag tagnum={5} onClick={() => handleTagClick(5)} />
-        <HashTag tagnum={6} onClick={() => handleTagClick(6)} />
-        <HashTag tagnum={7} onClick={() => handleTagClick(7)} />
-        <HashTag tagnum={8} onClick={() => handleTagClick(8)} />
+        <HashTag tagnum={5} onClick={() => hashtagClick(5)} />
+        <HashTag tagnum={6} onClick={() => hashtagClick(6)} />
+        <HashTag tagnum={7} onClick={() => hashtagClick(7)} />
+        <HashTag tagnum={8} onClick={() => hashtagClick(8)} />
       </div>
       <div
         style={{
           display: "flex",
         }}
       >
-        <HashTag tagnum={9} onClick={() => handleTagClick(9)} />
-        <HashTag tagnum={10} onClick={() => handleTagClick(10)} />
-        <HashTag tagnum={11} onClick={() => handleTagClick(11)} />
+        <HashTag tagnum={9} onClick={() => hashtagClick(9)} />
+        <HashTag tagnum={10} onClick={() => hashtagClick(10)} />
+        <HashTag tagnum={11} onClick={() => hashtagClick(11)} />
       </div>
       <div
         style={{
           display: "flex",
         }}
       >
-        <HashTag tagnum={12} onClick={() => handleTagClick(12)} />
-        <HashTag tagnum={13} onClick={() => handleTagClick(13)} />
-        <HashTag tagnum={14} onClick={() => handleTagClick(14)} />
-        <HashTag tagnum={15} onClick={() => handleTagClick(15)} />
+        <HashTag tagnum={12} onClick={() => hashtagClick(12)} />
+        <HashTag tagnum={13} onClick={() => hashtagClick(13)} />
+        <HashTag tagnum={14} onClick={() => hashtagClick(14)} />
+        <HashTag tagnum={15} onClick={() => hashtagClick(15)} />
       </div>
       <div
         style={{
           display: "flex",
         }}
       >
-        <HashTag tagnum={16} onClick={() => handleTagClick(16)} />
-        <HashTag tagnum={17} onClick={() => handleTagClick(17)} />
-        <HashTag tagnum={18} onClick={() => handleTagClick(18)} />
+        <HashTag tagnum={16} onClick={() => hashtagClick(16)} />
+        <HashTag tagnum={17} onClick={() => hashtagClick(17)} />
+        <HashTag tagnum={18} onClick={() => hashtagClick(18)} />
       </div>
       <div
         style={{
@@ -75,10 +76,10 @@ const TagBar = () => {
           marginBottom: "25px",
         }}
       >
-        <HashTag tagnum={19} onClick={() => handleTagClick(19)} />
-        <HashTag tagnum={20} onClick={() => handleTagClick(20)} />
-        <HashTag tagnum={21} onClick={() => handleTagClick(21)} />
-        <HashTag tagnum={22} onClick={() => handleTagClick(22)} />
+        <HashTag tagnum={19} onClick={() => hashtagClick(19)} />
+        <HashTag tagnum={20} onClick={() => hashtagClick(20)} />
+        <HashTag tagnum={21} onClick={() => hashtagClick(21)} />
+        <HashTag tagnum={22} onClick={() => hashtagClick(22)} />
       </div>
     </TagBarDiv>
   );
