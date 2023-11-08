@@ -11,6 +11,12 @@ const NavBarDiv = styled.div`
   left: 0;
   display: flex;
   justify-content: space-between;
+  left: 50%;
+  transform: translate(-50%, 0);
+
+  @media (min-width: 460px) {
+    max-width: 450px;
+  }
 `;
 
 const NavBar = () => {

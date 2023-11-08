@@ -6,7 +6,7 @@ import MiniProfile from "../components/MiniProfile";
 import AwardDetail from "../components/AwardDetail";
 import NavBar from "../components/NavBar";
 
-function MyAward() {
+function EditMyPost() {
   const { postId } = useParams();
   useEffect(() => {
     console.log(postId);
@@ -34,9 +34,9 @@ function MyAward() {
           <AwardDetail selectedPostId={postId} />
         </div>
       </div>
-      <NavBar />
+      <button id="editmypost_btn">수정하기</button>
     </div>
   );
 }
 
-export default MyAward;
+export default EditMyPost;

@@ -56,6 +56,8 @@ const Posting = ({ tagnum }) => {
   const [contents, setContents] = useState("");
   const [postImage, setPostImage] = useState("post_off.png");
   const [tagBarVisible, setTagBarVisible] = useState(false);
+  const [selectedTag, setSelectedTag] = useState(0);
+  const [imageFiles, setImageFiles] = useState([null, null]);
 
   useEffect(() => {
     axios.get("http://localhost:8000/hashtag").then((response) => {
@@ -85,18 +87,44 @@ const Posting = ({ tagnum }) => {
     }
   };
 
-  const toggleTagBar = () => {
-    setTagBarVisible(!tagBarVisible);
-    console.log("태그바 눌림");
+  const handleImageFileChange = (index, file) => {
+    const newImageFiles = [...imageFiles];
+    newImageFiles[index] = file;
+    setImageFiles(newImageFiles);
   };
 
-  //해시태그 부모-자식 연결 부분
-  const [selectedTag, setSelectedTag] = useState(0);
+  const toggleTagBar = () => {
+    setTagBarVisible(true);
+  };
+
+  const TagBarClick = () => {
+    if (tagBarVisible) {
+      setTagBarVisible(false);
+    }
+  };
 
   const handleTagClick = (tagnum) => {
-    //해시태그 부모-자식 연결 함수!!!!
     setSelectedTag(tagnum);
     console.log(tagnum);
+  };
+
+  const handleSubmit = () => {
+    if (title && contents) {
+      axios
+        .post("http://localhost:8000/postInfo", {
+          title: title,
+          contents: contents,
+          hashtag: selectedTag,
+        })
+        .then((response) => {
+          alert("제출되었습니다.");
+        })
+        .catch((error) => {
+          alert("서버와의 통신 중 오류가 발생했습니다.");
+        });
+    } else {
+      alert("수상 제목과 내용을 모두 입력하세요.");
+    }
   };
 
   return (
@@ -144,7 +172,6 @@ const Posting = ({ tagnum }) => {
             />
           </div>
           <br />
-
           <CustomFileInputButton />
         </form>
       </div>
@@ -154,17 +181,14 @@ const Posting = ({ tagnum }) => {
         id="posting_btn"
         src={process.env.PUBLIC_URL + `./images/${postImage}`}
         alt="등록버튼"
-        onClick={() => {
-          if (title && contents) {
-            alert("제출되었습니다.");
-          } else {
-            alert("수상 제목과 내용을 모두 입력하세요.");
-          }
-        }}
+        onClick={handleSubmit}
       />
-      <div id="posting_tagbar" className={tagBarVisible ? "visible" : "hidden"}>
+      <div
+        id="posting_tagbar"
+        className={tagBarVisible ? "visible" : "hidden"}
+        onClick={TagBarClick}
+      >
         <TagBar handleTagClick={handleTagClick} />
-        {/* 해시태그 연결함수 사용 */}
       </div>
     </div>
   );
