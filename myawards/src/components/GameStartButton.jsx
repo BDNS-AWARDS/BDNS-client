@@ -9,8 +9,8 @@ const StyledButton = styled.button`
   padding: 10px 20px;
   font-family: "CinemaB", sans-serif;
   font-size: 20px;
+  margin-left:47px;
   margin-top:30px;
-  margin-bottom:30px;
   width:352px;
   height:62px;
   cursor: ${(props) => (props.disabled ? "not-allowed" : "pointer")};

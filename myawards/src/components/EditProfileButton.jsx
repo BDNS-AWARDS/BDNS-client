@@ -13,8 +13,8 @@ const Image = styled.img`
   height: 61px;
 `;
 
-const EditNameButton = ({ isActive, onClick }) => {
-  const buttonImage = isActive ? "images/nickchange_on.png" : "images/nickchange_off.png";
+const EditProfileButton = ({ isActive, onClick }) => {
+  const buttonImage = isActive ? "images/editprofile_on.png" : "images/editprofile_off.png";
 
   return (
     <div>
@@ -25,4 +25,4 @@ const EditNameButton = ({ isActive, onClick }) => {
   );
 };
 
-export default EditNameButton;
+export default EditProfileButton;

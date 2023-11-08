@@ -1,36 +1,93 @@
-#logo {
-    align-self: flex-start; /*로고 왼쪽 정렬*/
-}
-
 #gamebox {
     background-color: #8a0b0b;
-    height: 100%;
-    margin-top: -20px;
-    display: flex;
-    flex-direction: column;
+    height: 100vh; /* 화면 높이의 100%로 설정 */
+    margin: 0; /* body의 margin 제거 */
+    align-items: auto;
+    justify-content: center; 
     align-items: center;
-    justify-content: center;
   }
 
-.mic {
-    width:276px;
-    height:276px;
+#topicimage {
+  width:280px;
+  height:74px;
+  margin-left:-45px;
+  position:absolute;
 }
 
-#middletitle {
+.gametitle {
+    width:344px;
+    height:65px;
+    margin-left:40px;
+    margin-top:50px;
+}
+
+#resulttitle {
+  font-family: "Santokki", sans-serif;
+  font-size: 52px;
+  color: #f7cc44;
+  text-align: center;
+  margin-top: 20px;
+  -webkit-text-stroke: 1px #000;
+}
+
+
+#mic {
+    width:276px;
+    height:276px;
+    justify-content: center; align-items: center;
+    margin-top:30px;
+}
+
+#topic_result {
   font-family: "Santokki", sans-serif;
   font-size: 28px;
   color: #f7cc44;
-  text-align: flex-start;
-  margin-top: 10px;
-  -webkit-text-stroke: 0.7px #000;
+  text-align: left;
+  margin-top: 30px;
+  margin-left:70px;
+  -webkit-text-stroke: 1px #000;
 }
 
-#button {
+#hashtag-box {
+    font-family: "CinemaB", sans-serif;
+    width: 234px;
+    height: 46px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+    margin-left:100px;
+    justify-content: center; align-items: center;
+  }
+  
+  #hashtag-text {
+    font-family: "CinemaB", sans-serif;
+    font-size:16px;
+    color:#000;
+    position: absolute;
+    margin-top:17px;
+  }
+  
+
+#nameresult {
+    font-family: "Santokki", sans-serif;
+    font-size: 28px;
+    color: #f7cc44;
+    text-align: flex-start;
+    margin-top: 80px;
+    margin-left:115px;
+    -webkit-text-stroke: 1px #000;
+    justify-content: center; align-items: center;
+}
+
+#nextbutton {
     width: 352px;
     height: 61px;
     border: none;
     background: none;
+    margin-bottom: -30px;
+    margin-left:41px;
+
 }
   
   
