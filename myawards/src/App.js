@@ -7,18 +7,18 @@ import Posting from "./pages/Posting";
 import GameStart from "./pages/GameStart";
 import GameResult from "./pages/GameResult";
 import MyPage from "./pages/MyPage";
+import MyAward from "./pages/MyAward";
+import MyScrap from "./pages/MyScrap";
 import EditProfile from "./pages/EditProfile";
 import React, { useEffect } from "react";
 
 function App() {
   useEffect(() => {
-    // 페이지가 렌더링된 후 페이지 내용의 높이를 계산합니다
     const pageContent = document.getElementById("page-content");
     if (pageContent) {
       const pageHeight = pageContent.scrollHeight;
       const windowHeight = window.innerHeight;
 
-      // 페이지 내용의 높이가 화면 높이보다 큰 경우 스크롤을 활성화합니다
       if (pageHeight > windowHeight) {
         pageContent.style.overflowY = "scroll";
       }
@@ -33,6 +33,8 @@ function App() {
       <Route path="/gamestart" element={<GameStart />}></Route>
       <Route path="/gameresult" element={<GameResult />}></Route>
       <Route path="/mypage" element={<MyPage />}></Route>
+      <Route path="/myaward/:postId" element={<MyAward />}></Route>
+      <Route path="/myscrap/:postId" element={<MyScrap />}></Route>
       <Route path="/editprofile" element={<EditProfile />}></Route>
     </Routes>
   );

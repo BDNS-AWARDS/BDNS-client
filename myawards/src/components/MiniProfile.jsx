@@ -5,7 +5,7 @@ import axios from "axios";
 const Nickname = styled.p`
   font-family: "CinemaM";
   color: #ffffff;
-  font-size: 15px;
+  font-size: 16px;
   display: inline-block;
   margin-left: 5px;
   padding-bottom: 20px;
@@ -29,13 +29,13 @@ const MiniProfileDiv = styled.div`
 `;
 
 const MiniProfile = () => {
-  const [userInfo, setUserInfo] = useState([]); // 객체로 초기화
+  const [userInfo, setUserInfo] = useState([]);
 
   useEffect(() => {
     axios
       .get("http://localhost:8000/userInfo")
       .then((response) => {
-        setUserInfo(response.data); // 배열의 첫 번째 요소를 가져옴
+        setUserInfo(response.data);
       })
       .catch((error) => {
         console.error("사용자 정보를 가져오는 중 오류가 발생했습니다.", error);
@@ -49,7 +49,7 @@ const MiniProfile = () => {
           <ProfileImg
             src={
               userInfo.profilePicture ||
-              process.env.PUBLIC_URL + "./images/profile.png"
+              process.env.PUBLIC_URL + "/images/profile.png"
             }
             alt="프로필 사진"
           />

@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import "../css/fonts/font.css";
 
@@ -25,10 +26,14 @@ const StyledLogo = styled.div`
 
 const Logo = () => {
   return (
-    <StyledLogo>
-      <LogoTxt>올해의 마이 어워즈</LogoTxt>
-      <LogoImg src={process.env.PUBLIC_URL + "./images/medal.png"} />
-    </StyledLogo>
+    <>
+      <Link to="/mainpage">
+        <StyledLogo>
+          <LogoTxt>올해의 마이 어워즈</LogoTxt>
+          <LogoImg src={process.env.PUBLIC_URL + "/images/medal.png"} />
+        </StyledLogo>
+      </Link>
+    </>
   );
 };
 
