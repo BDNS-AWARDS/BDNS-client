@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
 
@@ -44,22 +45,24 @@ const MiniProfile = () => {
 
   return (
     <div>
-      <MiniProfileDiv>
-        <PIContainer>
-          <ProfileImg
-            src={
-              userInfo.profilePicture ||
-              process.env.PUBLIC_URL + "/images/profile.png"
-            }
-            alt="프로필 사진"
-          />
-        </PIContainer>
-        {userInfo
-          .filter((userInfo) => userInfo.id === 0)
-          .map((userInfo) => (
-            <Nickname>{userInfo.nickname}</Nickname>
-          ))}
-      </MiniProfileDiv>
+      <Link to="/editprofile">
+        <MiniProfileDiv>
+          <PIContainer>
+            <ProfileImg
+              src={
+                userInfo.profilePicture ||
+                process.env.PUBLIC_URL + "/images/profile.png"
+              }
+              alt="프로필 사진"
+            />
+          </PIContainer>
+          {userInfo
+            .filter((userInfo) => userInfo.id === 0)
+            .map((userInfo) => (
+              <Nickname>{userInfo.nickname}</Nickname>
+            ))}
+        </MiniProfileDiv>
+      </Link>
     </div>
   );
 };

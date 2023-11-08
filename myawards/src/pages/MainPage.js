@@ -20,7 +20,13 @@ function MainPage({ tagnum }) {
   }, [tagnum]);
 
   const toggleTagBar = () => {
-    setTagBarVisible(!tagBarVisible);
+    setTagBarVisible(true);
+  };
+
+  const TagBarClick = () => {
+    if (tagBarVisible) {
+      setTagBarVisible(false);
+    }
   };
 
   //해시태그 부모-자식 연결 부분
@@ -49,7 +55,11 @@ function MainPage({ tagnum }) {
       <div id="main_post_div">
         <MainPost />
       </div>
-      <div id="main_tagbar" className={tagBarVisible ? "visible" : "hidden"}>
+      <div
+        id="main_tagbar"
+        className={tagBarVisible ? "visible" : "hidden"}
+        onClick={TagBarClick}
+      >
         <TagBar handleTagClick={handleTagClick} />
       </div>
       <NavBar />

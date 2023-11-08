@@ -86,8 +86,13 @@ const Posting = ({ tagnum }) => {
   };
 
   const toggleTagBar = () => {
-    setTagBarVisible(!tagBarVisible);
-    console.log("태그바 눌림");
+    setTagBarVisible(true);
+  };
+
+  const TagBarClick = () => {
+    if (tagBarVisible) {
+      setTagBarVisible(false);
+    }
   };
 
   //해시태그 부모-자식 연결 부분
@@ -162,7 +167,11 @@ const Posting = ({ tagnum }) => {
           }
         }}
       />
-      <div id="posting_tagbar" className={tagBarVisible ? "visible" : "hidden"}>
+      <div
+        id="posting_tagbar"
+        className={tagBarVisible ? "visible" : "hidden"}
+        onClick={TagBarClick}
+      >
         <TagBar handleTagClick={handleTagClick} />
         {/* 해시태그 연결함수 사용 */}
       </div>

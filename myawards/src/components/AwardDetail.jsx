@@ -45,8 +45,18 @@ const PostProfileDiv = styled.div`
   margin-bottom: -15px;
 `;
 
+const LikeBtn = styled.img`
+  cursor: pointer;
+`;
+
+const ScrapBtn = styled.img`
+  cursor: pointer;
+`;
+
 const AwardDetail = ({ selectedPostId }) => {
   const [postInfo, setPostInfo] = useState([]);
+  const [isLiked, setIsLiked] = useState(false);
+  const [isScrapped, setIsScrapped] = useState(false);
 
   useEffect(() => {
     axios
@@ -59,6 +69,16 @@ const AwardDetail = ({ selectedPostId }) => {
         console.error("사용자 정보를 가져오는 중 오류가 발생했습니다.", error);
       });
   }, [selectedPostId]);
+
+  const handleLikeClick = () => {
+    // 좋아요 버튼 클릭 시 상태 토글
+    setIsLiked(!isLiked);
+  };
+
+  const handleScrapClick = () => {
+    // 스크랩 버튼 클릭 시 상태 토글
+    setIsScrapped(!isScrapped);
+  };
 
   return (
     <div id="detail_box">
@@ -100,13 +120,23 @@ const AwardDetail = ({ selectedPostId }) => {
             </div>
 
             <div id="detail_btnbox">
-              <img
+              <LikeBtn
                 id="likebtn"
-                src={process.env.PUBLIC_URL + "/images/like_off.png"}
+                src={
+                  isLiked
+                    ? process.env.PUBLIC_URL + "/images/like_on.png"
+                    : process.env.PUBLIC_URL + "/images/like_off.png"
+                }
+                onClick={handleLikeClick}
               />
-              <img
+              <ScrapBtn
                 id="scrapbtn"
-                src={process.env.PUBLIC_URL + "/images/scrap_on.png"}
+                src={
+                  isScrapped
+                    ? process.env.PUBLIC_URL + "/images/scrap_on.png"
+                    : process.env.PUBLIC_URL + "/images/scrap_off.png"
+                }
+                onClick={handleScrapClick}
               />
             </div>
           </PostBox>
