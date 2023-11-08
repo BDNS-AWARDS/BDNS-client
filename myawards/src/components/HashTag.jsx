@@ -9,7 +9,7 @@ const HashTagDiv = styled.div`
   border-radius: 15px;
   padding: 0px 5px;
   width: auto;
-  height: 24px;
+  height: 23px;
   text-align: center;
   display: inline-block;
   vertical-align: middle;
@@ -23,9 +23,14 @@ const HashTagP = styled.p`
   -webkit-text-stroke: 0.01cm black;
   margin-top: 4px;
   margin-right: 3px;
+  white-space: nowrap;
+
+  @media (max-width: 410px) {
+    font-size: 12px;
+  }
 `;
 
-const HashTag = ({ tagnum }) => {
+const HashTag = ({ tagnum, onClick }) => {
   const [hashtag, setHashtag] = useState([]);
 
   useEffect(() => {
@@ -34,9 +39,16 @@ const HashTag = ({ tagnum }) => {
     });
   }, [tagnum]);
 
+  const handleClick = () => {
+    // 클릭 이벤트 처리 함수를 호출하고 tagnum을 전달
+    if (onClick) {
+      onClick(tagnum);
+    }
+  };
+
   return (
     <div>
-      <HashTagDiv>
+      <HashTagDiv onClick={handleClick}>
         {hashtag.map((tag) => (
           <HashTagP key={tag.id}>{tag.tagname}</HashTagP>
         ))}

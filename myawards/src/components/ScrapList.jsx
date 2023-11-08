@@ -31,15 +31,14 @@ const CinemaMSpan = styled.span`
   color: #000000;
   white-space: nowrap;
   text-overflow: ellipsis;
-  overflow: hidden;
 `;
 
-const MyList = () => {
+const ScrapList = () => {
   const [postInfo, setPostInfo] = useState([]);
 
   const handleListClick = (postId) => {
     console.log("클릭한 요소의 post.id:", postId);
-    window.location = `/myaward/${postId}`;
+    window.location = `/myscrap/${postId}`;
   };
 
   useEffect(() => {
@@ -68,4 +67,4 @@ const MyList = () => {
   );
 };
 
-export default MyList;
+export default ScrapList;

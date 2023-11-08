@@ -4,8 +4,20 @@
   margin-top: -20px;
 }
 
+#mydetail_box {
+  background-color: #8a0b0b;
+  height: 100vh;
+  margin-top: -20px;
+}
+
 #awardlist_box {
   height: 400px;
+}
+
+#mypage_header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: -10px;
 }
 
 #mypage_title {
@@ -33,7 +45,18 @@
 }
 
 #mypage_profile {
-  position: absolute;
-  top: 105px;
-  right: 30px;
+  margin-right: 40px;
+  margin-top: 5px;
+}
+
+#mylist_scrollbox {
+  overflow-x: scroll;
+  overflow-y: scroll;
+  max-height: 320px;
+}
+
+#scraplist_scrollbox {
+  overflow-x: scroll;
+  overflow-y: scroll;
+  max-height: 260px;
 }

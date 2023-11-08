@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-// import PostProfile from "./PostProfile";
+import "../css/PostDetail.css";
 import axios from "axios";
 import HashTag from "../components/HashTag";
 
@@ -47,23 +47,40 @@ const PostProfileDiv = styled.div`
 
 const MainPost = () => {
   const [postInfo, setPostInfo] = useState([]);
+  const [postStates, setPostStates] = useState([]);
 
   useEffect(() => {
     axios
       .get("http://localhost:8000/postInfo")
       .then((response) => {
         setPostInfo(response.data);
+        // 게시물 상태 배열 초기화
+        setPostStates(
+          response.data.map(() => ({ likebtn: false, scrapbtn: false }))
+        );
       })
       .catch((error) => {
         console.error("사용자 정보를 가져오는 중 오류가 발생했습니다.", error);
       });
   }, []);
 
+  const handleLikeClick = (index) => {
+    // 특정 게시물의 좋아요 상태를 토글
+    const updatedPostStates = [...postStates];
+    updatedPostStates[index].likebtn = !updatedPostStates[index].likebtn;
+    setPostStates(updatedPostStates);
+  };
+
+  const handleScrapClick = (index) => {
+    // 특정 게시물의 스크랩 상태를 토글
+    const updatedPostStates = [...postStates];
+    updatedPostStates[index].scrapbtn = !updatedPostStates[index].scrapbtn;
+    setPostStates(updatedPostStates);
+  };
+
   return (
-    <div
-      style={{ overflowX: "hidden", overflowY: "scroll", maxHeight: "90vh" }}
-    >
-      {postInfo.map((post) => (
+    <div id="detail_box">
+      {postInfo.map((post, index) => (
         <PostBox>
           <PostProfileDiv>
             <PIContainer>
@@ -75,45 +92,48 @@ const MainPost = () => {
                 alt="프로필 사진"
               />
             </PIContainer>
-            <div style={{ display: "inline-block" }}>
+            <div id="detail_header">
               <Nickname>{post.nickname}</Nickname>
-              <p
-                style={{
-                  fontSize: "12px",
-                  display: "block",
-                  marginLeft: "5px",
-                }}
-              >
-                {post.date}
-              </p>
+              <p id="detail_header_p">{post.date}</p>
             </div>
           </PostProfileDiv>
 
-          <div
-            style={{
-              display: "flex",
-              position: "relative",
-              top: "-35px",
-              left: "65%",
-              marginBottom: "-25px",
-              gap: "3px",
-            }}
-          >
-            <HashTag tagnum={post.hashtag} style={{ marginRight: "5px" }} />
+          <div id="detail_hashtag_div">
+            <HashTag tagnum={post.hashtag} />
             <img
+              id="detail_menuimg"
               src={process.env.PUBLIC_URL + "./images/menubar.png"}
-              style={{
-                width: "20px",
-                height: "20px",
-                paddingTop: "3px",
-                paddingLeft: "-4px",
-              }}
             />
           </div>
 
-          <div style={{ marginLeft: "30px" }}>
-            <p style={{ fontSize: "16px" }}>{post.title}</p>
-            <p style={{ fontSize: "12px" }}>{post.contents}</p>
+          <div id="detail_contentbox">
+            <p id="detail_title">{post.title}</p>
+            <p id="detail_contents">{post.contents}</p>
+            <div id="detail_imgcontainer">
+              <img id="detail_photo1" src={post.photo1} />
+              <img id="detail_photo2" src={post.photo2} />
+            </div>
+          </div>
+
+          <div id="detail_btnbox">
+            <img
+              id="likebtn"
+              src={
+                postStates[index].likebtn
+                  ? process.env.PUBLIC_URL + "./images/like_on.png"
+                  : process.env.PUBLIC_URL + "./images/like_off.png"
+              }
+              onClick={() => handleLikeClick(index)}
+            />
+            <img
+              id="scrapbtn"
+              src={
+                postStates[index].scrapbtn
+                  ? process.env.PUBLIC_URL + "./images/scrap_on.png"
+                  : process.env.PUBLIC_URL + "./images/scrap_off.png"
+              }
+              onClick={() => handleScrapClick(index)}
+            />
           </div>
         </PostBox>
       ))}
