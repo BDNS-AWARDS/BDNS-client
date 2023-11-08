@@ -5,11 +5,12 @@ const StyledButton=styled.button`
     font-family: "CinemaB", sans-serif;
     font-size: 20px;
     margin-top:400px;
-    margin-bottom:30px;
     bottom: 0;
     left: 0;
     right: 0;
     text-align: center;
+    background:none;
+    border:none;
 `;
 
 const Image=styled.img`
