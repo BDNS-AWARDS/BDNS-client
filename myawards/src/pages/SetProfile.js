@@ -32,7 +32,7 @@ const SetProfile = () => {
     // 여기에서 닉네임 중복 확인 로직을 구현
     try {
       // 예를 들어, 서버에서 닉네임 중복을 확인하는 요청을 보냅니다.
-      const response = await axios.post("서버의 API 엔드포인트 URL", {
+      const response = await axios.post("http://localhost:8000/userInfo", {
         nickname: inputValue,
       });
 
@@ -46,6 +46,7 @@ const SetProfile = () => {
     } catch (error) {
       // 오류 처리
       console.error("서버 요청 오류:", error);
+      setIsSuccess(false); // 서버 요청 오류 시도 실패 모달 표시
     }
 
     // 모달 표시

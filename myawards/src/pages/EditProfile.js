@@ -5,7 +5,7 @@ import "../css/SetProfile.css";
 import styled from "styled-components";
 import CheckButton from "../components/CheckButton";
 import CheckModal from "../components/CheckModal";
-import EditNameButton from "../components/EditNameButton";
+import EditProfileButton from "../components/EditProfileButton";
 
 const InputContainer = styled.div`
   display: flex;
@@ -130,7 +130,7 @@ const EditProfile = () => {
         <br />올 한해 고생 많으셨습니다. 내년은 더 행복하세요:)
       </p>
       <img id="letter" src="images/letter.png" alt="letter" />
-      <EditNameButton
+      <EditProfileButton
         isActive={isEditNameButtonEnabled}
         onClick={handleStartButtonClick}
       />

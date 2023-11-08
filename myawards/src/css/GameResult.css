@@ -3,7 +3,23 @@
     height: 100vh; /* 화면 높이의 100%로 설정 */
     margin: 0; /* body의 margin 제거 */
     align-items: auto;
+    justify-content: center; 
+    align-items: center;
   }
+
+#topicimage {
+  width:280px;
+  height:74px;
+  margin-left:-45px;
+  position:absolute;
+}
+
+.gametitle {
+    width:344px;
+    height:65px;
+    margin-left:40px;
+    margin-top:50px;
+}
 
 #resulttitle {
   font-family: "Santokki", sans-serif;
@@ -15,9 +31,11 @@
 }
 
 
-.mic {
+#mic {
     width:276px;
     height:276px;
+    justify-content: center; align-items: center;
+    margin-top:30px;
 }
 
 #topic_result {
@@ -25,27 +43,29 @@
   font-size: 28px;
   color: #f7cc44;
   text-align: left;
-  margin-top: 10px;
-  margin-right:230px;
+  margin-top: 30px;
+  margin-left:70px;
   -webkit-text-stroke: 1px #000;
 }
 
 #hashtag-box {
     font-family: "CinemaB", sans-serif;
-    background-color: #E7DBDB; /* 원하는 배경색 */
     width: 234px;
     height: 46px;
-    border-radius: 10px; /* 모서리 둥글게 */
     display: flex;
     justify-content: center;
     align-items: center;
     margin-bottom: 20px;
+    margin-left:100px;
+    justify-content: center; align-items: center;
   }
   
   #hashtag-text {
     font-family: "CinemaB", sans-serif;
     font-size:16px;
     color:#000;
+    position: absolute;
+    margin-top:17px;
   }
   
 
@@ -54,8 +74,10 @@
     font-size: 28px;
     color: #f7cc44;
     text-align: flex-start;
-    margin-top: 10px;
+    margin-top: 80px;
+    margin-left:115px;
     -webkit-text-stroke: 1px #000;
+    justify-content: center; align-items: center;
 }
 
 #nextbutton {
@@ -64,6 +86,7 @@
     border: none;
     background: none;
     margin-bottom: -30px;
+    margin-left:41px;
 
 }
   

@@ -5,7 +5,7 @@ import { useLocation } from "react-router-dom";
 import Logo from "../components/Logo";
 
 const StyledButton = styled.button`
-  margin-top: 20px;
+  margin-top: 45px;
   border: none;
   background: none;
 `;
@@ -68,12 +68,14 @@ const GameResult = () => {
   return (
     <div id="gamebox">
       <Logo id="resultlogo" />
-      <p id="resulttitle">어워즈 발표 게임</p>
-      <img className="mic" src="images/mic.png" alt="mic" />
+      <img id="gametitle" src="images/game_title.png" alt="gametitle" />
+      <img id="mic" src="images/mic.png" alt="mic" />
+
       <p id="topic_result">어워즈 주제</p>
       <div id="hashtag-container">
         {randomHashtag && (
           <div id="hashtag-box">
+            <img id="topicimage" src="images/topic.png" alt="topic" />
             <div id="hashtag-text">{`#${randomHashtag}`}</div>
           </div>
         )}
