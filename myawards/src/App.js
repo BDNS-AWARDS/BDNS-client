@@ -9,6 +9,7 @@ import GameResult from "./pages/GameResult";
 import MyPage from "./pages/MyPage";
 import MyAward from "./pages/MyAward";
 import MyScrap from "./pages/MyScrap";
+import EditMyPost from "./pages/EditMyPost";
 import EditProfile from "./pages/EditProfile";
 import React, { useEffect } from "react";
 
@@ -35,6 +36,7 @@ function App() {
       <Route path="/mypage" element={<MyPage />}></Route>
       <Route path="/myaward/:postId" element={<MyAward />}></Route>
       <Route path="/myscrap/:postId" element={<MyScrap />}></Route>
+      <Route path="/editmypost" element={<EditMyPost />}></Route>
       <Route path="/editprofile" element={<EditProfile />}></Route>
     </Routes>
   );

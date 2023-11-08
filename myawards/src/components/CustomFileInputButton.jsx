@@ -6,7 +6,7 @@ class CustomFileInputButton extends React.Component {
     super(props);
     this.fileInputRef = React.createRef();
     this.state = {
-      selectedImages: [], // 이미지 배열
+      selectedImages: [],
     };
   }
 
@@ -21,7 +21,7 @@ class CustomFileInputButton extends React.Component {
         URL.createObjectURL(file)
       );
       this.setState((prevState) => ({
-        selectedImages: [...prevState.selectedImages, ...newImages].slice(0, 2), // 최대 두 장까지
+        selectedImages: [...prevState.selectedImages, ...newImages].slice(0, 2),
       }));
     }
   };
@@ -42,7 +42,7 @@ class CustomFileInputButton extends React.Component {
           style={{ display: "none" }}
           ref={this.fileInputRef}
           onChange={this.handleFileChange}
-          multiple // 여러 파일 선택을 가능하게 함
+          multiple
         />
         <img
           src={process.env.PUBLIC_URL + "/images/inputfile.png"}

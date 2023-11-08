@@ -44,6 +44,11 @@ body {
   margin: 0 auto;
   overflow-x: hidden;
   border: 1px solid grey;
+  -ms-overflow-style: none;
+}
+
+::-webkit-scrollbar {
+  display: none;
 }
 
 /* 미디어 쿼리 - PC 화면 크기 조정*/

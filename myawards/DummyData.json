@@ -3,12 +3,12 @@
     {
       "id": 0,
       "nickname": "당훈이형너무좋아너무",
-      "profilePicture": ""
+      "profilePicture": "/images/setprofile_bg.png"
     },
     {
       "id": 1,
       "nickname": "빠더너스",
-      "profilePicture": ""
+      "profilePicture": "/images/setprofile_bg.png"
     }
   ],
   "postInfo": [
@@ -99,6 +99,24 @@
       "contents": "남자친구에게 100일 기념으로 선물을 해주고 싶어서 폴로셔츠를 샀다. 너무 잘어울렸고 남자친구가 고맙다고 글썽였다ㅋㅋㅋㅋㅋ 하 귀엽네 다음에 더 좋은 거 사줘야지:)",
       "photo1": null,
       "photo2": null
+    },
+    {
+      "title": "내년의 나는 무얼 하고 있을까",
+      "contents": "맛있는 거 먹고 있겠쥐",
+      "hashtag": 22,
+      "id": 8
+    },
+    {
+      "id": 9
+    },
+    {
+      "id": 10
+    },
+    {
+      "title": "올해의 후회는",
+      "contents": "오늘 칼국수 남긴거",
+      "hashtag": 13,
+      "id": 11
     }
   ],
   "hashtag": [
