@@ -71,12 +71,10 @@ const AwardDetail = ({ selectedPostId }) => {
   }, [selectedPostId]);
 
   const handleLikeClick = () => {
-    // 좋아요 버튼 클릭 시 상태 토글
     setIsLiked(!isLiked);
   };
 
   const handleScrapClick = () => {
-    // 스크랩 버튼 클릭 시 상태 토글
     setIsScrapped(!isScrapped);
   };
 
