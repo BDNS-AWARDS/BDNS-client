@@ -135,15 +135,17 @@ const SetProfile = () => {
           <img id="photo" src="images/addphoto.png" alt="photo" />
         </PhotoButton>
       </div>
-      <p id="paragragh">
-        '올해의 마이 어워즈 2023'을 이용해 주셔서 감사합니다.
-        <br />
-        올해의 추억을 돌아보는 과정 속에서 여러분들의 입가에
-        <br />
-        미소를 띄울 수 있는 서비스가 되었으면 좋겠습니다.
-        <br />
-        <br />올 한해 고생 많으셨습니다. 내년은 더 행복하세요:)
-      </p>
+      <div id="paragraghcontainer">
+        <p id="paragragh">
+          '올해의 마이 어워즈 2023'을 이용해 주셔서 감사합니다.
+          <br />
+          올해의 추억을 돌아보는 과정 속에서 여러분들의 입가에
+          <br />
+          미소를 띄울 수 있는 서비스가 되었으면 좋겠습니다.
+          <br />
+          <br />올 한해 고생 많으셨습니다. 내년은 더 행복하세요:)
+        </p>
+      </div>
       <img id="letter" src="images/letter.png" alt="letter" />
       <StartButton
         isEnabled={inputValue.trim() !== "" && isProfileSelected && isSuccess}

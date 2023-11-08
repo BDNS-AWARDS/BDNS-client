@@ -1,7 +1,7 @@
 #gametitle {
-  width:344px;
-  height:65px;
-  margin-left:40px;
+  width:80%;
+  height:auto;
+  margin-left:7%;
   margin-top:10px;
 }
 
@@ -9,7 +9,7 @@
   font-family: "CinemaL", sans-serif;
   font-size: 14px;
   color: #f7cc44;
-  margin-left: 70px;
+  margin-left: 50px;
   margin-top: 10px;
 }
 
@@ -23,9 +23,24 @@
 }
 
 #mic {
-    width:276px;
-    height:276px;
+    width:30%;
+    height:auto;
     margin-left:80px;
     margin-top:10px;
 }
   
+#inputcontainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  margin: 10px auto; /* 가운데 정렬 및 위아래 여백 추가 */
+}
+
+/* 미디어 쿼리: 화면 너비가 768px 이하일 때 */
+@media (max-width: 768px) {
+  #inputcontainer {
+    width: 95%; 
+  }
+}
+
