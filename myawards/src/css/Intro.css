@@ -11,27 +11,10 @@
     justify-content: center;
 }
 
-#appname {
-  font-family: "Santokki", sans-serif;
-  font-size: 64px;
-  color: #f7cc44;
-  white-space: nowrap;
-  display: flex;
-  align-items: center;
-  margin-left:-100px;
-}
-
-#year {
-  font-family: "Santokki", sans-serif;
-  font-size: 24px;
-  color: #ffffff;
-  margin-right: 15px; /* 2023을 오른쪽으로 조정 */
-  margin-top: 30px; /* 2023을 아래쪽으로 조정 */
-}
-
-#medal {
-    width:42px;
-    height:42px;
+#nameimage {
+  width:381px;
+  height:163px;
+  margin-top:60px;
 }
 
 #button {
@@ -40,5 +23,5 @@
     left: 0;
     right: 0;
     text-align: center;
-
+    background-color: none;
 }

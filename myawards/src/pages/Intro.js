@@ -15,12 +15,8 @@ const Appname = styled.div`
 const Intro = () => {
   return (
     <div className="intro">
-      <div id="appname">
-        올해의
-        <p id="year">2023</p>
-      </div>
       <Appname>
-        마이 어워즈 <img id="medal" src="images/medal.png" alt="medal" />
+        <img id="nameimage" src="images/introname.png" alt="intro" />{" "}
       </Appname>
       <KakaoLoginButton id="button" />
     </div>
