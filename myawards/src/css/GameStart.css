@@ -1,29 +1,16 @@
-#gamebox {
-    background-color: #8a0b0b;
-    height: 100%;
-    margin-top: -20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
-
-#title {
-  font-family: "Santokki", sans-serif;
-  font-size: 52px;
-  color: #f7cc44;
-  text-align: center;
-  margin-top: 20px;
-  margin-left:-5px;
-  -webkit-text-stroke: 1px #000;
+#gametitle {
+  width:344px;
+  height:65px;
+  margin-left:40px;
+  margin-top:10px;
 }
 
 #contents {
   font-family: "CinemaL", sans-serif;
   font-size: 14px;
   color: #f7cc44;
-  margin-left: -20px;
-  margin-top: -50px;
+  margin-left: 70px;
+  margin-top: 10px;
 }
 
 #middletitle {
@@ -35,8 +22,10 @@
   -webkit-text-stroke: 0.7px #000;
 }
 
-.mic {
+#mic {
     width:276px;
     height:276px;
+    margin-left:80px;
+    margin-top:10px;
 }
   

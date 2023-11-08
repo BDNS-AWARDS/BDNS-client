@@ -5,7 +5,7 @@ import "../css/SetProfile.css";
 import styled from "styled-components";
 import CheckButton from "../components/CheckButton";
 import CheckModal from "../components/CheckModal";
-import EditNameButton from "../components/EditNameButton";
+import EditProfileButton from "../components/EditProfileButton";
 
 const InputContainer = styled.div`
   display: flex;
@@ -96,7 +96,7 @@ const EditProfile = () => {
   return (
     <div id="setprofile">
       <Logo />
-      <p id="title">
+      <p id="content">
         닉네임을 수정하시겠습니까?
         <img id="bell" src="images/bell.png" alt="bell" />
       </p>
@@ -116,7 +116,7 @@ const EditProfile = () => {
         isButtonEnabled={isCheckButtonEnabled}
       />
       <CheckModal show={isModalVisible} isSuccess={isSuccess} />
-      <p id="title">프로필 사진을 추가해보세요!</p>
+      <p id="content">프로필 사진을 추가해보세요!</p>
       <PhotoButton htmlFor="fileInput">
         <img id="photo" src="images/addphoto.png" alt="photo" />
       </PhotoButton>
@@ -130,7 +130,7 @@ const EditProfile = () => {
         <br />올 한해 고생 많으셨습니다. 내년은 더 행복하세요:)
       </p>
       <img id="letter" src="images/letter.png" alt="letter" />
-      <EditNameButton
+      <EditProfileButton
         isActive={isEditNameButtonEnabled}
         onClick={handleStartButtonClick}
       />
