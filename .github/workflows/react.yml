@@ -17,6 +17,9 @@ jobs:
         uses: actions/checkout@v3
         with:
             path: myawards
+
+      - name: Change to project directory
+        run: cd myawards
           
       - name: Check Node v
         run: node -v
@@ -41,8 +44,8 @@ jobs:
         if: github.event.pull_request.merged == true
         uses: docker/build-push-action@v4
         with:
-          context: .
-          file: ./myawards/Dockerfile
+          context: myawards
+          file: ./Dockerfile
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_REPONAME }}
   CD:
