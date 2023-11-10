@@ -14,11 +14,11 @@ RUN npm install
 # Copy the rest of the application code to the container
 COPY . .
 
-# Build the application
-RUN npm run build
+# yarn install 실행
+RUN yarn install
 
-# Expose port 3000 for the application
-EXPOSE 3000
+# yarn build 실행
+RUN yarn build
 
-# Start the application
-CMD ["npm", "start"]
+# 애플리케이션 실행
+CMD ["yarn", "start"]
