@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import axios from "axios";
+import API from "../api/api";
 import Logo from "../components/Logo";
 import "../css/SetProfile.css";
 import styled from "styled-components";
@@ -38,7 +38,7 @@ const EditProfile = () => {
     // 여기에서 닉네임 중복 확인 로직을 구현
     try {
       // 예를 들어, 서버에서 닉네임 중복을 확인하는 요청을 보냅니다.
-      const response = await axios.post("http://localhost:8000/userInfo", {
+      const response = await API.post("/api/user/check_nickname", {
         nickname: inputValue,
       });
 
@@ -96,10 +96,24 @@ const EditProfile = () => {
     }
   };
 
-  const handleStartButtonClick = () => {
-    if (isEditNameButtonEnabled) {
-      setIsSuccessModalVisible(true); // 수정 성공 모달을 표시
-      // 다른 작업을 수행하려면 여기에 추가하실 수 있습니다.
+  const handleStartButtonClick = async () => {
+    try {
+      if (inputValue.trim() !== "" && isSuccess) {
+        const response = await API.patch("/api/user/update", {
+          nickname: inputValue,
+          profile_image: "URL_OF_SELECTED_IMAGE",
+        });
+
+        if (response.data.success) {
+          console.log("프로필 수정 성공!");
+          setIsSuccessModalVisible(true); // 모달 표시 상태를 업데이트합니다.
+        } else {
+          console.log("프로필 수정 실패:", response.data.message);
+          // 실패에 대한 처리 로직 추가
+        }
+      }
+    } catch (error) {
+      console.error("서버 요청 오류:", error);
     }
   };
 
@@ -151,7 +165,7 @@ const EditProfile = () => {
       </p>
       <img id="letter" src="images/letter.png" alt="letter" />
       <EditProfileButton
-        isActive={isEditNameButtonEnabled}
+        isEnabled={inputValue.trim() !== "" && isSuccess}
         onClick={handleStartButtonClick}
       />
       {isSuccessModalVisible && <EditProfileModal />}{" "}
