@@ -241,8 +241,8 @@ const MainPost = ({ selectedTag }) => {
             <PIContainer>
               <ProfileImg
                 src={
-                  post.profile_image
-                    ? `${post.profile_image}`
+                  post.user.profile_image
+                    ? `${post.user.profile_image}`
                     : process.env.PUBLIC_URL + "./images/profile.png"
                 }
                 alt="프로필 사진"

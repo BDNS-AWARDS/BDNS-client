@@ -17,6 +17,9 @@ const PIContainer = styled.div`
   width: 31px;
   height: 31px;
   margin-top: 8px;
+  display: inline-block;
+  border-radius: 15px;
+  overflow: hidden;
 `;
 
 const ProfileImg = styled.img`
@@ -31,13 +34,16 @@ const MiniProfileDiv = styled.div`
 `;
 
 const MiniProfile = () => {
+  const [userPostInfo, setUserPostInfo] = useState([]);
   const [userInfo, setUserInfo] = useState([]);
 
   useEffect(() => {
     const fetchUserInfo = async () => {
       try {
         const response = await API.get(`/api/mypage`);
-        setUserInfo(response.data.user_posts);
+        console.log(response.data);
+        setUserInfo(response.data.user_info);
+        setUserPostInfo(response.data.user_posts);
       } catch (error) {
         console.error("사용자 정보를 가져오는 중 오류가 발생했습니다.", error);
       }
@@ -52,16 +58,16 @@ const MiniProfile = () => {
           <PIContainer>
             <ProfileImg
               src={
-                userInfo.profilePicture ||
+                userInfo.profile_image ? "http://127.0.0.1:8000"+`${userInfo.profile_image}`:
                 process.env.PUBLIC_URL + "/images/profile.png"
               }
               alt="프로필 사진"
             />
           </PIContainer>
-          {userInfo
-            .filter((userInfo) => userInfo.id === 0)
-            .map((userInfo) => (
-              <Nickname>{userInfo.nickname}</Nickname>
+          {userPostInfo
+            .filter((userPostInfo) => userPostInfo.id === 0)
+            .map((userPostInfo) => (
+              <Nickname>{userPostInfo.nickname}</Nickname>
             ))}
         </MiniProfileDiv>
       </Link>
