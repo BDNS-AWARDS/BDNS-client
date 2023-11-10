@@ -26,9 +26,7 @@ jobs:
           node-version: '14'
         
       - name: Install dependencies
-        run: |
-          npm install
-          npm install -g yarn
+        run: npm install
 
       - name: Generate build
         run: yarn build
