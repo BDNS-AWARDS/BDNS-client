@@ -17,7 +17,7 @@ function MainPage({ tagnum }) {
 
   useEffect(() => {
     axios
-      .get("http://127.0.0.1:8000/api/hashtag", {
+      .get("http://15.164.160.92/api/hashtag", {
         headers: {
           "Content-Type": "application/json",
         },
