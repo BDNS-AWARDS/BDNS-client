@@ -74,8 +74,7 @@ jobs:
         password: ${{ secrets.SSH_PASSWORD }}
         port: ${{ secrets.SSH_PORT }}
         script: |
-            docker stop line4-bdns-web
-            docker rm line4-bdns-web
-            docker image rm ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_REPONAME }}
-            docker run -d --name line4-bdns-web -p 3000:80 ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_REPONAME }}
-        
+          docker stop line4-bdns-web
+          docker rm line4-bdns-web
+          docker image rm ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_REPONAME }}
+          docker run -d --name line4-bdns-web -p 3000:80 --net line4-bdns ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_REPONAME }}
