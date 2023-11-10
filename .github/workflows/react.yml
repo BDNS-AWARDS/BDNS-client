@@ -20,18 +20,22 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
           
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - name: Cache node modules      # node modules 캐싱
+        uses: actions/cache@v1
         with:
-          node-version: '14'
+          path: node_modules
+          key: ${{ runner.OS }}-build-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.OS }}-build-
+            ${{ runner.OS }}-
         
       - name: Install dependencies
-        run: |
-          npm install
-          yarn update
+        run: npm install
 
       - name: Generate build
         run: yarn build
+        env:
+          CI: ""  
 
       - name: Login to DockerHub
         uses: docker/login-action@v1
