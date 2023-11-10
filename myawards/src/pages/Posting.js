@@ -56,7 +56,7 @@ const Posting = ({ tagnum }) => {
   const [contents, setContents] = useState("");
   const [postImage, setPostImage] = useState("post_off.png");
   const [tagBarVisible, setTagBarVisible] = useState(false);
-  const [selectedTag, setSelectedTag] = useState("best_movies");
+  const [selectedTag, setSelectedTag] = useState(0);
   const [imageFiles, setImageFiles] = useState([null, null]);
 
   const [categories, setCategories] = useState([]);
