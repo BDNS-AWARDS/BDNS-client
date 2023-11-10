@@ -51,7 +51,6 @@ const MainPost = () => {
   const [postStates, setPostStates] = useState([]);
   const [userId, setUserId] = useState(null);
 
-
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -62,7 +61,7 @@ const MainPost = () => {
         });
         setUserId(userResponse.data.id);
 
-        // 게시글 정보
+        // 게시판 정보
         const response = await API.get("/api/board");
         
         setPostInfo(response.data);
@@ -121,7 +120,7 @@ const MainPost = () => {
 
     try {
       const response = await API.post(`/api/board/${postId}/scrap`, {
-        user: userId,
+        user: userId, 
         post: postId,
       });
       console.log("스크랩 요청이 성공했습니다.", response);

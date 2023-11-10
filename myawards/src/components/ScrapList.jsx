@@ -63,7 +63,7 @@ const ScrapList = () => {
           <HashTag tagnum={userscrap.hashtag} />
           <div style={{ position: "relative", display: "inline-block" }}>
             <SantokkiSpan>수상 제목 : </SantokkiSpan>
-            <CinemaMSpan>{userscrap.title}</CinemaMSpan>
+            <CinemaMSpan>{userscrap.post_title}</CinemaMSpan>
           </div>
         </StyledList>
       ))}

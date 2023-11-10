@@ -36,8 +36,8 @@ const MiniProfile = () => {
   useEffect(() => {
     const fetchUserInfo = async () => {
       try {
-        const response = await API.get(`/api/user/posts`);
-        setUserInfo(response.data);
+        const response = await API.get(`/api/mypage`);
+        setUserInfo(response.data.user_posts);
       } catch (error) {
         console.error("사용자 정보를 가져오는 중 오류가 발생했습니다.", error);
       }
