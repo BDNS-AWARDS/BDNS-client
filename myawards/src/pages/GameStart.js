@@ -5,14 +5,6 @@ import styled from "styled-components";
 import Logo from "../components/Logo";
 import GameStartButton from "../components/GameStartButton";
 
-const InputContainer = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  justify-content: center;
-  margin-top: -10px;
-`;
-
 const Input = styled.input`
   border: none;
   outline: none;
@@ -40,8 +32,8 @@ const GameStart = () => {
   };
 
   // 버튼을 활성화하기 위한 조건 수정
-  const isButtonDisabled =
-    inputValues.filter((value) => value.trim() !== "").length < 2;
+  const isButtonEnabled =
+    inputValues.filter((value) => value.trim() !== "").length >= 2;
 
   const handleRandomSelection = () => {
     const filledInputs = inputValues.filter((value) => value.trim() !== "");
@@ -59,12 +51,13 @@ const GameStart = () => {
         <Logo />
       </div>
       <img id="gametitle" src="images/game_title.png" alt="gametitle" />
-      <p id="contents">친구들과 돌아가며 나만의 어워즈를 공유해보세요!</p>
-      <img id="mic" src="images/mic.png" alt="mic" />
+      <p id="start_contents">친구들과 돌아가며 나만의 어워즈를 공유해보세요!</p>
+      <img id="start_mic" src="images/mic.png" alt="mic" />
       <p id="middletitle">참가자 이름을 입력해 주세요!</p>
-      <InputContainer>
+      <div id="inputcontainer">
         {inputFields.map((_, index) => (
           <Input
+            id="Inputtext"
             key={index}
             type="text"
             placeholder={`이름(8자 내외)`}
@@ -72,9 +65,9 @@ const GameStart = () => {
             onChange={(e) => handleInputChange(index, e.target.value)}
           />
         ))}
-      </InputContainer>
+      </div>
       <GameStartButton
-        disabled={isButtonDisabled}
+        isEnabled={isButtonEnabled}
         onClick={handleRandomSelection}
       />
     </div>

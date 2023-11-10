@@ -68,7 +68,7 @@ const GameResult = () => {
   return (
     <div id="gamebox">
       <Logo id="resultlogo" />
-      <img id="gametitle" src="images/game_title.png" alt="gametitle" />
+      <img id="result_gametitle" src="images/game_title.png" alt="gametitle" />
       <img id="mic" src="images/mic.png" alt="mic" />
 
       <p id="topic_result">어워즈 주제</p>
@@ -82,7 +82,7 @@ const GameResult = () => {
       </div>
       <p id="nameresult">{`'${randomNonEmptyItem}'부터 시계방향!`}</p>
       <StyledButton onClick={generateRandomHashtag}>
-        <img id="nextbutton" src="images/gamestart2.png" alt="button" />
+        <img id="result_nextbutton" src="images/gamestart2.png" alt="button" />
       </StyledButton>
     </div>
   );

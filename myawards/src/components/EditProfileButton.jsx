@@ -2,19 +2,20 @@ import React from 'react';
 import styled from 'styled-components';
 
 const StyledButton = styled.button`
-  margin-top: 50px;
+  margin-top: 40px;
+  margin-bottom:70px;
   margin-left: 40px;
   border: none;
   background: none;
 `;
 
 const Image = styled.img`
-  width: 352px;
-  height: 61px;
+  width: 90%;
+  margin-left:-43px;
 `;
 
-const EditProfileButton = ({ isActive, onClick }) => {
-  const buttonImage = isActive ? "images/editprofile_on.png" : "images/editprofile_off.png";
+const EditProfileButton = ({ isEnabled, onClick }) => {
+  const buttonImage = isEnabled ? "images/editprofile_on.png" : "images/editprofile_off.png";
 
   return (
     <div>
