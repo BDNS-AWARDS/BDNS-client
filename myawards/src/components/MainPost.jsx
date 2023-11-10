@@ -81,8 +81,6 @@ const MainPost = ({ selectedTag }) => {
 
   const [userId, setUserId] = useState(null);
 
-
-  useEffect(() => {
     const fetchData = async () => {
       try {
 
@@ -97,7 +95,7 @@ const MainPost = ({ selectedTag }) => {
         
         setPostInfo(response.data);
         setPostStates(
-          response.data.map(() => ({ likebtn: false, scrapbtn: false }))
+          response.data.map(() => ({ likebtn: false, scrapbtn: false, likeImage: "./images/like_off.png" }))
         );
         setCategory(response.data.category);
         console.log("버튼 눌림");
@@ -106,56 +104,58 @@ const MainPost = ({ selectedTag }) => {
         console.error("사용자 정보를 가져오는 중 오류가 발생했습니다.", error);
       }
     };
-    fetchData();
-  }, []);
 
-  const handleLikeClick = async (index) => {
-    const postId = postInfo[index].id;
-    const updatedPostStates = [...postStates];
-    updatedPostStates[index].likebtn = !updatedPostStates[index].likebtn;
-    setPostStates(updatedPostStates);
-
-
-    try {
-      const response = await API.post(`/api/board/${postId}/like`, {
-        user: userId,
-        post: postId,
-      });
-      console.log("좋아요 요청이 성공했습니다.", response);
-    } catch (error) {
-      console.error("좋아요 요청 중 오류가 발생했습니다.", error);
-    }
-  };
-
-  const handleUnlikeClick = async (index) => {
-    const postId = postInfo[index].id;
-    const updatedPostStates = [...postStates];
-    updatedPostStates[index].likebtn = !updatedPostStates[index].likebtn;
-    setPostStates(updatedPostStates);
-
-    try {
-      const response = await API.post(`/api/board/${postId}/like`, {
-        user: userId,
-        post: postId
-      });
-      console.log("좋아요 취소 요청이 성공했습니다.", response);
-    } catch (error) {
-      console.error("좋아요 취소 요청 중 오류가 발생했습니다.", error);
-    }
-  };
+    const handleLikeClick = async (index) => {
+      const postId = postInfo[index].id;
+      const updatedPostStates = [...postStates];
+      updatedPostStates[index].likebtn = !updatedPostStates[index].likebtn;
+      setPostStates(updatedPostStates);
+    
+      try {
+        if (updatedPostStates[index].likebtn) {
+          // 좋아요를 누른 경우 (좋아요 추가)
+          const response = await API.post(`/api/board/${postId}/like`, {
+            user: userId,
+            post: postId,
+          });
+          console.log("좋아요 요청이 성공했습니다.", response);
+          updatedPostStates[index].likeImage = "./images/like_on.png";
+        } else {
+          // 좋아요를 취소한 경우 (좋아요 추가 후 취소)
+          const response = await API.post(`/api/board/${postId}/like`, {
+            user: userId,
+            post: postId,
+          });
+          console.log("좋아요 취소 요청이 성공했습니다.", response);
+          updatedPostStates[index].likeImage = "./images/like_off.png";
+        }
+      } catch (error) {
+        console.error("좋아요 요청 중 오류가 발생했습니다.", error);
+      }
+    };
 
   const handleScrapClick = async (index) => {
     const postId = postInfo[index].id;
     const updatedPostStates = [...postStates];
     updatedPostStates[index].scrapbtn = !updatedPostStates[index].scrapbtn;
     setPostStates(updatedPostStates);
-
+    
     try {
-      const response = await API.post(`/api/board/${postId}/scrap`, {
-        user: userId, 
-        post: postId,
-      });
-      console.log("스크랩 요청이 성공했습니다.", response);
+      if (updatedPostStates[index].scrapbtn) {
+        // 스크랩한 경우 (스크랩 추가)
+        const response = await API.post(`/api/board/${postId}/scrap`, {
+          user: userId,
+          post: postId,
+        });
+        console.log("스크랩 요청이 성공했습니다.", response);
+      } else {
+        // 스크랩을 취소한 경우 (스크랩 추가 후 취소)
+        const response = await API.post(`/api/board/${postId}/scrap`, {
+          user: userId,
+          post: postId,
+        });
+        console.log("스크랩 취소 요청이 성공했습니다.", response);
+      }
     } catch (error) {
       console.error("스크랩 요청 중 오류가 발생했습니다.", error);
     }
@@ -211,6 +211,12 @@ const MainPost = ({ selectedTag }) => {
         return true;
     }
   });
+  useEffect(() => {
+    fetchData();
+  }, []); // 컴포넌트 마운트 시 한 번만 호출
+
+  // 페이지 로드 시에도 초기 데이터를 다시 불러옴
+  window.addEventListener("load", fetchData);
 
   return (
     <div id="detail_box">
@@ -292,8 +298,14 @@ const MainPost = ({ selectedTag }) => {
             <p id="detail_title">{post.title}</p>
             <p id="detail_contents">{post.content}</p>
             <div id="detail_imgcontainer">
-              <img id="detail_photo1" src={post.photo1} />
-              <img id="detail_photo2" src={post.photo2} />
+              {post.images && post.images.length > 0 && (
+                <>
+                  <img id="detail_photo1" src={post.images[0].image} alt="첫번째 이미지" />
+                  {post.images.length > 1 && (
+                    <img id="detail_photo2" src={post.images[1].image} alt="두번째 이미지" />
+                  )}
+                </>
+              )}
             </div>
           </div>
 
