@@ -12,10 +12,22 @@ function MainPage({ tagnum }) {
   const [hashtag, setHashtag] = useState([]);
   const [tagBarVisible, setTagBarVisible] = useState(false);
   const [selectedTag, setSelectedTag] = useState(1);
+  const [categories, setCategories] = useState([]);
   useEffect(() => {
-    axios.get("http://localhost:8000/hashtag").then((response) => {
-      setHashtag(response.data.filter((tag) => tag.id === tagnum));
-    });
+    axios
+      .get("http://127.0.0.1:8000/api/hashtag", {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        withCredentials: true, // 쿠키사용
+      })
+      .then((response) => {
+        setCategories(
+          response.data.categories.filter(
+            (categories) => categories.id === tagnum
+          )
+        );
+      });
   }, [tagnum]);
 
   const toggleTagBar = () => {

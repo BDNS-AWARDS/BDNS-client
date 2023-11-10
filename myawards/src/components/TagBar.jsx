@@ -15,7 +15,7 @@ const TagBarDiv = styled.div`
 
 const TagBar = (props) => {
   function hashtagClick(tagnum) {
-    props.handleTagClick(tagnum); // tagnum을 전달
+    props.handleTagClick(tagnum);
     console.log(tagnum);
   }
 

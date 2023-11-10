@@ -31,16 +31,26 @@ const HashTagP = styled.p`
 `;
 
 const HashTag = ({ tagnum, onClick }) => {
-  const [hashtag, setHashtag] = useState([]);
+  const [categories, setCategories] = useState([]);
 
   useEffect(() => {
-    axios.get("http://localhost:8000/hashtag").then((response) => {
-      setHashtag(response.data.filter((tag) => tag.id === tagnum));
-    });
+    axios
+      .get("http://127.0.0.1:8000/api/hashtag", {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        withCredentials: true, // 쿠키사용
+      })
+      .then((response) => {
+        setCategories(
+          response.data.categories.filter(
+            (categories) => categories.id == tagnum
+          )
+        );
+      });
   }, [tagnum]);
 
   const handleClick = () => {
-    // 클릭 이벤트 처리 함수를 호출하고 tagnum을 전달
     if (onClick) {
       onClick(tagnum);
     }
@@ -49,8 +59,8 @@ const HashTag = ({ tagnum, onClick }) => {
   return (
     <div>
       <HashTagDiv onClick={handleClick}>
-        {hashtag.map((tag) => (
-          <HashTagP key={tag.id}>{tag.tagname}</HashTagP>
+        {categories.map((categories) => (
+          <HashTagP key={categories.id}>{categories.tagname}</HashTagP>
         ))}
       </HashTagDiv>
     </div>

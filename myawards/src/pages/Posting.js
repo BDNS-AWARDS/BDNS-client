@@ -56,13 +56,26 @@ const Posting = ({ tagnum }) => {
   const [contents, setContents] = useState("");
   const [postImage, setPostImage] = useState("post_off.png");
   const [tagBarVisible, setTagBarVisible] = useState(false);
-  const [selectedTag, setSelectedTag] = useState(0);
+  const [selectedTag, setSelectedTag] = useState("best_movies");
   const [imageFiles, setImageFiles] = useState([null, null]);
 
+  const [categories, setCategories] = useState([]);
+
   useEffect(() => {
-    axios.get("http://localhost:8000/hashtag").then((response) => {
-      setHashtag(response.data.filter((tag) => tag.id === tagnum));
-    });
+    axios
+      .get("http://127.0.0.1:8000/api/hashtag", {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        withCredentials: true, // 쿠키사용
+      })
+      .then((response) => {
+        setCategories(
+          response.data.categories.filter(
+            (categories) => categories.id === tagnum
+          )
+        );
+      });
   }, [tagnum]);
 
   const handleTitleChange = (e) => {
@@ -111,11 +124,20 @@ const Posting = ({ tagnum }) => {
   const handleSubmit = () => {
     if (title && contents) {
       axios
-        .post("http://localhost:8000/postInfo", {
-          title: title,
-          contents: contents,
-          hashtag: selectedTag,
-        })
+        .post(
+          "http://127.0.0.1:8000/api/board",
+          {
+            title: title,
+            content: contents,
+            category: selectedTag,
+          },
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+            withCredentials: true,
+          }
+        )
         .then((response) => {
           alert("제출되었습니다.");
         })

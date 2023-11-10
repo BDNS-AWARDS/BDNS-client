@@ -34,18 +34,18 @@ const CinemaMSpan = styled.span`
 `;
 
 const ScrapList = () => {
-  const [postInfo, setPostInfo] = useState([]);
+  const [user_scraps, setUser_scraps] = useState([]);
 
-  const handleListClick = (postId) => {
-    console.log("클릭한 요소의 post.id:", postId);
-    window.location = `/myscrap/${postId}`;
+  const handleListClick = (scrapId) => {
+    console.log("클릭한 요소의 scrap.id:", scrapId);
+    window.location = `/myscrap/${scrapId}`;
   };
 
   useEffect(() => {
     axios
-      .get("http://localhost:8000/postInfo")
+      .get("http://127.0.0.1:8000/api/mypage")
       .then((response) => {
-        setPostInfo(response.data);
+        setUser_scraps(response.data);
       })
       .catch((error) => {
         console.error("사용자 정보를 가져오는 중 오류가 발생했습니다.", error);
@@ -54,12 +54,12 @@ const ScrapList = () => {
 
   return (
     <>
-      {postInfo.map((post) => (
-        <StyledList onClick={() => handleListClick(post.id)}>
-          <HashTag tagnum={post.hashtag} />
+      {user_scraps.map((userscrap) => (
+        <StyledList onClick={() => handleListClick(userscrap.id)}>
+          <HashTag tagnum={userscrap.hashtag} />
           <div style={{ position: "relative", display: "inline-block" }}>
             <SantokkiSpan>수상 제목 : </SantokkiSpan>
-            <CinemaMSpan>{post.title}</CinemaMSpan>
+            <CinemaMSpan>{userscrap.title}</CinemaMSpan>
           </div>
         </StyledList>
       ))}
