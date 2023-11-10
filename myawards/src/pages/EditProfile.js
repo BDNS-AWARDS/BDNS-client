@@ -99,17 +99,28 @@ const EditProfile = () => {
   const handleStartButtonClick = async () => {
     try {
       if (inputValue.trim() !== "" && isSuccess) {
-        const response = await API.patch("/api/user/update", {
-          nickname: inputValue,
-          profile_image: "URL_OF_SELECTED_IMAGE",
-        });
+        const fileInput = document.getElementById("fileInput");
+        const selectedImage = fileInput.files[0];
 
-        if (response.data.success) {
-          console.log("프로필 수정 성공!");
-          setIsSuccessModalVisible(true); // 모달 표시 상태를 업데이트합니다.
-        } else {
-          console.log("프로필 수정 실패:", response.data.message);
-          // 실패에 대한 처리 로직 추가
+        // 이미지가 선택된 경우에만 업로드 수행
+        if (selectedImage) {
+          const formData = new FormData();
+          formData.append("nickname", inputValue);
+          formData.append("profile_image", selectedImage);
+
+          const response = await API.patch("/api/user/update", formData, {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          });
+
+          if (response.data) {
+            console.log("프로필 수정 성공!");
+            setIsSuccessModalVisible(true); // 모달 표시 상태를 업데이트합니다.
+          } else {
+            console.log("프로필 수정 실패:", response.data.message);
+            // 실패에 대한 처리 로직 추가
+          }
         }
       }
     } catch (error) {
