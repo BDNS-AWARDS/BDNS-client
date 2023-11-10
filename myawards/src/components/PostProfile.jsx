@@ -48,7 +48,7 @@ const PostProfile = () => {
         <PIContainer>
           <ProfileImg
             src={
-              postInfo.profilePicture ||
+              post.user.profile_image ? `${post.user.profile_image}`:
               process.env.PUBLIC_URL + "./images/profile.png"
             }
             alt="프로필 사진"
