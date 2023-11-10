@@ -48,16 +48,8 @@ const PostProfileDiv = styled.div`
 const MainPost = () => {
   const [postInfo, setPostInfo] = useState([]);
   const [postStates, setPostStates] = useState([]);
-  const [userId, setUserId] = useState(null); // userId 상태 추가
 
   useEffect(() => {
-
-    const userResponse = axios.get("http://127.0.0.1:8000/api/user/current_user", {
-          withCredentials: true, // 쿠키 사용
-        });
-
-        setUserId(userResponse.data.id);
-        
     axios
       .get("http://127.0.0.1:8000/api/board")
       .then((response) => {
@@ -79,7 +71,7 @@ const MainPost = () => {
 
     axios
       .post(`http://127.0.0.1:8000/api/board/${postId}/like`, {
-        user: userId, //변경하기
+        // user: username, //변경하기
         post: postId, //변경하기
       })
       .then((response) => {
@@ -97,7 +89,7 @@ const MainPost = () => {
 
     axios
       .post(`http://127.0.0.1:8000/api/board/${postId}/like`, {
-        user: userId, //변경하기
+        // user: username, //변경하기
         post: postId, //변경하기
       })
       .then((response) => {
@@ -115,7 +107,7 @@ const MainPost = () => {
 
     axios
       .post(`http://127.0.0.1:8000/api/board/${postId}/scrap`, {
-        user: userId,
+        // user: username,
         post: postId,
       })
       .then((response) => {
@@ -171,7 +163,7 @@ const MainPost = () => {
                   ? process.env.PUBLIC_URL + "./images/like_on.png"
                   : process.env.PUBLIC_URL + "./images/like_off.png"
               }
-              onClick={() => handleLikeClick(index, post.id)}
+              onClick={() => handleLikeClick(index)}
             />
             <img
               id="scrapbtn"
@@ -180,7 +172,7 @@ const MainPost = () => {
                   ? process.env.PUBLIC_URL + "./images/scrap_on.png"
                   : process.env.PUBLIC_URL + "./images/scrap_off.png"
               }
-              onClick={() => handleScrapClick(index, post.id)}
+              onClick={() => handleScrapClick(index)}
             />
           </div>
         </PostBox>
