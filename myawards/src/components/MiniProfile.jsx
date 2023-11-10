@@ -34,7 +34,7 @@ const MiniProfile = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8000/userInfo")
+      .get(`http://127.0.0.1:8000/api/board/${board_type}/${category_id}`)
       .then((response) => {
         setUserInfo(response.data);
       })
