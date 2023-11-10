@@ -46,7 +46,9 @@ const MyList = () => {
     axios
       .get("http://127.0.0.1:8000/api/mypage")
       .then((response) => {
-        setUser_posts(response.data);
+        const { user_posts } = response.data;
+        setUser_posts(user_posts);
+        
       })
       .catch((error) => {
         console.error("사용자 정보를 가져오는 중 오류가 발생했습니다.", error);

@@ -33,7 +33,7 @@ const PostProfile = () => {
 
   useEffect(() => {
     axios
-      .get(`http://127.0.0.1:8000/api/board/${board_type}/${category_id}`)
+      .get(`http://127.0.0.1:8000/api/board/${this.post_id}`)
       .then((response) => {
         setPostInfo(response.data);
       })

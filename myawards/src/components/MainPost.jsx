@@ -70,9 +70,9 @@ const MainPost = () => {
     setPostStates(updatedPostStates);
 
     axios
-      .post(`http://127.0.0.1:8000/api/board/${postId}/like`, {
-        user: "user_id", //변경하기
-        post: postId, //변경하기
+      .post(`http://127.0.0.1:8000/api/board/${this.post_id}/like`, {
+        user: this.username, //변경하기
+        post: this.post_id, //변경하기
       })
       .then((response) => {
         console.log("좋아요 요청이 성공했습니다.", response);
@@ -88,9 +88,9 @@ const MainPost = () => {
     setPostStates(updatedPostStates);
 
     axios
-      .post(`http://127.0.0.1:8000/api/board/${postId}/unlike`, {
-        user: "user_id", //변경하기
-        post: postId, //변경하기
+      .post(`http://127.0.0.1:8000/api/board/${this.post_id}/like`, {
+        user: this.username, //변경하기
+        post: this.post_id, //변경하기
       })
       .then((response) => {
         console.log("좋아요 취소 요청이 성공했습니다.", response);
@@ -106,9 +106,9 @@ const MainPost = () => {
     setPostStates(updatedPostStates);
 
     axios
-      .post(`http://127.0.0.1:8000/api/board/${postId}/scrap`, {
-        user: "user_id",
-        post: postId,
+      .post(`http://127.0.0.1:8000/api/board/${this.post_id}/scrap`, {
+        user: this.username,
+        post: this.post_id,
       })
       .then((response) => {
         console.log("스크랩 요청이 성공했습니다.", response);

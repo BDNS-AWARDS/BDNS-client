@@ -35,7 +35,8 @@ const CinemaMSpan = styled.span`
 
 const ScrapList = () => {
   const [user_scraps, setUser_scraps] = useState([]);
-
+  const [postId, setPostId] = useState(null);
+  
   const handleListClick = (scrapId) => {
     console.log("클릭한 요소의 scrap.id:", scrapId);
     window.location = `/myscrap/${scrapId}`;
@@ -45,7 +46,9 @@ const ScrapList = () => {
     axios
       .get("http://127.0.0.1:8000/api/mypage")
       .then((response) => {
-        setUser_scraps(response.data);
+        setPostId(response.data.post_id);
+        const { user_scraps } = response.data;
+        setUser_scraps(user_scraps);
       })
       .catch((error) => {
         console.error("사용자 정보를 가져오는 중 오류가 발생했습니다.", error);
