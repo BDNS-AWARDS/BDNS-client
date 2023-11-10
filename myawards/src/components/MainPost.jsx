@@ -3,6 +3,7 @@ import styled from "styled-components";
 import "../css/PostDetail.css";
 import axios from "axios";
 import HashTag from "../components/HashTag";
+import DeleteModal from "../components/DeleteModal";
 import API from "../api/api";
 
 const PostBox = styled.div`
@@ -32,6 +33,8 @@ const PIContainer = styled.div`
   height: 31px;
   margin-top: 8px;
   display: inline-block;
+  border-radius: 15px;
+  overflow: hidden;
 `;
 
 const ProfileImg = styled.img`
@@ -78,68 +81,80 @@ const MainPost = ({ selectedTag }) => {
   const [postStates, setPostStates] = useState([]);
   const [selectedValue, setSelectedValue] = useState("selecter");
   const [category, setCategory] = useState("");
-
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [deleteModalPostId, setDeleteModalPostId] = useState(null);
   const [userId, setUserId] = useState(null);
 
-    const fetchData = async () => {
-      try {
-
-        // 사용자 정보
-        const userResponse = await axios.get("http://127.0.0.1:8000/api/user/current_user", {
+  const fetchData = async () => {
+    try {
+      // 사용자 정보
+      const userResponse = await axios.get(
+        "http://127.0.0.1:8000/api/user/current_user",
+        {
           withCredentials: true,
-        });
-        setUserId(userResponse.data.id);
-
-        // 게시판 정보
-        const response = await API.get("/api/board");
-        
-        setPostInfo(response.data);
-        setPostStates(
-          response.data.map(() => ({ likebtn: false, scrapbtn: false, likeImage: "./images/like_off.png" }))
-        );
-        setCategory(response.data.category);
-        console.log("버튼 눌림");
-        // console.log(response.data);
-      } catch (error) {
-        console.error("사용자 정보를 가져오는 중 오류가 발생했습니다.", error);
-      }
-    };
-
-    const handleLikeClick = async (index) => {
-      const postId = postInfo[index].id;
-      const updatedPostStates = [...postStates];
-      updatedPostStates[index].likebtn = !updatedPostStates[index].likebtn;
-      setPostStates(updatedPostStates);
-    
-      try {
-        if (updatedPostStates[index].likebtn) {
-          // 좋아요를 누른 경우 (좋아요 추가)
-          const response = await API.post(`/api/board/${postId}/like`, {
-            user: userId,
-            post: postId,
-          });
-          console.log("좋아요 요청이 성공했습니다.", response);
-          updatedPostStates[index].likeImage = "./images/like_on.png";
-        } else {
-          // 좋아요를 취소한 경우 (좋아요 추가 후 취소)
-          const response = await API.post(`/api/board/${postId}/like`, {
-            user: userId,
-            post: postId,
-          });
-          console.log("좋아요 취소 요청이 성공했습니다.", response);
-          updatedPostStates[index].likeImage = "./images/like_off.png";
         }
-      } catch (error) {
-        console.error("좋아요 요청 중 오류가 발생했습니다.", error);
+      );
+      setUserId(userResponse.data.id);
+
+      // 게시판 정보
+      const response = await API.get("/api/board");
+
+      setPostInfo(response.data);
+      setPostStates(
+        response.data.map(() => ({
+          likebtn: false,
+          scrapbtn: false,
+          likeImage: "./images/like_off.png",
+        }))
+      );
+      setCategory(response.data.category);
+      console.log("버튼 눌림");
+      // console.log(response.data);
+    } catch (error) {
+      console.error("사용자 정보를 가져오는 중 오류가 발생했습니다.", error);
+    }
+  };
+
+  const handleDeleteClick = (postId) => {
+    setDeleteModalPostId(postId);
+    setShowDeleteModal(true);
+  };
+
+  const handleLikeClick = async (index) => {
+    const postId = postInfo[index].id;
+    const updatedPostStates = [...postStates];
+    updatedPostStates[index].likebtn = !updatedPostStates[index].likebtn;
+    setPostStates(updatedPostStates);
+
+    try {
+      if (updatedPostStates[index].likebtn) {
+        // 좋아요를 누른 경우 (좋아요 추가)
+        const response = await API.post(`/api/board/${postId}/like`, {
+          user: userId,
+          post: postId,
+        });
+        console.log("좋아요 요청이 성공했습니다.", response);
+        updatedPostStates[index].likeImage = "./images/like_on.png";
+      } else {
+        // 좋아요를 취소한 경우 (좋아요 추가 후 취소)
+        const response = await API.post(`/api/board/${postId}/like`, {
+          user: userId,
+          post: postId,
+        });
+        console.log("좋아요 취소 요청이 성공했습니다.", response);
+        updatedPostStates[index].likeImage = "./images/like_off.png";
       }
-    };
+    } catch (error) {
+      console.error("좋아요 요청 중 오류가 발생했습니다.", error);
+    }
+  };
 
   const handleScrapClick = async (index) => {
     const postId = postInfo[index].id;
     const updatedPostStates = [...postStates];
     updatedPostStates[index].scrapbtn = !updatedPostStates[index].scrapbtn;
     setPostStates(updatedPostStates);
-    
+
     try {
       if (updatedPostStates[index].scrapbtn) {
         // 스크랩한 경우 (스크랩 추가)
@@ -226,8 +241,9 @@ const MainPost = ({ selectedTag }) => {
             <PIContainer>
               <ProfileImg
                 src={
-                  post.profilePicture ||
-                  process.env.PUBLIC_URL + "./images/profile.png"
+                  post.profile_image
+                    ? `${post.profile_image}`
+                    : process.env.PUBLIC_URL + "./images/profile.png"
                 }
                 alt="프로필 사진"
               />
@@ -291,6 +307,7 @@ const MainPost = ({ selectedTag }) => {
             <img
               id="detail_menuimg"
               src={process.env.PUBLIC_URL + "./images/menubar.png"}
+              onClick={() => handleDeleteClick(post.id)}
             />
           </div>
 
@@ -300,9 +317,17 @@ const MainPost = ({ selectedTag }) => {
             <div id="detail_imgcontainer">
               {post.images && post.images.length > 0 && (
                 <>
-                  <img id="detail_photo1" src={post.images[0].image} alt="첫번째 이미지" />
+                  <img
+                    id="detail_photo1"
+                    src={post.images[0].image}
+                    alt="첫번째 이미지"
+                  />
                   {post.images.length > 1 && (
-                    <img id="detail_photo2" src={post.images[1].image} alt="두번째 이미지" />
+                    <img
+                      id="detail_photo2"
+                      src={post.images[1].image}
+                      alt="두번째 이미지"
+                    />
                   )}
                 </>
               )}
@@ -331,6 +356,13 @@ const MainPost = ({ selectedTag }) => {
           </div>
         </PostBox>
       ))}
+
+      {showDeleteModal && (
+        <DeleteModal
+          postId={deleteModalPostId}
+          closeModal={() => setShowDeleteModal(false)}
+        />
+      )}
     </div>
   );
 };

@@ -100,29 +100,28 @@ const SetProfile = () => {
         const selectedImage = fileInput.files[0];
 
         // 이미지가 선택된 경우에만 업로드 수행
-        
-          const formData = new FormData();
-          formData.append("nickname", inputValue);
-          if (selectedImage) {
-            formData.append("profile_image", selectedImage);
-          }
-          const response = await API.post("/api/user/register", formData, {
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
-          });
 
-          if (response.data) {
-            console.log("회원가입 성공!");
-            // 여기에서 추가적인 작업 수행 (예: 로그인 처리 등)
+        const formData = new FormData();
+        formData.append("nickname", inputValue);
+        if (selectedImage) {
+          formData.append("profile_image", selectedImage);
+        }
+        const response = await API.post("/api/user/register", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
 
-            // 회원가입 성공 시 api/board로 이동
-            navigate("/mainpage");
-          } else {
-            console.log("회원가입 실패:", response.data.message);
-            // 실패에 대한 처리 로직 추가
-          }
-        
+        if (response.data) {
+          console.log("회원가입 성공!");
+          // 여기에서 추가적인 작업 수행 (예: 로그인 처리 등)
+
+          // 회원가입 성공 시 api/board로 이동
+          navigate("/mainpage");
+        } else {
+          console.log("회원가입 실패:", response.data.message);
+          // 실패에 대한 처리 로직 추가
+        }
       }
     } catch (error) {
       console.error("서버 요청 오류:", error);
@@ -163,7 +162,9 @@ const SetProfile = () => {
           style={{ display: "none" }}
         />
         <PhotoButton onClick={handleImageUpload}>
-          <img id="photo" src="images/addphoto.png" alt="photo" />
+          <div id="pi_container">
+            <img id="photo" src="images/addphoto.png" alt="photo" />
+          </div>
         </PhotoButton>
       </div>
       <div id="paragraghcontainer">
