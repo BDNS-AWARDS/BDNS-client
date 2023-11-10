@@ -48,8 +48,16 @@ const PostProfileDiv = styled.div`
 const MainPost = () => {
   const [postInfo, setPostInfo] = useState([]);
   const [postStates, setPostStates] = useState([]);
+  const [userId, setUserId] = useState(null); // userId 상태 추가
 
   useEffect(() => {
+
+    const userResponse = axios.get("http://127.0.0.1:8000/api/user/current_user", {
+          withCredentials: true, // 쿠키 사용
+        });
+
+        setUserId(userResponse.data.id);
+        
     axios
       .get("http://127.0.0.1:8000/api/board")
       .then((response) => {
@@ -70,9 +78,9 @@ const MainPost = () => {
     setPostStates(updatedPostStates);
 
     axios
-      .post(`http://127.0.0.1:8000/api/board/${this.post_id}/like`, {
-        user: this.username, //변경하기
-        post: this.post_id, //변경하기
+      .post(`http://127.0.0.1:8000/api/board/${postId}/like`, {
+        user: userId, //변경하기
+        post: postId, //변경하기
       })
       .then((response) => {
         console.log("좋아요 요청이 성공했습니다.", response);
@@ -88,9 +96,9 @@ const MainPost = () => {
     setPostStates(updatedPostStates);
 
     axios
-      .post(`http://127.0.0.1:8000/api/board/${this.post_id}/like`, {
-        user: this.username, //변경하기
-        post: this.post_id, //변경하기
+      .post(`http://127.0.0.1:8000/api/board/${postId}/like`, {
+        user: userId, //변경하기
+        post: postId, //변경하기
       })
       .then((response) => {
         console.log("좋아요 취소 요청이 성공했습니다.", response);
@@ -106,9 +114,9 @@ const MainPost = () => {
     setPostStates(updatedPostStates);
 
     axios
-      .post(`http://127.0.0.1:8000/api/board/${this.post_id}/scrap`, {
-        user: this.username,
-        post: this.post_id,
+      .post(`http://127.0.0.1:8000/api/board/${postId}/scrap`, {
+        user: userId,
+        post: postId,
       })
       .then((response) => {
         console.log("스크랩 요청이 성공했습니다.", response);
@@ -121,7 +129,7 @@ const MainPost = () => {
   return (
     <div id="detail_box">
       {postInfo.map((post, index) => (
-        <PostBox>
+        <PostBox >
           <PostProfileDiv>
             <PIContainer>
               <ProfileImg
@@ -163,7 +171,7 @@ const MainPost = () => {
                   ? process.env.PUBLIC_URL + "./images/like_on.png"
                   : process.env.PUBLIC_URL + "./images/like_off.png"
               }
-              onClick={() => handleLikeClick(index)}
+              onClick={() => handleLikeClick(index, post.id)}
             />
             <img
               id="scrapbtn"
@@ -172,7 +180,7 @@ const MainPost = () => {
                   ? process.env.PUBLIC_URL + "./images/scrap_on.png"
                   : process.env.PUBLIC_URL + "./images/scrap_off.png"
               }
-              onClick={() => handleScrapClick(index)}
+              onClick={() => handleScrapClick(index, post.id)}
             />
           </div>
         </PostBox>

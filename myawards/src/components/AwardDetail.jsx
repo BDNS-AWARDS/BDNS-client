@@ -60,9 +60,11 @@ const AwardDetail = ({ selectedPostId }) => {
 
   useEffect(() => {
     axios
-      .get(`http://127.0.0.1:8000/api/board/${this.post_id}`)
+      .get(`http://127.0.0.1:8000/api/board/${selectedPostId}`)
       .then((response) => {
         setPostInfo(response.data);
+        setIsLiked(response.data.is_liked);
+        setIsScrapped(response.data.is_scrapped);
         console.log(response.data);
       })
       .catch((error) => {
@@ -72,12 +74,7 @@ const AwardDetail = ({ selectedPostId }) => {
 
   const handleLikeClick = () => {
     axios
-      .post(
-        `http://127.0.0.1:8000/api/board/${this.post_id}/like`,
-        {
-          postId: selectedPostId,
-        }
-      )
+      .post(`http://127.0.0.1:8000/api/board/${selectedPostId}/like`)
       .then((response) => {
         setIsLiked(!isLiked);
       })
@@ -88,12 +85,7 @@ const AwardDetail = ({ selectedPostId }) => {
 
   const handleScrapClick = () => {
     axios
-      .post(
-        `http://127.0.0.1:8000/api/board/${this.post_id}/scrap`,
-        {
-          postId: selectedPostId,
-        }
-      )
+      .post(`http://127.0.0.1:8000/api/board/${selectedPostId}/scrap`)
       .then((response) => {
         setIsScrapped(!isScrapped);
       })
@@ -104,7 +96,7 @@ const AwardDetail = ({ selectedPostId }) => {
   return (
     <div id="detail_box">
       {postInfo
-        .filter((post) => post.id == selectedPostId)
+        .filter((post) => post.id === selectedPostId)
         .map((post) => (
           <PostBox key={post.id}>
             <PostProfileDiv>
