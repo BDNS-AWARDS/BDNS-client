@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
+import API from "../api/api";
 
 const Nickname = styled.p`
   font-family: "CinemaM";
@@ -33,14 +34,15 @@ const MiniProfile = () => {
   const [userInfo, setUserInfo] = useState([]);
 
   useEffect(() => {
-    axios
-      .get(`http://127.0.0.1:8000/api/board/${this.post_id}`)
-      .then((response) => {
+    const fetchUserInfo = async () => {
+      try {
+        const response = await API.get(`/api/user/posts`);
         setUserInfo(response.data);
-      })
-      .catch((error) => {
+      } catch (error) {
         console.error("사용자 정보를 가져오는 중 오류가 발생했습니다.", error);
-      });
+      }
+    };
+    fetchUserInfo();
   }, []);
 
   return (

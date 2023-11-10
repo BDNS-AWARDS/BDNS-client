@@ -100,11 +100,12 @@ const SetProfile = () => {
         const selectedImage = fileInput.files[0];
 
         // 이미지가 선택된 경우에만 업로드 수행
-        if (selectedImage) {
+        
           const formData = new FormData();
           formData.append("nickname", inputValue);
-          formData.append("profile_image", selectedImage);
-
+          if (selectedImage) {
+            formData.append("profile_image", selectedImage);
+          }
           const response = await API.post("/api/user/register", formData, {
             headers: {
               "Content-Type": "multipart/form-data",
@@ -121,7 +122,7 @@ const SetProfile = () => {
             console.log("회원가입 실패:", response.data.message);
             // 실패에 대한 처리 로직 추가
           }
-        }
+        
       }
     } catch (error) {
       console.error("서버 요청 오류:", error);

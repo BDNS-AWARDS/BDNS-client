@@ -7,6 +7,8 @@ import CustomFileInputButton from "../components/CustomFileInputButton";
 import TagBar from "../components/TagBar";
 import HashTag from "../components/HashTag";
 import axios from "axios";
+import API from "../api/api";
+import { useNavigate } from "react-router-dom";
 
 const StyledTxt = styled.p`
   color: #8a0b0b;
@@ -56,11 +58,12 @@ const Posting = ({ tagnum }) => {
   const [contents, setContents] = useState("");
   const [postImage, setPostImage] = useState("post_off.png");
   const [tagBarVisible, setTagBarVisible] = useState(false);
-  const [selectedTag, setSelectedTag] = useState("best_movies");
+  const [selectedTag, setSelectedTag] = useState(0);
+  const [selectedValue, setSelectedValue] = useState("selecter");
   const [imageFiles, setImageFiles] = useState([null, null]);
 
   const [categories, setCategories] = useState([]);
-
+  
   useEffect(() => {
     axios
       .get("http://127.0.0.1:8000/api/hashtag", {
@@ -117,33 +120,115 @@ const Posting = ({ tagnum }) => {
   };
 
   const handleTagClick = (tagnum) => {
-    setSelectedTag(tagnum);
     console.log(tagnum);
+    setSelectedTag(tagnum);
   };
 
-  const handleSubmit = () => {
+  const handleTagValue = (tagnum, value) => {
+    switch (tagnum) {
+      case 0:
+        value = "select";
+        break;
+      case 1:
+        value = "best_all";
+        break;
+      case 2:
+        value = "best_movies";
+        break;
+      case 3:
+        value = "best_dramas";
+        break;
+      case 4:
+        value = "best_books";
+        break;
+      case 5:
+        value = "best_music";
+        break;
+      case 6:
+        value = "best_moments";
+        break;
+      case 7:
+        value = "best_hobbies";
+        break;
+      case 8:
+        value = "best_discoveries";
+        break;
+      case 9:
+        value = "best_habits";
+        break;
+      case 10:
+        value = "best_sadness";
+        break;
+      case 11:
+        value = "best_thoughts";
+        break;
+      case 12:
+        value = "best_failures";
+        break;
+      case 13:
+        value = "best_regrets";
+        break;
+      case 14:
+        value = "best_humor";
+        break;
+      case 15:
+        value = "best_tears";
+        break;
+      case 16:
+        value = "best_spending";
+        break;
+      case 17:
+        value = "best_emotions";
+        break;
+      case 18:
+        value = "best_travels";
+        break;
+      case 19:
+        value = "best_food";
+        break;
+      case 20:
+        value = "best_gifts";
+        break;
+      case 21:
+        value = "best_photos";
+        break;
+      case 22:
+        value = "next_year_me";
+        break;
+    }
+    setSelectedValue(value);
+    console.log(value);
+  };
+  const navigate = useNavigate();
+  const handleSubmit = async () => {
     if (title && contents) {
-      axios
-        .post(
-          "http://127.0.0.1:8000/api/board",
-          {
-            title: title,
-            content: contents,
-            category: selectedTag,
-          },
-          {
-            headers: {
-              "Content-Type": "application/json",
-            },
-            withCredentials: true,
-          }
-        )
-        .then((response) => {
-          alert("제출되었습니다.");
-        })
-        .catch((error) => {
-          alert("서버와의 통신 중 오류가 발생했습니다.");
+      
+      try{  
+        const userResponse = await axios.get("http://127.0.0.1:8000/api/user/current_user", {
+          withCredentials: true, // 쿠키 사용
         });
+        const userId = userResponse.data.id;
+        const response = await API.post("/api/board",
+        {
+          title: title,
+          content: contents,
+          category: "best_movies",
+          writer : userId
+        }
+      );
+        if (response.data){
+          console.log("게시글 등록 성공!");
+          navigate("/mainpage");
+        }
+        else{
+          console.log("게시글 등록 실패:", response.data.message);
+        }
+      
+
+      }
+      catch (error) {
+        console.error("서버 요청 오류:", error);
+      }
     } else {
       alert("수상 제목과 내용을 모두 입력하세요.");
     }
@@ -210,7 +295,10 @@ const Posting = ({ tagnum }) => {
         className={tagBarVisible ? "visible" : "hidden"}
         onClick={TagBarClick}
       >
-        <TagBar handleTagClick={handleTagClick} />
+        <TagBar
+          handleTagClick={handleTagClick}
+          handleTagValue={handleTagValue}
+        />
       </div>
     </div>
   );

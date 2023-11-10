@@ -3,6 +3,7 @@ import styled from "styled-components";
 import "../css/PostDetail.css";
 import axios from "axios";
 import HashTag from "../components/HashTag";
+import API from "../api/api";
 
 const PostBox = styled.div`
   margin-top: 15px;
@@ -52,11 +53,6 @@ const MainPost = () => {
 
 
   useEffect(() => {
-<<<<<<< Updated upstream
-    axios
-      .get("http://127.0.0.1:8000/api/board")
-      .then((response) => {
-=======
     const fetchData = async () => {
       try {
 
@@ -68,105 +64,70 @@ const MainPost = () => {
 
         // 게시글 정보
         const response = await API.get("/api/board");
->>>>>>> Stashed changes
+        
         setPostInfo(response.data);
         setPostStates(
           response.data.map(() => ({ likebtn: false, scrapbtn: false }))
         );
         console.log("버튼 눌림");
-      })
-      .catch((error) => {
+        // console.log(response.data);
+      } catch (error) {
         console.error("사용자 정보를 가져오는 중 오류가 발생했습니다.", error);
-      });
+      }
+    };
+    fetchData();
   }, []);
 
-<<<<<<< Updated upstream
-  const handleLikeClick = (index, postId) => {
-=======
   const handleLikeClick = async (index) => {
     const postId = postInfo[index].id;
->>>>>>> Stashed changes
     const updatedPostStates = [...postStates];
     updatedPostStates[index].likebtn = !updatedPostStates[index].likebtn;
     setPostStates(updatedPostStates);
 
-<<<<<<< Updated upstream
-    axios
-      .post(`http://127.0.0.1:8000/api/board/${postId}/like`, {
-        // user: username, //변경하기
-        post: postId, //변경하기
-      })
-      .then((response) => {
-        console.log("좋아요 요청이 성공했습니다.", response);
-      })
-      .catch((error) => {
-        console.error("좋아요 요청 중 오류가 발생했습니다.", error);
-=======
+
     try {
       const response = await API.post(`/api/board/${postId}/like`, {
         user: userId,
         post: postId,
->>>>>>> Stashed changes
       });
+      console.log("좋아요 요청이 성공했습니다.", response);
+    } catch (error) {
+      console.error("좋아요 요청 중 오류가 발생했습니다.", error);
+    }
   };
 
-<<<<<<< Updated upstream
-  const handleUnlikeClick = (index, postId) => {
-=======
   const handleUnlikeClick = async (index) => {
     const postId = postInfo[index].id;
->>>>>>> Stashed changes
     const updatedPostStates = [...postStates];
     updatedPostStates[index].likebtn = !updatedPostStates[index].likebtn;
     setPostStates(updatedPostStates);
 
-<<<<<<< Updated upstream
-    axios
-      .post(`http://127.0.0.1:8000/api/board/${postId}/like`, {
-        // user: username, //변경하기
-        post: postId, //변경하기
-      })
-      .then((response) => {
-        console.log("좋아요 취소 요청이 성공했습니다.", response);
-      })
-      .catch((error) => {
-        console.error("좋아요 취소 요청 중 오류가 발생했습니다.", error);
-=======
     try {
       const response = await API.post(`/api/board/${postId}/like`, {
         user: userId,
-        post: postId,
->>>>>>> Stashed changes
+        post: postId
       });
+      console.log("좋아요 취소 요청이 성공했습니다.", response);
+    } catch (error) {
+      console.error("좋아요 취소 요청 중 오류가 발생했습니다.", error);
+    }
   };
 
-<<<<<<< Updated upstream
-  const handleScrapClick = (index, postId) => {
-=======
   const handleScrapClick = async (index) => {
     const postId = postInfo[index].id;
->>>>>>> Stashed changes
     const updatedPostStates = [...postStates];
     updatedPostStates[index].scrapbtn = !updatedPostStates[index].scrapbtn;
     setPostStates(updatedPostStates);
 
-<<<<<<< Updated upstream
-    axios
-      .post(`http://127.0.0.1:8000/api/board/${postId}/scrap`, {
-        // user: username,
-=======
     try {
       const response = await API.post(`/api/board/${postId}/scrap`, {
         user: userId,
->>>>>>> Stashed changes
         post: postId,
-      })
-      .then((response) => {
-        console.log("스크랩 요청이 성공했습니다.", response);
-      })
-      .catch((error) => {
-        console.error("스크랩 요청 중 오류가 발생했습니다.", error);
       });
+      console.log("스크랩 요청이 성공했습니다.", response);
+    } catch (error) {
+      console.error("스크랩 요청 중 오류가 발생했습니다.", error);
+    }
   };
 
   return (
@@ -190,7 +151,7 @@ const MainPost = () => {
           </PostProfileDiv>
 
           <div id="detail_hashtag_div">
-            <HashTag tagnum={post.hashtag} />
+            <HashTag tagnum={post.category} />
             <img
               id="detail_menuimg"
               src={process.env.PUBLIC_URL + "./images/menubar.png"}
@@ -199,7 +160,7 @@ const MainPost = () => {
 
           <div id="detail_contentbox">
             <p id="detail_title">{post.title}</p>
-            <p id="detail_contents">{post.contents}</p>
+            <p id="detail_contents">{post.content}</p>
             <div id="detail_imgcontainer">
               <img id="detail_photo1" src={post.photo1} />
               <img id="detail_photo2" src={post.photo2} />
