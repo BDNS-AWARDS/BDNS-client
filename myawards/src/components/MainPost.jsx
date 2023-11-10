@@ -51,31 +51,71 @@ const MainPost = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8000/postInfo")
+      .get("http://127.0.0.1:8000/api/board")
       .then((response) => {
         setPostInfo(response.data);
-        // 게시물 상태 배열 초기화
         setPostStates(
           response.data.map(() => ({ likebtn: false, scrapbtn: false }))
         );
+        console.log("버튼 눌림");
       })
       .catch((error) => {
         console.error("사용자 정보를 가져오는 중 오류가 발생했습니다.", error);
       });
   }, []);
 
-  const handleLikeClick = (index) => {
-    // 특정 게시물의 좋아요 상태를 토글
+  const handleLikeClick = (index, postId) => {
     const updatedPostStates = [...postStates];
     updatedPostStates[index].likebtn = !updatedPostStates[index].likebtn;
     setPostStates(updatedPostStates);
+
+    axios
+      .post(`http://127.0.0.1:8000/api/board/${postId}/like`, {
+        user: "user_id", //변경하기
+        post: postId, //변경하기
+      })
+      .then((response) => {
+        console.log("좋아요 요청이 성공했습니다.", response);
+      })
+      .catch((error) => {
+        console.error("좋아요 요청 중 오류가 발생했습니다.", error);
+      });
   };
 
-  const handleScrapClick = (index) => {
-    // 특정 게시물의 스크랩 상태를 토글
+  const handleUnlikeClick = (index, postId) => {
+    const updatedPostStates = [...postStates];
+    updatedPostStates[index].likebtn = !updatedPostStates[index].likebtn;
+    setPostStates(updatedPostStates);
+
+    axios
+      .post(`http://127.0.0.1:8000/api/board/${postId}/unlike`, {
+        user: "user_id", //변경하기
+        post: postId, //변경하기
+      })
+      .then((response) => {
+        console.log("좋아요 취소 요청이 성공했습니다.", response);
+      })
+      .catch((error) => {
+        console.error("좋아요 취소 요청 중 오류가 발생했습니다.", error);
+      });
+  };
+
+  const handleScrapClick = (index, postId) => {
     const updatedPostStates = [...postStates];
     updatedPostStates[index].scrapbtn = !updatedPostStates[index].scrapbtn;
     setPostStates(updatedPostStates);
+
+    axios
+      .post(`http://127.0.0.1:8000/api/board/${postId}/scrap`, {
+        user: "user_id",
+        post: postId,
+      })
+      .then((response) => {
+        console.log("스크랩 요청이 성공했습니다.", response);
+      })
+      .catch((error) => {
+        console.error("스크랩 요청 중 오류가 발생했습니다.", error);
+      });
   };
 
   return (

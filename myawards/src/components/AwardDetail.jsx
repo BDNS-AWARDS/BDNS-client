@@ -60,7 +60,7 @@ const AwardDetail = ({ selectedPostId }) => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8000/postInfo")
+      .get(`http://127.0.0.1:8000/api/board/${board_type}/${category_id}`)
       .then((response) => {
         setPostInfo(response.data);
         console.log(response.data);
@@ -71,13 +71,36 @@ const AwardDetail = ({ selectedPostId }) => {
   }, [selectedPostId]);
 
   const handleLikeClick = () => {
-    setIsLiked(!isLiked);
+    axios
+      .post(
+        `http://127.0.0.1:8000/api/board/${board_type}/${category_id}/like`,
+        {
+          postId: selectedPostId,
+        }
+      )
+      .then((response) => {
+        setIsLiked(!isLiked);
+      })
+      .catch((error) => {
+        console.error("좋아요 요청을 보내는 중 오류가 발생했습니다.", error);
+      });
   };
 
   const handleScrapClick = () => {
-    setIsScrapped(!isScrapped);
+    axios
+      .post(
+        `http://127.0.0.1:8000/api/board/${board_type}/${category_id}/scrap`,
+        {
+          postId: selectedPostId,
+        }
+      )
+      .then((response) => {
+        setIsScrapped(!isScrapped);
+      })
+      .catch((error) => {
+        console.error("스크랩 요청을 보내는 중 오류가 발생했습니다.", error);
+      });
   };
-
   return (
     <div id="detail_box">
       {postInfo

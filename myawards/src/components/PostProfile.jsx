@@ -29,13 +29,13 @@ const PostProfileDiv = styled.div`
 `;
 
 const PostProfile = () => {
-  const [postInfo, setPostInfo] = useState([]); // 객체로 초기화
+  const [postInfo, setPostInfo] = useState([]);
 
   useEffect(() => {
     axios
-      .get("http://localhost:8000/postInfo")
+      .get(`http://127.0.0.1:8000/api/board/${board_type}/${category_id}`)
       .then((response) => {
-        setPostInfo(response.data); // 배열의 첫 번째 요소를 가져옴
+        setPostInfo(response.data);
       })
       .catch((error) => {
         console.error("사용자 정보를 가져오는 중 오류가 발생했습니다.", error);
