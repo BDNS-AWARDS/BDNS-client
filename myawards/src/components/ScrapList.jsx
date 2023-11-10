@@ -4,6 +4,7 @@ import styled from "styled-components";
 import axios from "axios";
 import "../css/fonts/font.css";
 import HashTag from "./HashTag";
+import API from "../api/api";
 
 const StyledList = styled.div`
   background-color: #f7cc44;
@@ -43,16 +44,16 @@ const ScrapList = () => {
   };
 
   useEffect(() => {
-    axios
-      .get("http://127.0.0.1:8000/api/mypage")
-      .then((response) => {
-        setPostId(response.data.post_id);
-        const { user_scraps } = response.data;
-        setUser_scraps(user_scraps);
-      })
-      .catch((error) => {
+    const fetchData = async () => {
+      try {
+        const response = await API.get("/api/mypage");
+        
+        setUser_scraps(response.data.user_scraps);
+      } catch (error) {
         console.error("사용자 정보를 가져오는 중 오류가 발생했습니다.", error);
-      });
+      }
+    };
+    fetchData();
   }, []);
 
   return (
