@@ -46,9 +46,38 @@ const PostProfileDiv = styled.div`
   margin-bottom: -15px;
 `;
 
-const MainPost = () => {
+const HashTagDiv = styled.div`
+  background-color: #ffffff;
+  border: 0.01cm solid black;
+  border-radius: 15px;
+  padding: 0px 5px;
+  width: auto;
+  height: 23px;
+  text-align: center;
+  display: inline-block;
+  vertical-align: middle;
+  margin: 0px 5px;
+`;
+
+const HashTagP = styled.p`
+  font-family: "CinemaL";
+  font-size: 14px;
+  color: black;
+  -webkit-text-stroke: 0.01cm black;
+  margin-top: 4px;
+  margin-right: 3px;
+  white-space: nowrap;
+
+  @media (max-width: 410px) {
+    font-size: 12px;
+  }
+`;
+
+const MainPost = ({ selectedTag }) => {
   const [postInfo, setPostInfo] = useState([]);
   const [postStates, setPostStates] = useState([]);
+  const [selectedValue, setSelectedValue] = useState("selecter");
+  const [category, setCategory] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -58,6 +87,7 @@ const MainPost = () => {
         setPostStates(
           response.data.map(() => ({ likebtn: false, scrapbtn: false }))
         );
+        setCategory(response.data.category);
         console.log("버튼 눌림");
         // console.log(response.data);
       } catch (error) {
@@ -112,10 +142,61 @@ const MainPost = () => {
     }
   };
 
+  const filteredPosts = postInfo.filter((post) => {
+    switch (selectedTag) {
+      case 1:
+        return true;
+      case 2:
+        return post.category === "best_movies";
+      case 3:
+        return post.category === "best_dramas";
+      case 4:
+        return post.category === "best_books";
+      case 5:
+        return post.category === "best_music";
+      case 6:
+        return post.category === "best_moments";
+      case 7:
+        return post.category === "best_hobbies";
+      case 8:
+        return post.category === "best_discoveries";
+      case 9:
+        return post.category === "best_habits";
+      case 10:
+        return post.category === "best_sadness";
+      case 11:
+        return post.category === "best_thoughts";
+      case 12:
+        return post.category === "best_failures";
+      case 13:
+        return post.category === "best_regrets";
+      case 14:
+        return post.category === "best_humor";
+      case 15:
+        return post.category === "best_tears";
+      case 16:
+        return post.category === "best_spending";
+      case 17:
+        return post.category === "best_emotions";
+      case 18:
+        return post.category === "best_travels";
+      case 19:
+        return post.category === "best_food";
+      case 20:
+        return post.category === "best_gifts";
+      case 21:
+        return post.category === "best_photos";
+      case 22:
+        return post.category === "next_year_me";
+      default:
+        return true;
+    }
+  });
+
   return (
     <div id="detail_box">
-      {postInfo.map((post, index) => (
-        <PostBox >
+      {filteredPosts.map((post, index) => (
+        <PostBox>
           <PostProfileDiv>
             <PIContainer>
               <ProfileImg
@@ -133,7 +214,55 @@ const MainPost = () => {
           </PostProfileDiv>
 
           <div id="detail_hashtag_div">
-            <HashTag tagnum={post.category} />
+            <HashTagDiv>
+              <HashTagP>
+                {post.category === "best_all"
+                  ? "#all"
+                  : post.category === "best_movies"
+                  ? "#올해의_영화"
+                  : post.category === "best_dramas"
+                  ? "#올해의_드라마"
+                  : post.category === "best_books"
+                  ? "#올해의_책"
+                  : post.category === "best_music"
+                  ? "#올해의_음악"
+                  : post.category === "best_moments"
+                  ? "#올해의_순간"
+                  : post.category === "best_hobbies"
+                  ? "#올해의_취미"
+                  : post.category === "best_discoveries"
+                  ? "#올해의_발견"
+                  : post.category === "best_habits"
+                  ? "#올해의_습관"
+                  : post.category === "best_sadness"
+                  ? "#올해의_우울"
+                  : post.category === "best_thoughts"
+                  ? "#올해의_생각"
+                  : post.category === "best_failures"
+                  ? "#올해의_실패"
+                  : post.category === "best_regrets"
+                  ? "#올해의_후회"
+                  : post.category === "best_humor"
+                  ? "#올해의_유머"
+                  : post.category === "best_tears"
+                  ? "#올해의_눈물"
+                  : post.category === "best_spending"
+                  ? "#올해의_소비"
+                  : post.category === "best_emotions"
+                  ? "#올해의_감동"
+                  : post.category === "best_travels"
+                  ? "#올해의_여행"
+                  : post.category === "best_food"
+                  ? "#올해의_음식"
+                  : post.category === "best_gifts"
+                  ? "#올해의_선물"
+                  : post.category === "best_photos"
+                  ? "#올해의_사진"
+                  : post.category === "next_year_me"
+                  ? "#내년의 나"
+                  : null}
+              </HashTagP>
+            </HashTagDiv>
             <img
               id="detail_menuimg"
               src={process.env.PUBLIC_URL + "./images/menubar.png"}
