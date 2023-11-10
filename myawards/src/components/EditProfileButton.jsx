@@ -14,8 +14,8 @@ const Image = styled.img`
   margin-left:-43px;
 `;
 
-const EditProfileButton = ({ isActive, onClick }) => {
-  const buttonImage = isActive ? "images/editprofile_on.png" : "images/editprofile_off.png";
+const EditProfileButton = ({ isEnabled, onClick }) => {
+  const buttonImage = isEnabled ? "images/editprofile_on.png" : "images/editprofile_off.png";
 
   return (
     <div>

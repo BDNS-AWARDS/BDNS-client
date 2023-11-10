@@ -51,12 +51,13 @@ const GameStart = () => {
         <Logo />
       </div>
       <img id="gametitle" src="images/game_title.png" alt="gametitle" />
-      <p id="contents">친구들과 돌아가며 나만의 어워즈를 공유해보세요!</p>
-      <img id="mic" src="images/mic.png" alt="mic" />
+      <p id="start_contents">친구들과 돌아가며 나만의 어워즈를 공유해보세요!</p>
+      <img id="start_mic" src="images/mic.png" alt="mic" />
       <p id="middletitle">참가자 이름을 입력해 주세요!</p>
       <div id="inputcontainer">
         {inputFields.map((_, index) => (
           <Input
+            id="Inputtext"
             key={index}
             type="text"
             placeholder={`이름(8자 내외)`}

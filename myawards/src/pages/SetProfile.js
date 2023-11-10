@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import API from "../api/api";
 import Logo from "../components/Logo";
 import "../css/SetProfile.css";
 import styled from "styled-components";
@@ -22,6 +23,8 @@ const SetProfile = () => {
   const [isSuccess, setIsSuccess] = useState(false); // 성공 여부 상태
   const [isProfileSelected, setIsProfileSelected] = useState(false);
 
+  const navigate = useNavigate();
+
   const handleInputChange = (e) => {
     setIsModalVisible(false); // 입력값 변경 시 모달 숨김
     setInputValue(e.target.value);
@@ -32,7 +35,7 @@ const SetProfile = () => {
     // 여기에서 닉네임 중복 확인 로직을 구현
     try {
       // 예를 들어, 서버에서 닉네임 중복을 확인하는 요청을 보냅니다.
-      const response = await axios.post("http://localhost:8000/userInfo", {
+      const response = await API.post("/api/user/check_nickname", {
         nickname: inputValue,
       });
 
@@ -90,11 +93,27 @@ const SetProfile = () => {
     }
   };
 
-  const handleStartButtonClick = () => {
-    if (inputValue.trim() !== "" && isProfileSelected && isSuccess) {
-      // 필수 조건이 충족된 경우에만 작동
-      // start 버튼에 필수 조건이 충족되지 않으면 클릭해도 아무 작업이 수행되지 않습니다.
-      // 여기에서 '올해의 마이 어워즈 시작' 작업 수행
+  const handleStartButtonClick = async () => {
+    try {
+      if (inputValue.trim() !== "" && isSuccess) {
+        const response = await API.post("/api/user/register", {
+          nickname: inputValue,
+          profile_image: "URL_OF_SELECTED_IMAGE",
+        });
+
+        if (response.data.success) {
+          console.log("회원가입 성공!");
+          // 여기에서 추가적인 작업 수행 (예: 로그인 처리 등)
+
+          // 회원가입 성공 시 api/board로 이동
+          navigate("/mainpage");
+        } else {
+          console.log("회원가입 실패:", response.data.message);
+          // 실패에 대한 처리 로직 추가
+        }
+      }
+    } catch (error) {
+      console.error("서버 요청 오류:", error);
     }
   };
 
@@ -148,7 +167,7 @@ const SetProfile = () => {
       </div>
       <img id="letter" src="images/letter.png" alt="letter" />
       <StartButton
-        isEnabled={inputValue.trim() !== "" && isProfileSelected && isSuccess}
+        isEnabled={inputValue.trim() !== "" && isSuccess}
         onClick={handleStartButtonClick}
       />
     </div>

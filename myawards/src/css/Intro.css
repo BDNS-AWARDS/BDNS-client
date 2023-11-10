@@ -12,9 +12,10 @@
 }
 
 #nameimage {
-  width:381px;
-  height:163px;
+  width:85%;
+  height:auto;
   margin-top:60px;
+  margin-left:10%;
 }
 
 #button {
