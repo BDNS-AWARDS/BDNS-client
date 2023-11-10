@@ -4,6 +4,7 @@ import styled from "styled-components";
 import axios from "axios";
 import "../css/fonts/font.css";
 import HashTag from "./HashTag";
+import API from "../api/api";
 
 const StyledList = styled.div`
   background-color: #f7cc44;
@@ -44,26 +45,22 @@ const MyList = () => {
   };
 
   useEffect(() => {
-    axios
-      .get("http://127.0.0.1:8000/api/mypage")
-      .then((response) => {
-        const { user_posts } = response.data;
-        if (user_posts.length > 0) {
-          const firstPostId = user_posts[0].id;
-          setPostId(firstPostId);
-        }
-        setUser_posts(user_posts);
-      })
-      .catch((error) => {
+    const fetchUserPosts = async () => {
+      try {
+        const response = await API.get("/api/mypage");
+        setUser_posts(response.data.user_posts);
+      } catch (error) {
         console.error("사용자 정보를 가져오는 중 오류가 발생했습니다.", error);
-      });
+      }
+    };
+    fetchUserPosts();
   }, []);
 
   return (
     <>
       {user_posts.map((userpost) => (
         <StyledList onClick={() => handleListClick(userpost.id)}>
-          <HashTag tagnum={userpost.hashtag} />
+          <HashTag tagnum={userpost.category} />
           <div style={{ position: "relative", display: "inline-block" }}>
             <SantokkiSpan>수상 제목 : </SantokkiSpan>
             <CinemaMSpan>{userpost.title}</CinemaMSpan>

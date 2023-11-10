@@ -7,6 +7,8 @@ import CustomFileInputButton from "../components/CustomFileInputButton";
 import TagBar from "../components/TagBar";
 import HashTag from "../components/HashTag";
 import axios from "axios";
+import API from "../api/api";
+import { useNavigate } from "react-router-dom";
 
 const StyledTxt = styled.p`
   color: #8a0b0b;
@@ -61,7 +63,7 @@ const Posting = ({ tagnum }) => {
   const [imageFiles, setImageFiles] = useState([null, null]);
 
   const [categories, setCategories] = useState([]);
-
+  
   useEffect(() => {
     axios
       .get("http://127.0.0.1:8000/api/hashtag", {
@@ -197,31 +199,36 @@ const Posting = ({ tagnum }) => {
     setSelectedValue(value);
     console.log(value);
   };
-
-  const handleSubmit = () => {
+  const navigate = useNavigate();
+  const handleSubmit = async () => {
     if (title && contents) {
-      axios
-        .post(
-          "http://127.0.0.1:8000/api/board",
-          {
-            title: title,
-            content: contents,
-            category: selectedValue,
-            writer: 1,
-          },
-          {
-            headers: {
-              "Content-Type": "application/json",
-            },
-            withCredentials: true,
-          }
-        )
-        .then((response) => {
-          alert("제출되었습니다.");
-        })
-        .catch((error) => {
-          alert("서버와의 통신 중 오류가 발생했습니다.");
+      
+      try{  
+        const userResponse = await axios.get("http://127.0.0.1:8000/api/user/current_user", {
+          withCredentials: true, // 쿠키 사용
         });
+        const userId = userResponse.data.id;
+        const response = await API.post("/api/board",
+        {
+          title: title,
+          content: contents,
+          category: "best_movies",
+          writer : userId
+        }
+      );
+        if (response.data){
+          console.log("게시글 등록 성공!");
+          navigate("/mainpage");
+        }
+        else{
+          console.log("게시글 등록 실패:", response.data.message);
+        }
+      
+
+      }
+      catch (error) {
+        console.error("서버 요청 오류:", error);
+      }
     } else {
       alert("수상 제목과 내용을 모두 입력하세요.");
     }
