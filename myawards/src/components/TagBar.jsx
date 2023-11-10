@@ -16,6 +16,7 @@ const TagBarDiv = styled.div`
 const TagBar = (props) => {
   function hashtagClick(tagnum) {
     props.handleTagClick(tagnum);
+    props.handleTagValue(tagnum);
     console.log(tagnum);
   }
 

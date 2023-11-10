@@ -24,7 +24,7 @@ function MainPage({ tagnum }) {
       .then((response) => {
         setCategories(
           response.data.categories.filter(
-            (categories) => categories.id === tagnum
+            (categories) => categories.id == tagnum
           )
         );
       });
