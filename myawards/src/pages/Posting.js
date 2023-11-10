@@ -61,16 +61,15 @@ const Posting = ({ tagnum }) => {
   const [selectedTag, setSelectedTag] = useState(0);
   const [selectedValue, setSelectedValue] = useState("selecter");
   const [imageFiles, setImageFiles] = useState([null, null]);
-
   const [categories, setCategories] = useState([]);
-  
+
   useEffect(() => {
     axios
       .get("http://127.0.0.1:8000/api/hashtag", {
         headers: {
           "Content-Type": "application/json",
         },
-        withCredentials: true, // 쿠키사용
+        withCredentials: true,
       })
       .then((response) => {
         setCategories(
@@ -202,31 +201,27 @@ const Posting = ({ tagnum }) => {
   const navigate = useNavigate();
   const handleSubmit = async () => {
     if (title && contents) {
-      
-      try{  
-        const userResponse = await axios.get("http://127.0.0.1:8000/api/user/current_user", {
-          withCredentials: true, // 쿠키 사용
-        });
+      try {
+        const userResponse = await axios.get(
+          "http://127.0.0.1:8000/api/user/current_user",
+          {
+            withCredentials: true, // 쿠키 사용
+          }
+        );
         const userId = userResponse.data.id;
-        const response = await API.post("/api/board",
-        {
+        const response = await API.post("/api/board", {
           title: title,
           content: contents,
-          category: "best_movies",
-          writer : userId
-        }
-      );
-        if (response.data){
+          category: selectedValue,
+          writer: userId,
+        });
+        if (response.data) {
           console.log("게시글 등록 성공!");
           navigate("/mainpage");
-        }
-        else{
+        } else {
           console.log("게시글 등록 실패:", response.data.message);
         }
-      
-
-      }
-      catch (error) {
+      } catch (error) {
         console.error("서버 요청 오류:", error);
       }
     } else {

@@ -12,7 +12,9 @@ function MainPage({ tagnum }) {
   const [hashtag, setHashtag] = useState([]);
   const [tagBarVisible, setTagBarVisible] = useState(false);
   const [selectedTag, setSelectedTag] = useState(1);
+  const [selectedValue, setSelectedValue] = useState();
   const [categories, setCategories] = useState([]);
+
   useEffect(() => {
     axios
       .get("http://127.0.0.1:8000/api/hashtag", {
@@ -41,8 +43,84 @@ function MainPage({ tagnum }) {
   };
 
   const handleTagClick = (tagnum) => {
-    setSelectedTag(tagnum);
     console.log(tagnum);
+    setSelectedTag(tagnum);
+  };
+
+  const handleTagValue = (tagnum, value) => {
+    switch (tagnum) {
+      case 0:
+        value = "select";
+        break;
+      case 1:
+        value = "best_all";
+        break;
+      case 2:
+        value = "best_movies";
+        break;
+      case 3:
+        value = "best_dramas";
+        break;
+      case 4:
+        value = "best_books";
+        break;
+      case 5:
+        value = "best_music";
+        break;
+      case 6:
+        value = "best_moments";
+        break;
+      case 7:
+        value = "best_hobbies";
+        break;
+      case 8:
+        value = "best_discoveries";
+        break;
+      case 9:
+        value = "best_habits";
+        break;
+      case 10:
+        value = "best_sadness";
+        break;
+      case 11:
+        value = "best_thoughts";
+        break;
+      case 12:
+        value = "best_failures";
+        break;
+      case 13:
+        value = "best_regrets";
+        break;
+      case 14:
+        value = "best_humor";
+        break;
+      case 15:
+        value = "best_tears";
+        break;
+      case 16:
+        value = "best_spending";
+        break;
+      case 17:
+        value = "best_emotions";
+        break;
+      case 18:
+        value = "best_travels";
+        break;
+      case 19:
+        value = "best_food";
+        break;
+      case 20:
+        value = "best_gifts";
+        break;
+      case 21:
+        value = "best_photos";
+        break;
+      case 22:
+        value = "next_year_me";
+        break;
+    }
+    setSelectedValue(value);
+    console.log(value);
   };
 
   return (
@@ -60,14 +138,17 @@ function MainPage({ tagnum }) {
         <HashTag tagnum={selectedTag} />
       </div>
       <div id="main_post_div">
-        <MainPost />
+        <MainPost selectedTag={selectedTag} />
       </div>
       <div
         id="main_tagbar"
         className={tagBarVisible ? "visible" : "hidden"}
         onClick={TagBarClick}
       >
-        <TagBar handleTagClick={handleTagClick} />
+        <TagBar
+          handleTagClick={handleTagClick}
+          handleTagValue={handleTagValue}
+        />
       </div>
       <div id="main_navbar_div">
         <NavBar />
