@@ -96,20 +96,31 @@ const SetProfile = () => {
   const handleStartButtonClick = async () => {
     try {
       if (inputValue.trim() !== "" && isSuccess) {
-        const response = await API.post("/api/user/register", {
-          nickname: inputValue,
-          profile_image: "URL_OF_SELECTED_IMAGE",
-        });
+        const fileInput = document.getElementById("fileInput");
+        const selectedImage = fileInput.files[0];
 
-        if (response.data.success) {
-          console.log("회원가입 성공!");
-          // 여기에서 추가적인 작업 수행 (예: 로그인 처리 등)
+        // 이미지가 선택된 경우에만 업로드 수행
+        if (selectedImage) {
+          const formData = new FormData();
+          formData.append("nickname", inputValue);
+          formData.append("profile_image", selectedImage);
 
-          // 회원가입 성공 시 api/board로 이동
-          navigate("/mainpage");
-        } else {
-          console.log("회원가입 실패:", response.data.message);
-          // 실패에 대한 처리 로직 추가
+          const response = await API.post("/api/user/register", formData, {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          });
+
+          if (response.data) {
+            console.log("회원가입 성공!");
+            // 여기에서 추가적인 작업 수행 (예: 로그인 처리 등)
+
+            // 회원가입 성공 시 api/board로 이동
+            navigate("/mainpage");
+          } else {
+            console.log("회원가입 실패:", response.data.message);
+            // 실패에 대한 처리 로직 추가
+          }
         }
       }
     } catch (error) {
