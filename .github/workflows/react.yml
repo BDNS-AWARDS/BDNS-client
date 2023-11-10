@@ -77,4 +77,4 @@ jobs:
           docker stop line4-bdns-web
           docker rm line4-bdns-web
           docker image rm ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_REPONAME }}
-          docker run -d --name line4-bdns-web -p 3000:80 --net line4-bdns ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_REPONAME }}
+          docker run -d --name line4-bdns-web -p 3000:80 -v line4-bdns-static:/app/build/static --net line4-bdns ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_REPONAME }}
