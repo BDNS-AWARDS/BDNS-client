@@ -139,7 +139,7 @@ const MainPost = () => {
           </PostProfileDiv>
 
           <div id="detail_hashtag_div">
-            <HashTag tagnum={post.hashtag} />
+            <HashTag tagnum={post.category} />
             <img
               id="detail_menuimg"
               src={process.env.PUBLIC_URL + "./images/menubar.png"}

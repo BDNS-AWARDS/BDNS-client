@@ -56,7 +56,8 @@ const Posting = ({ tagnum }) => {
   const [contents, setContents] = useState("");
   const [postImage, setPostImage] = useState("post_off.png");
   const [tagBarVisible, setTagBarVisible] = useState(false);
-  const [selectedTag, setSelectedTag] = useState("best_movies");
+  const [selectedTag, setSelectedTag] = useState(0);
+  const [selectedValue, setSelectedValue] = useState("selecter");
   const [imageFiles, setImageFiles] = useState([null, null]);
 
   const [categories, setCategories] = useState([]);
@@ -117,8 +118,84 @@ const Posting = ({ tagnum }) => {
   };
 
   const handleTagClick = (tagnum) => {
-    setSelectedTag(tagnum);
     console.log(tagnum);
+    setSelectedTag(tagnum);
+  };
+
+  const handleTagValue = (tagnum, value) => {
+    switch (tagnum) {
+      case 0:
+        value = "select";
+        break;
+      case 1:
+        value = "best_all";
+        break;
+      case 2:
+        value = "best_movies";
+        break;
+      case 3:
+        value = "best_dramas";
+        break;
+      case 4:
+        value = "best_books";
+        break;
+      case 5:
+        value = "best_music";
+        break;
+      case 6:
+        value = "best_moments";
+        break;
+      case 7:
+        value = "best_hobbies";
+        break;
+      case 8:
+        value = "best_discoveries";
+        break;
+      case 9:
+        value = "best_habits";
+        break;
+      case 10:
+        value = "best_sadness";
+        break;
+      case 11:
+        value = "best_thoughts";
+        break;
+      case 12:
+        value = "best_failures";
+        break;
+      case 13:
+        value = "best_regrets";
+        break;
+      case 14:
+        value = "best_humor";
+        break;
+      case 15:
+        value = "best_tears";
+        break;
+      case 16:
+        value = "best_spending";
+        break;
+      case 17:
+        value = "best_emotions";
+        break;
+      case 18:
+        value = "best_travels";
+        break;
+      case 19:
+        value = "best_food";
+        break;
+      case 20:
+        value = "best_gifts";
+        break;
+      case 21:
+        value = "best_photos";
+        break;
+      case 22:
+        value = "next_year_me";
+        break;
+    }
+    setSelectedValue(value);
+    console.log(value);
   };
 
   const handleSubmit = () => {
@@ -129,7 +206,8 @@ const Posting = ({ tagnum }) => {
           {
             title: title,
             content: contents,
-            category: selectedTag,
+            category: selectedValue,
+            writer: 1,
           },
           {
             headers: {
@@ -210,7 +288,10 @@ const Posting = ({ tagnum }) => {
         className={tagBarVisible ? "visible" : "hidden"}
         onClick={TagBarClick}
       >
-        <TagBar handleTagClick={handleTagClick} />
+        <TagBar
+          handleTagClick={handleTagClick}
+          handleTagValue={handleTagValue}
+        />
       </div>
     </div>
   );
