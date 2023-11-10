@@ -49,11 +49,22 @@ const PostProfileDiv = styled.div`
 const MainPost = () => {
   const [postInfo, setPostInfo] = useState([]);
   const [postStates, setPostStates] = useState([]);
+  const [userId, setUserId] = useState(null);
+
 
   useEffect(() => {
     const fetchData = async () => {
       try {
+
+        // 사용자 정보
+        const userResponse = await axios.get("http://127.0.0.1:8000/api/user/current_user", {
+          withCredentials: true,
+        });
+        setUserId(userResponse.data.id);
+
+        // 게시글 정보
         const response = await API.get("/api/board");
+        
         setPostInfo(response.data);
         setPostStates(
           response.data.map(() => ({ likebtn: false, scrapbtn: false }))
@@ -67,14 +78,17 @@ const MainPost = () => {
     fetchData();
   }, []);
 
-  const handleLikeClick = async (index, postId) => {
+  const handleLikeClick = async (index) => {
+    const postId = postInfo[index].id;
     const updatedPostStates = [...postStates];
     updatedPostStates[index].likebtn = !updatedPostStates[index].likebtn;
     setPostStates(updatedPostStates);
 
+
     try {
       const response = await API.post(`/api/board/${postId}/like`, {
-        post: postId, //변경하기
+        user: userId,
+        post: postId,
       });
       console.log("좋아요 요청이 성공했습니다.", response);
     } catch (error) {
@@ -82,14 +96,16 @@ const MainPost = () => {
     }
   };
 
-  const handleUnlikeClick = async (index, postId) => {
+  const handleUnlikeClick = async (index) => {
+    const postId = postInfo[index].id;
     const updatedPostStates = [...postStates];
     updatedPostStates[index].likebtn = !updatedPostStates[index].likebtn;
     setPostStates(updatedPostStates);
 
     try {
       const response = await API.post(`/api/board/${postId}/like`, {
-        post: postId, //변경하기
+        user: userId,
+        post: postId
       });
       console.log("좋아요 취소 요청이 성공했습니다.", response);
     } catch (error) {
@@ -97,13 +113,15 @@ const MainPost = () => {
     }
   };
 
-  const handleScrapClick = async (index, postId) => {
+  const handleScrapClick = async (index) => {
+    const postId = postInfo[index].id;
     const updatedPostStates = [...postStates];
     updatedPostStates[index].scrapbtn = !updatedPostStates[index].scrapbtn;
     setPostStates(updatedPostStates);
 
     try {
       const response = await API.post(`/api/board/${postId}/scrap`, {
+        user: userId,
         post: postId,
       });
       console.log("스크랩 요청이 성공했습니다.", response);
