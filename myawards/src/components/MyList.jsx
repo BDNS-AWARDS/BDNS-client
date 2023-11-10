@@ -36,6 +36,7 @@ const CinemaMSpan = styled.span`
 
 const MyList = () => {
   const [user_posts, setUser_posts] = useState([]);
+  const [postId, setPostId] = useState(0);
 
   const handleListClick = (postId) => {
     console.log("클릭한 요소의 post.id:", postId);
@@ -47,8 +48,11 @@ const MyList = () => {
       .get("http://127.0.0.1:8000/api/mypage")
       .then((response) => {
         const { user_posts } = response.data;
+        if (user_posts.length > 0) {
+          const firstPostId = user_posts[0].id;
+          setPostId(firstPostId);
+        }
         setUser_posts(user_posts);
-        
       })
       .catch((error) => {
         console.error("사용자 정보를 가져오는 중 오류가 발생했습니다.", error);
