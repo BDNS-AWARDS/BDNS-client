@@ -48,11 +48,27 @@ const PostProfileDiv = styled.div`
 const MainPost = () => {
   const [postInfo, setPostInfo] = useState([]);
   const [postStates, setPostStates] = useState([]);
+  const [userId, setUserId] = useState(null);
+
 
   useEffect(() => {
+<<<<<<< Updated upstream
     axios
       .get("http://127.0.0.1:8000/api/board")
       .then((response) => {
+=======
+    const fetchData = async () => {
+      try {
+
+        // 사용자 정보
+        const userResponse = await axios.get("http://127.0.0.1:8000/api/user/current_user", {
+          withCredentials: true,
+        });
+        setUserId(userResponse.data.id);
+
+        // 게시글 정보
+        const response = await API.get("/api/board");
+>>>>>>> Stashed changes
         setPostInfo(response.data);
         setPostStates(
           response.data.map(() => ({ likebtn: false, scrapbtn: false }))
@@ -64,11 +80,17 @@ const MainPost = () => {
       });
   }, []);
 
+<<<<<<< Updated upstream
   const handleLikeClick = (index, postId) => {
+=======
+  const handleLikeClick = async (index) => {
+    const postId = postInfo[index].id;
+>>>>>>> Stashed changes
     const updatedPostStates = [...postStates];
     updatedPostStates[index].likebtn = !updatedPostStates[index].likebtn;
     setPostStates(updatedPostStates);
 
+<<<<<<< Updated upstream
     axios
       .post(`http://127.0.0.1:8000/api/board/${postId}/like`, {
         // user: username, //변경하기
@@ -79,14 +101,26 @@ const MainPost = () => {
       })
       .catch((error) => {
         console.error("좋아요 요청 중 오류가 발생했습니다.", error);
+=======
+    try {
+      const response = await API.post(`/api/board/${postId}/like`, {
+        user: userId,
+        post: postId,
+>>>>>>> Stashed changes
       });
   };
 
+<<<<<<< Updated upstream
   const handleUnlikeClick = (index, postId) => {
+=======
+  const handleUnlikeClick = async (index) => {
+    const postId = postInfo[index].id;
+>>>>>>> Stashed changes
     const updatedPostStates = [...postStates];
     updatedPostStates[index].likebtn = !updatedPostStates[index].likebtn;
     setPostStates(updatedPostStates);
 
+<<<<<<< Updated upstream
     axios
       .post(`http://127.0.0.1:8000/api/board/${postId}/like`, {
         // user: username, //변경하기
@@ -97,17 +131,34 @@ const MainPost = () => {
       })
       .catch((error) => {
         console.error("좋아요 취소 요청 중 오류가 발생했습니다.", error);
+=======
+    try {
+      const response = await API.post(`/api/board/${postId}/like`, {
+        user: userId,
+        post: postId,
+>>>>>>> Stashed changes
       });
   };
 
+<<<<<<< Updated upstream
   const handleScrapClick = (index, postId) => {
+=======
+  const handleScrapClick = async (index) => {
+    const postId = postInfo[index].id;
+>>>>>>> Stashed changes
     const updatedPostStates = [...postStates];
     updatedPostStates[index].scrapbtn = !updatedPostStates[index].scrapbtn;
     setPostStates(updatedPostStates);
 
+<<<<<<< Updated upstream
     axios
       .post(`http://127.0.0.1:8000/api/board/${postId}/scrap`, {
         // user: username,
+=======
+    try {
+      const response = await API.post(`/api/board/${postId}/scrap`, {
+        user: userId,
+>>>>>>> Stashed changes
         post: postId,
       })
       .then((response) => {
