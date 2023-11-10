@@ -60,7 +60,7 @@ const AwardDetail = ({ selectedPostId }) => {
 
   useEffect(() => {
     axios
-      .get(`http://127.0.0.1:8000/api/board/${board_type}/${category_id}`)
+      .get(`http://127.0.0.1:8000/api/board/${this.post_id}`)
       .then((response) => {
         setPostInfo(response.data);
         console.log(response.data);
@@ -73,7 +73,7 @@ const AwardDetail = ({ selectedPostId }) => {
   const handleLikeClick = () => {
     axios
       .post(
-        `http://127.0.0.1:8000/api/board/${board_type}/${category_id}/like`,
+        `http://127.0.0.1:8000/api/board/${this.post_id}/like`,
         {
           postId: selectedPostId,
         }
@@ -89,7 +89,7 @@ const AwardDetail = ({ selectedPostId }) => {
   const handleScrapClick = () => {
     axios
       .post(
-        `http://127.0.0.1:8000/api/board/${board_type}/${category_id}/scrap`,
+        `http://127.0.0.1:8000/api/board/${this.post_id}/scrap`,
         {
           postId: selectedPostId,
         }
