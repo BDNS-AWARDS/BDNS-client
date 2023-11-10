@@ -89,7 +89,7 @@ const MainPost = ({ selectedTag }) => {
     try {
       // 사용자 정보
       const userResponse = await axios.get(
-        "http://127.0.0.1:8000/api/user/current_user",
+        "http://15.164.160.92/api/user/current_user",
         {
           withCredentials: true,
         }
