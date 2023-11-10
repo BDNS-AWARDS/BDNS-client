@@ -102,11 +102,26 @@ const Posting = ({ tagnum }) => {
     }
   };
 
-  const handleImageFileChange = (index, file) => {
-    const newImageFiles = [...imageFiles];
-    newImageFiles[index] = file;
-    setImageFiles(newImageFiles);
+  const handleImageChange = async (images) => {
+    console.log("Received Images in Posting:", images);
+
+    try {
+      const blobImages = await Promise.all( // 이미지 파일을 blob으로 변환
+        images.map(async (image) => {
+          const response = await fetch(image);
+          const blob = await response.blob();
+          return blob;
+        })
+      );
+
+      console.log("blob Images:", blobImages);
+
+      setImageFiles(blobImages);
+    } catch (error) {
+      console.error("이미지 변환에 오류가 발생 :", error);
+    }
   };
+  
 
   const toggleTagBar = () => {
     setTagBarVisible(true);
@@ -200,6 +215,7 @@ const Posting = ({ tagnum }) => {
   };
   const navigate = useNavigate();
   const handleSubmit = async () => {
+    console.log("Image Files in handleSubmit:", imageFiles);
     if (title && contents) {
       try {
         const userResponse = await axios.get(
@@ -209,11 +225,25 @@ const Posting = ({ tagnum }) => {
           }
         );
         const userId = userResponse.data.id;
-        const response = await API.post("/api/board", {
-          title: title,
-          content: contents,
-          category: selectedValue,
-          writer: userId,
+        const formData = new FormData();
+
+        // FormData에 전송할 데이터 추가
+        if (imageFiles) {
+          imageFiles.forEach((file, index) => {
+            formData.append(`images`, file, `image${index + 1}.png`);
+          });
+        }
+        formData.append('title', title);
+        formData.append('content', contents);
+        formData.append('category', selectedValue);
+        formData.append('writer', userId);
+
+        console.log("FormData with Images:", formData);
+
+        const response = await API.post("/api/board", formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
         });
         if (response.data) {
           console.log("게시글 등록 성공!");
@@ -274,7 +304,7 @@ const Posting = ({ tagnum }) => {
             />
           </div>
           <br />
-          <CustomFileInputButton />
+          <CustomFileInputButton onImageChange={handleImageChange}/>
         </form>
       </div>
 

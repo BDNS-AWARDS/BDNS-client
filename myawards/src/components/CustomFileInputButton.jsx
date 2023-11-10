@@ -20,9 +20,12 @@ class CustomFileInputButton extends React.Component {
       const newImages = Array.from(files).map((file) =>
         URL.createObjectURL(file)
       );
+      console.log("Selected Images:", newImages);
       this.setState((prevState) => ({
         selectedImages: [...prevState.selectedImages, ...newImages].slice(0, 2),
-      }));
+      }), () => {
+        this.props.onImageChange(this.state.selectedImages); // 부모 컴포넌트로 이미지 전달
+      });
     }
   };
 
