@@ -1,6 +1,6 @@
 #gamebox {
     background-color: #8a0b0b;
-    height: 100%; /* 화면 높이의 100%로 설정 */
+    height: 100vh; /* 화면 높이의 100%로 설정 */
     margin: 0; /* body의 margin 제거 */
     align-items: auto;
     justify-content: center; 
@@ -80,7 +80,7 @@
     margin-top:-5%;
 }
   
-@media (max-width: 390px) {
+@media (max-width: 415px) {
   #mic {
     width:50%;
     margin-left:25%;
