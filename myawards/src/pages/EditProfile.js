@@ -162,7 +162,9 @@ const EditProfile = () => {
           style={{ display: "none" }}
         />
         <PhotoButton onClick={handleImageUpload}>
-          <img id="photo" src="images/addphoto.png" alt="photo" />
+          <div id="pi_container">
+            <img id="photo" src="images/addphoto.png" alt="photo" />
+          </div>
         </PhotoButton>
       </div>
       <p id="paragragh">

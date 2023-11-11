@@ -84,36 +84,17 @@ const MainPost = ({ selectedTag }) => {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [deleteModalPostId, setDeleteModalPostId] = useState(null);
   const [userId, setUserId] = useState(null);
+  const [userInfo, setUserInfo] = useState([]);
 
-  // const fetchData = async () => {
-  //   try {
-  //     // 사용자 정보
-  //     const userResponse = await axios.get(
-  //       "http://127.0.0.1:8000/api/user/current_user",
-  //       {
-  //         withCredentials: true,
-  //       }
-  //     );
-  //     setUserId(userResponse.data.id);
-
-  //     // 게시판 정보
-  //     const response = await API.get("/api/board");
-
-  //     setPostInfo(response.data);
-  //     setPostStates(
-  //       response.data.map(() => ({
-  //         likebtn: false,
-  //         scrapbtn: false,
-  //         likeImage: "./images/like_off.png",
-  //       }))
-  //     );      
-  //     setCategory(response.data.category);
-  //     console.log("버튼 눌림");
-  //     // console.log(response.data);
-  //   } catch (error) {
-  //     console.error("사용자 정보를 가져오는 중 오류가 발생했습니다.", error);
-  //   }
-  // };
+  const formatUpdatedAT = (isoString) => {
+    const date = new Date(isoString);
+    const options = {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    };
+    return new Intl.DateTimeFormat(options).format(date);
+  };
 
   const handleDeleteClick = (postId) => {
     setDeleteModalPostId(postId);
@@ -347,6 +328,18 @@ const MainPost = ({ selectedTag }) => {
     fetchDataAndLikeStatus();
   }, []); 
 
+  useEffect(() => {
+    const fetchUserInfo = async () => {
+      try {
+        const response = await API.get(`/api/mypage`);
+        setUserInfo(response.data.user_info);
+      } catch (error) {
+        console.error("사용자 정보를 가져오는 중 오류가 발생했습니다.", error);
+      }
+    };
+    fetchUserInfo();
+  }, []);
+
   return (
     <div id="detail_box">
       {filteredPosts.map((post, index) => (
@@ -364,7 +357,7 @@ const MainPost = ({ selectedTag }) => {
             </PIContainer>
             <div id="detail_header">
               <Nickname>{post.nickname}</Nickname>
-              <p id="detail_header_p">{post.date}</p>
+              <p id="detail_header_p">{formatUpdatedAT(post.created_at)}</p>
             </div>
           </PostProfileDiv>
 
@@ -418,11 +411,15 @@ const MainPost = ({ selectedTag }) => {
                   : null}
               </HashTagP>
             </HashTagDiv>
-            <img
-              id="detail_menuimg"
-              src={process.env.PUBLIC_URL + "./images/menubar.png"}
-              onClick={() => handleDeleteClick(post.id)}
-            />
+            {post.nickname === userInfo.nickname ? (
+              <img
+                id="detail_menuimg"
+                src={process.env.PUBLIC_URL + "./images/menubar.png"}
+                onClick={() => handleDeleteClick(post.id)}
+              />
+            ) : (
+              <img id="detail_menuimg" style={{ display: "none" }} />
+            )}
           </div>
 
           <div id="detail_contentbox">
