@@ -138,6 +138,7 @@ const MainPost = ({ selectedTag }) => {
           ...updatedPostStates[index],
           likeImage: "./images/like_off.png",
         };
+        setPostStates(updatedPostStates);
       }
     } catch (error) {
       console.error("좋아요 요청 중 오류가 발생했습니다.", error);
@@ -247,7 +248,7 @@ const MainPost = ({ selectedTag }) => {
           withCredentials: true,
         }
       );
-  
+
       return response.data.is_liked;
     } catch (error) {
       console.error("좋아요 상태를 가져오는 중 오류 발생:", error);
@@ -268,6 +269,16 @@ const MainPost = ({ selectedTag }) => {
     } catch (error) {
       console.error("스크랩 상태를 가져오는 중 오류 발생:", error);
       return false; // 에러 발생 시 기본값으로 false를 반환
+    }
+  };
+
+  const LikeView = async (postId) => {
+    try {
+        const response = await axios.post(`/api/like/${postId}`);
+        return response.data;
+    } catch (error) {
+        console.error("Error in LikeView:", error);
+        throw error;
     }
   };
   
@@ -305,6 +316,7 @@ const MainPost = ({ selectedTag }) => {
           response.data.map(async (post) => {
             const isLiked = await getLikeStatus(post.id);
             const isScrapped = await getScrapStatus(post.id);
+            const likeCount = await LikeView(post.id);
             return {
               likebtn: postStates.some((state) => state.postId === post.id)
                 ? postStates.find((state) => state.postId === post.id).likebtn
@@ -312,6 +324,7 @@ const MainPost = ({ selectedTag }) => {
               scrapbtn: postStates.some((state) => state.postId === post.id)
               ? postStates.find((state) => state.postId === post.id).scrapbtn
               : isScrapped,
+              likeCount: likeCount.like_count,
               likeImage: "./images/like_off.png",
               ScrapImage: "./images/scrap_off.png",
               postId: post.id,  // 게시물 ID 저장
