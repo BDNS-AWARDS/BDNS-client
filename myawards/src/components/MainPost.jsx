@@ -124,16 +124,10 @@ const MainPost = ({ selectedTag }) => {
     const postId = postInfo[index].id;
     const updatedPostStates = [...postStates];
   
-    // 좋아요 상태를 토글
+    // 좋아요 상태 토글
     updatedPostStates[index] = {
       ...updatedPostStates[index],
       likebtn: !updatedPostStates[index].likebtn,
-    };
-
-    // 스크랩 상태를 토글
-    updatedPostStates[index] = {
-      ...updatedPostStates[index],
-      scrapbtn: !updatedPostStates[index].scrapbtn,
     };
   
     setPostStates(updatedPostStates);
@@ -163,7 +157,6 @@ const MainPost = ({ selectedTag }) => {
           ...updatedPostStates[index],
           likeImage: "./images/like_off.png",
         };
-        setPostStates(updatedPostStates);
       }
     } catch (error) {
       console.error("좋아요 요청 중 오류가 발생했습니다.", error);
@@ -175,7 +168,13 @@ const MainPost = ({ selectedTag }) => {
   const handleScrapClick = async (index) => {
     const postId = postInfo[index].id;
     const updatedPostStates = [...postStates];
-    updatedPostStates[index].scrapbtn = !updatedPostStates[index].scrapbtn;
+
+    // 스크랩 상태 토글
+    updatedPostStates[index] = {
+      ...updatedPostStates[index],
+      scrapbtn: !updatedPostStates[index].scrapbtn,
+    };
+
     setPostStates(updatedPostStates);
 
     try {
@@ -200,7 +199,7 @@ const MainPost = ({ selectedTag }) => {
         console.log("스크랩 취소 요청이 성공했습니다.", response);
         updatedPostStates[index] = {
           ...updatedPostStates[index],
-          ScrapImage: "./images/scrap_off.png",
+          ScrapImage: "./images/scrap_off.png"
         };
       }
     } catch (error) {
@@ -313,7 +312,7 @@ const MainPost = ({ selectedTag }) => {
             likebtn: false,
             scrapbtn: false,
             likeImage: "./images/like_off.png",
-            ScrapImage: "./images/;scrap_off.png"
+            ScrapImage: "./images/scrap_off.png"
           }))
         );      
         setCategory(response.data.category);
