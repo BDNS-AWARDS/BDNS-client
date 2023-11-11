@@ -125,6 +125,7 @@ const MainPost = ({ selectedTag }) => {
         updatedPostStates[index] = {
           ...updatedPostStates[index],
           likeImage: "./images/like_on.png",
+          likeCount: response.data.like_count,
         };
         setPostStates(updatedPostStates);
       } else {
@@ -137,6 +138,7 @@ const MainPost = ({ selectedTag }) => {
         updatedPostStates[index] = {
           ...updatedPostStates[index],
           likeImage: "./images/like_off.png",
+          likeCount: response.data.like_count,
         };
         setPostStates(updatedPostStates);
       }
@@ -144,7 +146,6 @@ const MainPost = ({ selectedTag }) => {
       console.error("좋아요 요청 중 오류가 발생했습니다.", error);
     }
   };
-  
   
 
   const handleScrapClick = async (index) => {
@@ -274,14 +275,19 @@ const MainPost = ({ selectedTag }) => {
 
   const LikeView = async (postId) => {
     try {
-        const response = await axios.post(`/api/like/${postId}`);
-        return response.data;
+      const response = await axios.get(
+        `http://127.0.0.1:8000/api/board/${postId}/like`,
+        {
+          withCredentials: true,
+        }
+      );
+
+      return response.data.like_count;
     } catch (error) {
-        console.error("Error in LikeView:", error);
-        throw error;
+      console.error("좋아요 개수를 가져오는 중 오류 발생:", error);
+      return null; // 에러 발생 시 기본값으로 false를 반환
     }
   };
-  
 
   useEffect(() => {
     const fetchDataAndLikeStatus = async () => {
@@ -303,6 +309,7 @@ const MainPost = ({ selectedTag }) => {
           response.data.map(() => ({
             likebtn: false,
             scrapbtn: false,
+            likeCount: response.data.like_count,
             likeImage: "./images/like_off.png",
             ScrapImage: "./images/scrap_off.png"
           }))
@@ -470,6 +477,7 @@ const MainPost = ({ selectedTag }) => {
               onClick={() => {
                 handleLikeClick(index);
                 // 좋아요 상태를 가져오는 함수에 해당 게시물의 ID를 전달
+                LikeView(post.id);
                 getLikeStatus(post.id);
               }}
             />

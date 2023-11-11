@@ -9,7 +9,6 @@ import HashTag from "../components/HashTag";
 import axios from "axios";
 import API from "../api/api";
 import { useNavigate } from "react-router-dom";
-import PhotoModal from "../components/PhotoModal";
 
 const StyledTxt = styled.p`
   color: #8a0b0b;
@@ -63,7 +62,6 @@ const Posting = ({ tagnum }) => {
   const [selectedValue, setSelectedValue] = useState("selecter");
   const [imageFiles, setImageFiles] = useState([null, null]);
   const [categories, setCategories] = useState([]);
-  const [photoModalVisible, setPhotoModalVisible] = useState(false);
 
   useEffect(() => {
     axios
@@ -138,11 +136,6 @@ const Posting = ({ tagnum }) => {
   const handleTagClick = (tagnum) => {
     console.log(tagnum);
     setSelectedTag(tagnum);
-  };
-
-  const handleShowModal = () => {
-    // 추가된 부분: 모달을 띄우는 로직
-    setPhotoModalVisible(true);
   };
 
   const handleTagValue = (tagnum, value) => {
@@ -237,9 +230,13 @@ const Posting = ({ tagnum }) => {
         // FormData에 전송할 데이터 추가
         if (imageFiles) {
           imageFiles.forEach((file, index) => {
-            formData.append(`images`, file !== null ? `image${index + 1}.png` : '');
+            if (file) {
+              formData.append(`images`, file, `image${index + 1}.png`);
+            }
           });
         }
+        
+        
         formData.append('title', title);
         formData.append('content', contents);
         formData.append('category', selectedValue);
@@ -252,6 +249,7 @@ const Posting = ({ tagnum }) => {
             'Content-Type': 'multipart/form-data',
           },
         });
+        console.log(response.data);
         if (response.data) {
           console.log("게시글 등록 성공!");
           navigate("/mainpage");
@@ -311,10 +309,7 @@ const Posting = ({ tagnum }) => {
             />
           </div>
           <br />
-          <CustomFileInputButton
-            onImageChange={handleImageChange}
-            onShowModal={() => setPhotoModalVisible(true)}
-          />
+          <CustomFileInputButton onImageChange={handleImageChange}/>
           <p id="photonotice">사진 첨부는 2장까지만 가능합니다!</p>
         </form>
       </div>
