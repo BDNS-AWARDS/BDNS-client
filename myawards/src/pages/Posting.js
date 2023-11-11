@@ -67,7 +67,7 @@ const Posting = ({ tagnum }) => {
 
   useEffect(() => {
     axios
-      .get("http://15.164.160.92/api/hashtag", {
+      .get("http://127.0.0.1:8000/api/hashtag", {
         headers: {
           "Content-Type": "application/json",
         },
@@ -226,7 +226,7 @@ const Posting = ({ tagnum }) => {
     if (title && contents) {
       try {
         const userResponse = await axios.get(
-          "http://15.164.160.92/api/user/current_user",
+          "http://127.0.0.1:8000/api/user/current_user",
           {
             withCredentials: true, // 쿠키 사용
           }
@@ -315,6 +315,7 @@ const Posting = ({ tagnum }) => {
             onImageChange={handleImageChange}
             onShowModal={() => setPhotoModalVisible(true)}
           />
+          <p id="photonotice">사진 첨부는 2장까지만 가능합니다!</p>
         </form>
       </div>
 

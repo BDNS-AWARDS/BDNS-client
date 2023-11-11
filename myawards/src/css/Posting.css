@@ -166,3 +166,8 @@ textarea::placeholder {
   height: 100%;
   object-fit: cover;
 }
+
+#photonotice {
+  font-family: "CinemaL";
+  margin-left:15%;
+}

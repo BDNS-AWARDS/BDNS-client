@@ -242,7 +242,7 @@ const MainPost = ({ selectedTag }) => {
   const getLikeStatus = async (postId) => {
     try {
       const response = await axios.get(
-        `http://15.164.160.92/api/board/${postId}/like_status`,
+        `http://127.0.0.1:8000/api/board/${postId}/like_status`,
         {
           withCredentials: true,
         }
@@ -258,7 +258,7 @@ const MainPost = ({ selectedTag }) => {
   const getScrapStatus = async (postId) => {
     try {
       const response = await axios.get(
-        `http://15.164.160.92/api/board/${postId}/scrap_status`,
+        `http://127.0.0.1:8000/api/board/${postId}/scrap_status`,
         {
           withCredentials: true,
         }
@@ -277,7 +277,7 @@ const MainPost = ({ selectedTag }) => {
       try {
         // 사용자 정보
         const userResponse = await axios.get(
-          "http://15.164.160.92/api/user/current_user",
+          "http://127.0.0.1:8000/api/user/current_user",
           {
             withCredentials: true,
           }
