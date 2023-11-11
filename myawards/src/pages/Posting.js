@@ -330,4 +330,3 @@ const Posting = ({ tagnum }) => {
 };
 
 export default Posting;
-s;
