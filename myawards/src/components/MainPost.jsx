@@ -85,35 +85,35 @@ const MainPost = ({ selectedTag }) => {
   const [deleteModalPostId, setDeleteModalPostId] = useState(null);
   const [userId, setUserId] = useState(null);
 
-  const fetchData = async () => {
-    try {
-      // 사용자 정보
-      const userResponse = await axios.get(
-        "http://15.164.160.92/api/user/current_user",
-        {
-          withCredentials: true,
-        }
-      );
-      setUserId(userResponse.data.id);
+  // const fetchData = async () => {
+  //   try {
+  //     // 사용자 정보
+  //     const userResponse = await axios.get(
+  //       "http://127.0.0.1:8000/api/user/current_user",
+  //       {
+  //         withCredentials: true,
+  //       }
+  //     );
+  //     setUserId(userResponse.data.id);
 
-      // 게시판 정보
-      const response = await API.get("/api/board");
+  //     // 게시판 정보
+  //     const response = await API.get("/api/board");
 
-      setPostInfo(response.data);
-      setPostStates(
-        response.data.map(() => ({
-          likebtn: false,
-          scrapbtn: false,
-          likeImage: "./images/like_off.png",
-        }))
-      );
-      setCategory(response.data.category);
-      console.log("버튼 눌림");
-      // console.log(response.data);
-    } catch (error) {
-      console.error("사용자 정보를 가져오는 중 오류가 발생했습니다.", error);
-    }
-  };
+  //     setPostInfo(response.data);
+  //     setPostStates(
+  //       response.data.map(() => ({
+  //         likebtn: false,
+  //         scrapbtn: false,
+  //         likeImage: "./images/like_off.png",
+  //       }))
+  //     );      
+  //     setCategory(response.data.category);
+  //     console.log("버튼 눌림");
+  //     // console.log(response.data);
+  //   } catch (error) {
+  //     console.error("사용자 정보를 가져오는 중 오류가 발생했습니다.", error);
+  //   }
+  // };
 
   const handleDeleteClick = (postId) => {
     setDeleteModalPostId(postId);
@@ -123,9 +123,21 @@ const MainPost = ({ selectedTag }) => {
   const handleLikeClick = async (index) => {
     const postId = postInfo[index].id;
     const updatedPostStates = [...postStates];
-    updatedPostStates[index].likebtn = !updatedPostStates[index].likebtn;
-    setPostStates(updatedPostStates);
+  
+    // 좋아요 상태를 토글
+    updatedPostStates[index] = {
+      ...updatedPostStates[index],
+      likebtn: !updatedPostStates[index].likebtn,
+    };
 
+    // 스크랩 상태를 토글
+    updatedPostStates[index] = {
+      ...updatedPostStates[index],
+      scrapbtn: !updatedPostStates[index].scrapbtn,
+    };
+  
+    setPostStates(updatedPostStates);
+  
     try {
       if (updatedPostStates[index].likebtn) {
         // 좋아요를 누른 경우 (좋아요 추가)
@@ -134,7 +146,12 @@ const MainPost = ({ selectedTag }) => {
           post: postId,
         });
         console.log("좋아요 요청이 성공했습니다.", response);
-        updatedPostStates[index].likeImage = "./images/like_on.png";
+        // 성공적으로 요청이 완료되면 이미지 업데이트
+        updatedPostStates[index] = {
+          ...updatedPostStates[index],
+          likeImage: "./images/like_on.png",
+        };
+        setPostStates(updatedPostStates);
       } else {
         // 좋아요를 취소한 경우 (좋아요 추가 후 취소)
         const response = await API.post(`/api/board/${postId}/like`, {
@@ -142,12 +159,18 @@ const MainPost = ({ selectedTag }) => {
           post: postId,
         });
         console.log("좋아요 취소 요청이 성공했습니다.", response);
-        updatedPostStates[index].likeImage = "./images/like_off.png";
+        updatedPostStates[index] = {
+          ...updatedPostStates[index],
+          likeImage: "./images/like_off.png",
+        };
+        setPostStates(updatedPostStates);
       }
     } catch (error) {
       console.error("좋아요 요청 중 오류가 발생했습니다.", error);
     }
   };
+  
+  
 
   const handleScrapClick = async (index) => {
     const postId = postInfo[index].id;
@@ -163,6 +186,11 @@ const MainPost = ({ selectedTag }) => {
           post: postId,
         });
         console.log("스크랩 요청이 성공했습니다.", response);
+        // 성공적으로 요청이 완료되면 이미지 업데이트
+        updatedPostStates[index] = {
+          ...updatedPostStates[index],
+          ScrapImage: "./images/scrap_on.png"
+        };
       } else {
         // 스크랩을 취소한 경우 (스크랩 추가 후 취소)
         const response = await API.post(`/api/board/${postId}/scrap`, {
@@ -170,6 +198,10 @@ const MainPost = ({ selectedTag }) => {
           post: postId,
         });
         console.log("스크랩 취소 요청이 성공했습니다.", response);
+        updatedPostStates[index] = {
+          ...updatedPostStates[index],
+          ScrapImage: "./images/scrap_off.png",
+        };
       }
     } catch (error) {
       console.error("스크랩 요청 중 오류가 발생했습니다.", error);
@@ -226,17 +258,100 @@ const MainPost = ({ selectedTag }) => {
         return true;
     }
   });
-  useEffect(() => {
-    fetchData();
-  }, []); // 컴포넌트 마운트 시 한 번만 호출
 
-  // 페이지 로드 시에도 초기 데이터를 다시 불러옴
-  window.addEventListener("load", fetchData);
+  const getLikeStatus = async (postId) => {
+    try {
+      const response = await axios.get(
+        `http://127.0.0.1:8000/api/board/${postId}/like_status`,
+        {
+          withCredentials: true,
+        }
+      );
+  
+      return response.data.is_liked;
+    } catch (error) {
+      console.error("좋아요 상태를 가져오는 중 오류 발생:", error);
+      return false; // 에러 발생 시 기본값으로 false를 반환
+    }
+  };
+
+  const getScrapStatus = async (postId) => {
+    try {
+      const response = await axios.get(
+        `http://127.0.0.1:8000/api/board/${postId}/scrap_status`,
+        {
+          withCredentials: true,
+        }
+      );
+  
+      return response.data.is_scrapped;
+    } catch (error) {
+      console.error("스크랩 상태를 가져오는 중 오류 발생:", error);
+      return false; // 에러 발생 시 기본값으로 false를 반환
+    }
+  };
+  
+
+  useEffect(() => {
+    const fetchDataAndLikeStatus = async () => {
+      try {
+        // 사용자 정보
+        const userResponse = await axios.get(
+          "http://127.0.0.1:8000/api/user/current_user",
+          {
+            withCredentials: true,
+          }
+        );
+        setUserId(userResponse.data.id);
+  
+        // 게시판 정보
+        const response = await API.get("/api/board");
+  
+        setPostInfo(response.data);
+        setPostStates(
+          response.data.map(() => ({
+            likebtn: false,
+            scrapbtn: false,
+            likeImage: "./images/like_off.png",
+            ScrapImage: "./images/;scrap_off.png"
+          }))
+        );      
+        setCategory(response.data.category);
+        console.log("버튼 눌림");
+        // console.log(response.data);
+        
+        // 각 게시물에 대한 좋아요, 스크랩 상태를 가져와서 업데이트
+        const updatedPostStates = await Promise.all(
+          response.data.map(async (post) => {
+            const isLiked = await getLikeStatus(post.id);
+            const isScrapped = await getScrapStatus(post.id);
+            return {
+              likebtn: postStates.some((state) => state.postId === post.id)
+                ? postStates.find((state) => state.postId === post.id).likebtn
+                : isLiked,
+              scrapbtn: postStates.some((state) => state.postId === post.id)
+              ? postStates.find((state) => state.postId === post.id).scrapbtn
+              : isScrapped,
+              likeImage: "./images/like_off.png",
+              ScrapImage: "./images/scrap_off.png",
+              postId: post.id,  // 게시물 ID 저장
+            };
+          })
+        );
+  
+        setPostStates(updatedPostStates);
+      } catch (error) {
+        console.error("fetchDataAndLikeStatus 함수에서 오류 발생:", error);
+      }
+    };
+  
+    fetchDataAndLikeStatus();
+  }, []); 
 
   return (
     <div id="detail_box">
       {filteredPosts.map((post, index) => (
-        <PostBox>
+        <PostBox key={post.id}>
           <PostProfileDiv>
             <PIContainer>
               <ProfileImg
@@ -342,7 +457,11 @@ const MainPost = ({ selectedTag }) => {
                   ? process.env.PUBLIC_URL + "./images/like_on.png"
                   : process.env.PUBLIC_URL + "./images/like_off.png"
               }
-              onClick={() => handleLikeClick(index)}
+              onClick={() => {
+                handleLikeClick(index);
+                // 좋아요 상태를 가져오는 함수에 해당 게시물의 ID를 전달
+                getLikeStatus(post.id);
+              }}
             />
             <img
               id="scrapbtn"
@@ -351,7 +470,11 @@ const MainPost = ({ selectedTag }) => {
                   ? process.env.PUBLIC_URL + "./images/scrap_on.png"
                   : process.env.PUBLIC_URL + "./images/scrap_off.png"
               }
-              onClick={() => handleScrapClick(index)}
+              onClick={() => {
+                handleScrapClick(index);
+                // 스크랩 상태를 가져오는 함수에 해당 게시물의 ID를 전달
+                getScrapStatus(post.id);
+              }}
             />
           </div>
         </PostBox>

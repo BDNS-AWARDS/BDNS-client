@@ -46,7 +46,7 @@ const DeleteModal = ({ postId, closeModal }) => {
       };
 
       const response = await axios.delete(
-        `http://15.164.160.92/api/board/${postId}`,
+        `http://127.0.0.1:8000/api/board/${postId}`,
         config
       );
 

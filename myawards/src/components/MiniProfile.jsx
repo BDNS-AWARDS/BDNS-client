@@ -58,7 +58,7 @@ const MiniProfile = () => {
           <PIContainer>
             <ProfileImg
               src={
-                userInfo.profile_image ? "http://15.164.160.92"+`${userInfo.profile_image}`:
+                userInfo.profile_image ? "http://127.0.0.1:8000"+`${userInfo.profile_image}`:
                 process.env.PUBLIC_URL + "/images/profile.png"
               }
               alt="프로필 사진"
