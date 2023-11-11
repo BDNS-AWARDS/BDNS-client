@@ -41,7 +41,6 @@ const MiniProfile = () => {
     const fetchUserInfo = async () => {
       try {
         const response = await API.get(`/api/mypage`);
-        console.log(response.data);
         setUserInfo(response.data.user_info);
         setUserPostInfo(response.data.user_posts);
       } catch (error) {
@@ -58,17 +57,14 @@ const MiniProfile = () => {
           <PIContainer>
             <ProfileImg
               src={
-                userInfo.profile_image ? "http://127.0.0.1:8000"+`${userInfo.profile_image}`:
-                process.env.PUBLIC_URL + "/images/profile.png"
+                userInfo.profile_image
+                  ? "http://15.164.160.92" + `${userInfo.profile_image}`
+                  : process.env.PUBLIC_URL + "/images/profile.png"
               }
               alt="프로필 사진"
             />
           </PIContainer>
-          {userPostInfo
-            .filter((userPostInfo) => userPostInfo.id === 0)
-            .map((userPostInfo) => (
-              <Nickname>{userPostInfo.nickname}</Nickname>
-            ))}
+          <Nickname>{userInfo.nickname}</Nickname>
         </MiniProfileDiv>
       </Link>
     </div>
