@@ -9,6 +9,7 @@ import HashTag from "../components/HashTag";
 import axios from "axios";
 import API from "../api/api";
 import { useNavigate } from "react-router-dom";
+import PhotoModal from "../components/PhotoModal";
 
 const StyledTxt = styled.p`
   color: #8a0b0b;
@@ -62,6 +63,7 @@ const Posting = ({ tagnum }) => {
   const [selectedValue, setSelectedValue] = useState("selecter");
   const [imageFiles, setImageFiles] = useState([null, null]);
   const [categories, setCategories] = useState([]);
+  const [photoModalVisible, setPhotoModalVisible] = useState(false);
 
   useEffect(() => {
     axios
@@ -136,6 +138,11 @@ const Posting = ({ tagnum }) => {
   const handleTagClick = (tagnum) => {
     console.log(tagnum);
     setSelectedTag(tagnum);
+  };
+
+  const handleShowModal = () => {
+    // 추가된 부분: 모달을 띄우는 로직
+    setPhotoModalVisible(true);
   };
 
   const handleTagValue = (tagnum, value) => {
@@ -304,7 +311,10 @@ const Posting = ({ tagnum }) => {
             />
           </div>
           <br />
-          <CustomFileInputButton onImageChange={handleImageChange} />
+          <CustomFileInputButton
+            onImageChange={handleImageChange}
+            onShowModal={() => setPhotoModalVisible(true)}
+          />
         </form>
       </div>
 
@@ -330,4 +340,3 @@ const Posting = ({ tagnum }) => {
 };
 
 export default Posting;
-s;

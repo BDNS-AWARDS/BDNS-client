@@ -27,7 +27,7 @@ const ModalImage = styled.img`
   height:172px;
 `
 
-const PhotoModal = ({show}) => 
+const PhotoModal = ({show}) => {
   const [isVisible, setIsVisible] = useState(false);
   
   useEffect(()=>{
@@ -50,7 +50,7 @@ const PhotoModal = ({show}) =>
     return (
       <ModalBox>
         <Modalcontent>
-          <Modalimage src="images/imagelimitmodal.png" alt="photolimitmodal" />
+          <ModalImage src="images/imagelimitmodal.png" alt="photolimitmodal" />
         </Modalcontent>
       </ModalBox>
     );
