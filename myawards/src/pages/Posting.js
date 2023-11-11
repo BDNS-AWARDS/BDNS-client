@@ -106,7 +106,8 @@ const Posting = ({ tagnum }) => {
     console.log("Received Images in Posting:", images);
 
     try {
-      const blobImages = await Promise.all( // 이미지 파일을 blob으로 변환
+      const blobImages = await Promise.all(
+        // 이미지 파일을 blob으로 변환
         images.map(async (image) => {
           const response = await fetch(image);
           const blob = await response.blob();
@@ -121,7 +122,6 @@ const Posting = ({ tagnum }) => {
       console.error("이미지 변환에 오류가 발생 :", error);
     }
   };
-  
 
   const toggleTagBar = () => {
     setTagBarVisible(true);
@@ -233,16 +233,16 @@ const Posting = ({ tagnum }) => {
             formData.append(`images`, file, `image${index + 1}.png`);
           });
         }
-        formData.append('title', title);
-        formData.append('content', contents);
-        formData.append('category', selectedValue);
-        formData.append('writer', userId);
+        formData.append("title", title);
+        formData.append("content", contents);
+        formData.append("category", selectedValue);
+        formData.append("writer", userId);
 
         console.log("FormData with Images:", formData);
 
         const response = await API.post("/api/board", formData, {
           headers: {
-            'Content-Type': 'multipart/form-data',
+            "Content-Type": "multipart/form-data",
           },
         });
         if (response.data) {
@@ -304,7 +304,7 @@ const Posting = ({ tagnum }) => {
             />
           </div>
           <br />
-          <CustomFileInputButton onImageChange={handleImageChange}/>
+          <CustomFileInputButton onImageChange={handleImageChange} />
         </form>
       </div>
 
@@ -330,3 +330,4 @@ const Posting = ({ tagnum }) => {
 };
 
 export default Posting;
+s;

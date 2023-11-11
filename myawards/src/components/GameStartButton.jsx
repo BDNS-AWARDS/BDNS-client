@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 const StyledButton=styled.button`
   margin-top:0%;
-  margin-left:40px;
+  margin-left:10%;
   border: none;
   background:none;
 `;

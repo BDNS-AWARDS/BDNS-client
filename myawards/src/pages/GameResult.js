@@ -5,7 +5,7 @@ import { useLocation } from "react-router-dom";
 import Logo from "../components/Logo";
 
 const StyledButton = styled.button`
-  margin-top: 45px;
+  margin-top: 10%;
   border: none;
   background: none;
 `;
