@@ -21,10 +21,16 @@ class CustomFileInputButton extends React.Component {
         URL.createObjectURL(file)
       );
       console.log("Selected Images:", newImages);
+
       this.setState((prevState) => ({
         selectedImages: [...prevState.selectedImages, ...newImages].slice(0, 2),
       }), () => {
-        this.props.onImageChange(this.state.selectedImages); // 부모 컴포넌트로 이미지 전달
+        this.props.onImageChange(this.state.selectedImages);
+
+        // 추가된 부분: 이미지가 2장 이상이면 onShowModal 콜백 호출
+        if (this.state.selectedImages.length >= 2) {
+          this.props.onShowModal();
+        }
       });
     }
   };

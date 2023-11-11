@@ -98,6 +98,7 @@ const EditProfile = () => {
 
   const handleStartButtonClick = async () => {
     try {
+      console.log("handleStartButtonClick 호출됨");
       if (inputValue.trim() !== "" && isSuccess) {
         const fileInput = document.getElementById("fileInput");
         const selectedImage = fileInput.files[0];

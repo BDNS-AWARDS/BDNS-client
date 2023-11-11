@@ -9,6 +9,7 @@ import HashTag from "../components/HashTag";
 import axios from "axios";
 import API from "../api/api";
 import { useNavigate } from "react-router-dom";
+import PhotoModal from "../components/PhotoModal";
 
 const StyledTxt = styled.p`
   color: #8a0b0b;
@@ -62,10 +63,11 @@ const Posting = ({ tagnum }) => {
   const [selectedValue, setSelectedValue] = useState("selecter");
   const [imageFiles, setImageFiles] = useState([null, null]);
   const [categories, setCategories] = useState([]);
+  const [photoModalVisible, setPhotoModalVisible] = useState(false);
 
   useEffect(() => {
     axios
-      .get("http://15.164.160.92/api/hashtag", {
+      .get("http://127.0.0.1:8000/api/hashtag", {
         headers: {
           "Content-Type": "application/json",
         },
@@ -136,6 +138,11 @@ const Posting = ({ tagnum }) => {
   const handleTagClick = (tagnum) => {
     console.log(tagnum);
     setSelectedTag(tagnum);
+  };
+
+  const handleShowModal = () => {
+    // 추가된 부분: 모달을 띄우는 로직
+    setPhotoModalVisible(true);
   };
 
   const handleTagValue = (tagnum, value) => {
@@ -219,7 +226,7 @@ const Posting = ({ tagnum }) => {
     if (title && contents) {
       try {
         const userResponse = await axios.get(
-          "http://15.164.160.92/api/user/current_user",
+          "http://127.0.0.1:8000/api/user/current_user",
           {
             withCredentials: true, // 쿠키 사용
           }
@@ -304,7 +311,11 @@ const Posting = ({ tagnum }) => {
             />
           </div>
           <br />
-          <CustomFileInputButton onImageChange={handleImageChange} />
+          <CustomFileInputButton
+            onImageChange={handleImageChange}
+            onShowModal={() => setPhotoModalVisible(true)}
+          />
+          <p id="photonotice">사진 첨부는 2장까지만 가능합니다!</p>
         </form>
       </div>
 
