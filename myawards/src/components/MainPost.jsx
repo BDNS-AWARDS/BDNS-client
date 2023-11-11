@@ -446,6 +446,7 @@ const MainPost = ({ selectedTag }) => {
           </div>
 
           <div id="detail_btnbox">
+            <div id="likebtn_div">
             <img
               id="likebtn"
               src={
@@ -459,6 +460,7 @@ const MainPost = ({ selectedTag }) => {
                 getLikeStatus(post.id);
               }}
             />
+            <span id="like_count">{post.like_count}</span></div>
             <img
               id="scrapbtn"
               src={
